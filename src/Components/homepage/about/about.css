@@ -1,0 +1,123 @@
+.about{
+    min-height: 100vh;
+    background-image: url("/assets/background/slide-3.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+}
+
+.about .row{
+    width: 100%;
+    max-width: 100vw;
+    text-align: center;
+}
+
+.mask{
+    background-color: rgba(44, 56, 78, 0.3);
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+}
+
+.about .container{
+    padding-top: 30vh;
+    padding-bottom: 20vh;
+}
+
+.about .section-title{
+    display: inline-block;
+    font-size: 3em;
+    font-weight: 500;
+    color: #1c2331;
+    background-color: #fbdb54;
+    border-radius: 8px;
+}
+
+.about .section-subtitle{
+    margin: 0% auto;
+    max-width: 800px;
+    font-size: 1.5em;
+    font-weight: 300;
+    color: #1c2331;
+}
+
+.about .highlight{
+    font-weight: 500;
+    color: #1c2331;
+    background-color: #fbdb54;
+    border-radius: 8px;
+}
+
+.about .icon{
+    text-align: center;
+    font-size: 8em;
+    color: #fbdb54;
+    border-radius: 8px;
+}
+
+.about .card-title{
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #1c2331;
+}
+
+.about .img-size{
+    width: 20vw;
+    height: 20vh;
+    margin: 5vh auto;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.about .img-size-logo{
+    width: 20vw;
+    height: 20vh;
+    margin: 0vh auto;
+    margin-bottom: 5vh;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 992px){    
+    .about .section-title{
+        font-size: 2.5em;
+        font-weight: 500;
+    }
+
+    .about .section-subtitle{
+        color: #1c2331;
+        display: none;
+    }
+    
+    .about .card-title{
+        color: #1c2331;
+    }
+    
+}
+
+@media screen and (max-width: 768px){    
+    .about{
+        min-height: 100vh;
+        background-image: url("/assets/background/slide-3-mobile.png");
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: 100vw 100vh;
+    }
+
+    .about .section-title{
+        font-size: 2.5em;
+        font-weight: 500;
+    }
+
+    .about .section-subtitle{
+        color: #1c2331;
+        display: none;
+    }
+    
+    .about .card-title{
+        color: #1c2331;
+    }
+    
+}

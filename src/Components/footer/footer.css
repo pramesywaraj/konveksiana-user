@@ -1,0 +1,29 @@
+.konveksiana-footer{
+    color: aliceblue;
+    background-color: #212121;
+    overflow: hidden;
+}
+
+.konveksiana-footer .text-center{
+    text-align: center;
+}
+
+.konveksiana-footer .foot-title{
+    font-size: 1.2em;
+}
+
+.konveksiana-footer .icon{
+    font-size: 3em;
+    color: aliceblue;
+}
+
+.konveksiana-footer a{
+    text-decoration: none;
+    font-size: 1.2em;
+    color: aliceblue;
+}
+
+.konveksiana-footer a:hover , .konveksiana-footer .icon:hover{
+    color: #fbdb54;
+    transition: 0.5s;
+}

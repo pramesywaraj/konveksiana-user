@@ -1,0 +1,67 @@
+.klien{
+    background-color: #f6f7fd;
+    min-height: 50vh;
+    max-height: 70vh;
+    overflow: hidden;
+}
+
+.klien .klien-container{
+    /* overflow: hidden; */
+    padding-top: 10vh;
+}
+
+.klien .section-title{
+    color: #1c2331;
+    font-size: 3em;
+    font-weight: 500;
+    text-align: center;
+}
+
+.klien .card-center{
+    margin: 0% auto;
+}
+
+.klien .text-center{
+    text-align: center;
+    width: 100%;
+}
+
+.klien .card-size{
+    max-height: 20vh;
+}
+
+.klien .mask{
+    background-color: rgba(246, 247, 253, 0.5);
+}
+
+.klien .img-size{
+    width: 15vw;
+    height: 15vh;
+    margin: 0 auto;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.design-pakaian .btn-center{
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+@media screen and (max-width: 800px){
+    .klien .img-size{
+        width: 50vw;
+        height: 50vh;
+        max-width: 120px;
+        max-height: 120px;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .klien .img-size{
+        width: 30vw;
+        height: 30vh;
+        max-width: 100px;
+        max-height: 100px;
+    }
+}

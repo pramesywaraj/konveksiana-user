@@ -18,6 +18,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { HashLink as Links } from 'react-router-hash-link';
 
 
 function MadeWithLove() {
@@ -109,9 +110,11 @@ class Login extends Component {
                 {loading ? <LinearProgress variant="query" /> : ''}
                 <CssBaseline />
                 <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        K
-                    </Avatar>
+                    <Links to="/">
+                        <Avatar className={classes.avatar}>
+                            K
+                        </Avatar>
+                    </Links>
                     <Typography component="h1" variant="h5">
                         Konveksiana Admin Apps
                     </Typography>

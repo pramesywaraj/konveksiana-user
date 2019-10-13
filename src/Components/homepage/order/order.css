@@ -1,0 +1,110 @@
+.order{
+    min-height: 100vh;
+    background-image: url("/assets/background/slide-4.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.order .row{
+    width: 100%;
+    max-width: 100vw;
+    text-align: center;
+}
+
+.mask{
+    background-color: rgba(44, 56, 78, 0.3);
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+}
+
+.order .container{
+    padding-top: 10vh;
+}
+
+.order .section-title{
+    display: inline-block;
+    font-size: 3em;
+    font-weight: bold;
+    color: #1c2331;
+    background-color: #fbdb54;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.order .section-subtitle{
+    font-size: 1.5em;
+    font-weight: 300;
+    color: aliceblue;
+}
+
+.order .card{
+    height: 70vh;
+}
+
+.order .icon{
+    text-align: center;
+    font-size: 5em;
+    /* color: #fbdb54; */
+    color: aliceblue;
+    border-radius: 8px;
+}
+
+.order .card-title{
+    font-size: 2em;
+    font-weight: 500;
+    color: #1c2331;
+    background-color: #fbdb54;
+    border-radius: 8px;
+}
+
+.order .card-desc{
+    font-size: 1.3em;
+    font-weight: 300;
+    color: aliceblue;
+}
+
+@media screen and (max-width: 768px){
+    .order .section-title{
+        font-size: 1.5em;
+    }
+
+    .order .icon{
+        font-size: 3em;
+    }
+
+    .order .card-title{
+        font-size: 1.5em;
+    }
+
+    .order .card-desc{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .order{
+        min-height: 100vh;
+        background-image: url("/assets/background/slide-4-mobile.png");
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    .order .section-title{
+        font-size: 1.5em;
+    }
+
+    .order .icon{
+        font-size: 3em;
+    }
+
+    .order .card-title{
+        font-size: 1.5em;
+    }
+
+    .order .card-desc{
+        display: none;
+    }
+}

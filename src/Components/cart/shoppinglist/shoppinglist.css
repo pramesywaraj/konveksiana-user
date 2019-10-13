@@ -1,0 +1,64 @@
+.shopping-list{
+    padding-top: 30vh;
+    padding-bottom: 30vh;
+}
+
+.shopping-list .title{
+    font-size: 3em;
+        background: -webkit-linear-gradient(left, #fbdb54 , #dd4b39);
+        background: -o-linear-gradient(right, #fbdb54, #dd4b39);
+        background: -moz-linear-gradient(right, #fbdb54, #dd4b39);
+        background: linear-gradient(to right, #fbdb54 , #dd4b39); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.shopping-list table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+.shopping-list td, .shopping-list th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.shopping-list tr:nth-child(odd) {
+    background-color: aliceblue;
+}
+
+.shopping-list tr:nth-child(even) {
+    background-color: #cfcccc;
+}
+  
+.shopping-list .img-size{
+    width: 80vw;
+    max-width: 150px;
+    height: 60vh;
+    max-height: 150px;
+    margin: 0 auto;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+}
+
+.shopping-list .cart-quantity{
+    background: #ffffff;
+    border: none;
+    border-bottom: solid 1px #fbdb54;
+}
+
+@media screen and (max-width: 576px){
+    .shopping-list .cart-wrapper{
+        overflow-x: scroll;
+    }
+
+    .shopping-list table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }    
+}

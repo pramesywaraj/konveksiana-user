@@ -1,0 +1,88 @@
+.value{
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    background-image: url("/assets/background/slide-2.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.value .row{
+    width: 100%;
+    max-width: 100vw;
+    text-align: center;
+}
+
+.mask{
+    width: 100%;
+    max-width: 100vw;
+    background-color: rgba(44, 56, 78, 0.3);
+    min-height: 100vh;
+    background-size: 100vh 100%;
+}
+
+.value .container{
+    padding-top: 10vh;
+}
+
+.value .section-title{
+    display: inline;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #1c2331;
+    background-color: #fbdb54;
+    border-radius: 8px;
+}
+
+.value .section-subtitle{
+    font-size: 1.5em;
+    font-weight: 300;
+    color: aliceblue;
+}
+
+.value .card{
+    height: 60vh;
+    background-color: rgba(255, 255, 255, 0)
+}
+
+.value .icon{
+    text-align: center;
+    font-size: 8em;
+    color: #fbdb54;
+    border-radius: 8px;
+}
+
+.value .card-title{
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #1c2331;
+    background-color: #fbdb54;
+    border-radius: 8px;
+}
+
+.value .card-desc{
+    font-size: 1.3em;
+    font-weight: 300;
+    color: aliceblue;
+}
+
+@media screen and (max-width: 800px){
+    .value .section-title{
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .value{
+        min-height: 100vh;
+        background-image: url("/assets/background/slide-2-mobile.png");
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .value .section-title{
+        font-size: 1.3em;
+    }
+}
