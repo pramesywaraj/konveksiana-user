@@ -1,0 +1,89 @@
+.order-list{
+    font-size: 1em;
+}
+
+.order-list .section-title{
+    color: #2E2E2E;
+    font-size: 1.75em;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.order-list table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+.order-list td, .order-list th {
+    /* border: 1px solid #2E2E2E; */
+    text-align: center;
+    padding: 8px;
+}
+
+.order-list th {
+    font-weight: bold;
+}
+
+.order-list tr:nth-child(odd) {
+    background-color: #fff3e0  ;
+}
+
+.order-list tr:nth-child(even) {
+    background-color: #ffe0b2  ;
+}
+
+.order-list .img-size{
+    width: 80vw;
+    max-width: 100px;
+    height: 60vh;
+    max-height: 100px;
+    margin: 0 auto;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+}
+
+.order-list .status{
+    color: #00C851;
+    font-weight: bold;
+}
+
+.order-list .order-btn{
+    display: inline-block;
+    text-align: right;
+    background-color: #00C851;
+    color: aliceblue;
+    border-radius: 32px;
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transition: 0.5s;
+}
+
+.order-list .order-btn:hover{
+    background-color: #ffffff;
+    border: solid 1px #00C851;
+    color: #00C851;
+    border-radius: 32px;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.order-list i{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media screen and (max-width: 576px){
+    .order-list .cart-wrapper{
+        overflow-x: scroll;
+    }
+
+    .order-list table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }    
+}

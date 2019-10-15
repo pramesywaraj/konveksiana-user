@@ -130,7 +130,7 @@ export default function Layout(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Konveksiana Admin
+                        Konveksiana User Panel
                     </Typography>
                     {/* <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">

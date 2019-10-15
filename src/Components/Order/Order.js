@@ -4,6 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+// Component
+import OrderList from './orderlist/orderlist'
+
 const styles = theme => ({
     root : {
         flexGrow: 1
@@ -16,7 +19,7 @@ class Order extends Component {
         const { classes } = this.props;
         return(
             <div className={classes.root}>
-                <p>Order</p>
+                <OrderList />          
             </div>
         )
     }

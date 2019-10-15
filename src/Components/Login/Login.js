@@ -116,7 +116,7 @@ class Login extends Component {
                         </Avatar>
                     </Links>
                     <Typography component="h1" variant="h5">
-                        Konveksiana Admin Apps
+                        Konveksiana User Panel Login
                     </Typography>
                     {/* <form className={classes.form} noValidate> */}
                         <TextField

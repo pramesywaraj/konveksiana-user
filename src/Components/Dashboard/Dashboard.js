@@ -4,6 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+// Component
+import Card from './Card/card'
+
+
 const styles = theme => ({
     root : {
         flexGrow: 1
@@ -14,9 +18,10 @@ const styles = theme => ({
 class Dashboard extends Component {
     render() {
         const { classes } = this.props;
+
         return(
             <div className={classes.root}>
-                <p>Home</p>
+                <Card />          
             </div>
         )
     }

@@ -1,0 +1,114 @@
+.dash-card{
+    font-size: 1em;
+}
+
+.dash-card .section-title{
+    color: #2E2E2E;
+    font-size: 1.75em;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.dash-card .row{
+    width: 100%;
+    max-width: 100vw;
+    text-align: center;
+}
+
+.dash-card .item-section{
+    padding: 10px;
+}
+
+.dash-card .item-number{
+    color: #2E2E2E;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.dash-card .item-name{
+    color: #2E2E2E;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: left;
+}
+
+.dash-card .item-desc{
+    color: #2E2E2E;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: left;
+}
+
+.dash-card .item-price{
+    color: #00C851;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: left;
+}
+
+.dash-card .item-unit{
+    color: #00C851;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: left;
+}
+
+.dash-card .item-status{
+    color: #2E2E2E;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: left;
+}
+
+.dash-card .item-tracker{
+    color: #FF8800;
+    font-size: 1.3em;
+    font-weight: normal;
+    text-align: left;
+}
+
+.dash-card .detail-btn{
+    display: block;
+    background-color: #0099CC;
+    color: aliceblue;
+    border-radius: 32px;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.dash-card .detail-btn:hover{
+    background-color: #ffffff;
+    border: solid 1px #0099CC;
+    color: #0099CC;
+    border-radius: 32px;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.dash-card .card-body i{
+    font-size: 2.5em;
+}
+
+.dash-card .img-size{
+    width: 80vw;
+    max-width: 100px;
+    height: 60vh;
+    max-height: 100px;
+    margin: 0 auto;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+}
+
+.dash-card a{
+    color: #1c2331;
+    font-weight: 700;
+}
+
+.dash-card a:hover{
+    color: #3b73c5;
+    transition: 0.5s;
+}
+
