@@ -26,11 +26,24 @@
 }
 
 .order-list tr:nth-child(odd) {
-    background-color: #fff3e0  ;
+    /* background-color: #fff3e0; */
+    border: none;
+    border-top: solid 1px #d6d6d6;
 }
 
 .order-list tr:nth-child(even) {
-    background-color: #ffe0b2  ;
+    /* background-color: #ffe0b2; */
+    border: none;
+    border-top: solid 1px #d6d6d6;
+}
+
+.order-list tr:last-of-type{
+    border-bottom: solid 1px #d6d6d6;
+}
+
+.order-list td b{
+    color: #2E2E2E;
+    font-weight: bold;
 }
 
 .order-list .img-size{

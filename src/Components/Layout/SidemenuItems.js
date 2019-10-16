@@ -59,7 +59,7 @@ class SidemenuItems extends Component {
             <div>
                 <ListItemNavLink to='/dashboard' primary='Dashboard' icon={<DashboardIcon />} />
                 <ListItemNavLink to='/user-order' primary='Orders Status' icon={<ShoppingCartIcon />} />
-                <ListItemNavLink to='/' primary='Products' icon={<ShoppingBasketIcon />} />
+                <ListItemNavLink to='/products' primary='Products' icon={<ShoppingBasketIcon />} />
             
                 <ListItem button onClick={(e) => {this.logout()}}>
                     <ListItemIcon>

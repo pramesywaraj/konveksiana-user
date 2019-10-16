@@ -29,7 +29,7 @@ function Card() {
 
     return (
         <div className="dash-card">
-            <h2 className="section-title">DASHBOARD</h2>
+            <h2 className="section-title">Dashboard</h2>
             <div className="row item-section">
                 <div className="col">
                     <div className="card">

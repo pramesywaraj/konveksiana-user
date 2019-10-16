@@ -1,5 +1,7 @@
 import React from 'react';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { history } from './Helpers';
+import { PrivateRoute } from './Components/PrivateRoute';
 
 // Components
 import './App.css';
@@ -9,8 +11,7 @@ import Cart from './Components/cart/cart';
 import { Login } from './Components/Login/Login';
 import { Dashboard } from './Components/Dashboard/Dashboard';
 import { Order } from './Components/Order/Order';
-import { history } from './Helpers';
-import { PrivateRoute } from './Components/PrivateRoute';
+import { Product } from './Components/product/product';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           {/* <Route exact path='/' render={() => (<Redirect to="/dashboard" />)} />             */}
           <PrivateRoute exact path='/dashboard' component={Dashboard}/>
           <PrivateRoute exact path='/user-order' component={Order}/>          
+          <PrivateRoute exact path='/products' component={Product}/>          
         </Switch>
       </Router>
     </div>
