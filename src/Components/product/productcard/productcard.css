@@ -48,7 +48,7 @@
     text-align: right;
     background-color: #00C851;
     color: aliceblue;
-    bproduct-radius: 32px;
+    border-radius: 32px;
     padding: 8px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -57,9 +57,9 @@
 
 .product-list .product-btn:hover{
     background-color: #ffffff;
-    bproduct: solid 1px #00C851;
+    border: solid 1px #00C851;
     color: #00C851;
-    bproduct-radius: 32px;
+    border-radius: 32px;
     padding: 5px;
     transition: 0.5s;
 }
@@ -76,7 +76,7 @@
 
     .product-list table {
         font-family: arial, sans-serif;
-        bproduct-collapse: collapse;
+        border-collapse: collapse;
         width: 100%;
     }    
 }
