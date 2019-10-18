@@ -50,7 +50,7 @@ function Card() {
                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                     <p className="item-status">Status:</p>
                                     <p className="item-tracker">Penjahitan</p>
-                                    <a className="detail-btn" href="#!">
+                                    <a className="detail-btn" href="/products/product-detail">
                                         <span>Detail</span>
                                     </a>
                                 </div>
@@ -115,7 +115,7 @@ function Card() {
                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                     <p className="item-status">Status:</p>
                                     <p className="item-tracker">Penjahitan</p>
-                                    <a className="detail-btn" href="#!">
+                                    <a className="detail-btn" href="/products/product-detail">
                                         <span>Detail</span>
                                     </a>
                                 </div>
@@ -145,7 +145,7 @@ function Card() {
                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                     <p className="item-status">Status:</p>
                                     <p className="item-tracker">Penjahitan</p>
-                                    <a className="detail-btn" href="#!">
+                                    <a className="detail-btn" href="/products/product-detail">
                                         <span>Detail</span>
                                     </a>
                                 </div>
