@@ -3,12 +3,13 @@ import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink
 
 // Component
 import './orderlist.css';
-import Fresh from './fresh/fresh';
-import Stock from './stock/stock';
-import Cut from './cut/cut';
-import Print from './print/print';
-import Sew from './sew/sew';
-import Package from './package/package';
+import Tabledata from './tabledata/tabledata';
+// import Fresh from './fresh/fresh';
+// import Stock from './stock/stock';
+// import Cut from './cut/cut';
+// import Print from './print/print';
+// import Sew from './sew/sew';
+// import Package from './package/package';
 
 class OrderList extends Component {
 
@@ -32,10 +33,10 @@ class OrderList extends Component {
         return (
             <div className="order-list">
                 <h2 className="section-title">Order Status</h2>
-                <div className="card">
-                    <div className="card-body">
+                {/* <div className="card">
+                    <div className="card-body"> */}
                         <MDBContainer>
-                            <MDBNav className="nav-tabs mt-2">
+                            {/* <MDBNav className="nav-tabs mt-2">
                                 <MDBNavItem>
                                     <MDBNavLink to="#" active={this.state.activeItem === "1"} onClick={this.toggle("1")} role="tab" >
                                         Fresh
@@ -67,12 +68,13 @@ class OrderList extends Component {
                                         Pemaketan dan Pengiriman
                                     </MDBNavLink>
                                 </MDBNavItem>
-                            </MDBNav>
+                            </MDBNav> */}
                 
-                            <MDBTabContent activeItem={this.state.activeItem} >
-                                <MDBTabPane tabId="1" role="tabpanel">
-                                    <Fresh />
-                                </MDBTabPane>
+                            {/* <MDBTabContent activeItem={this.state.activeItem} >
+                                <MDBTabPane tabId="1" role="tabpanel"> */}
+                                    <Tabledata />
+                                    {/* <Fresh /> */}
+                                {/* </MDBTabPane>
                                 <MDBTabPane tabId="2" role="tabpanel">
                                     <Stock />
                                 </MDBTabPane>
@@ -89,10 +91,10 @@ class OrderList extends Component {
                                 <MDBTabPane tabId="6" role="tabpanel">
                                     <Package />
                                 </MDBTabPane>
-                            </MDBTabContent>
+                            </MDBTabContent> */}
                         </MDBContainer>
-                    </div>
-                </div>
+                    {/* </div>
+                </div> */}
             </div>
         );
     }
