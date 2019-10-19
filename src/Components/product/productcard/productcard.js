@@ -25,7 +25,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Fresh</span>
                                 </p>
-                                <a href="/products/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -43,7 +43,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Pemotongan</span>
                                 </p>
-                                <a href="/products/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -61,7 +61,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Penyediaan Barang</span>
                                 </p>
-                                <a href="/products/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -80,7 +80,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Draft</span>
                                 </p>
-                                <a href="/products/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -98,7 +98,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Pemaketan</span>
                                 </p>
-                                <a href="/products/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -116,7 +116,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Terkirim</span>
                                 </p>
-                                <a href="/products/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 

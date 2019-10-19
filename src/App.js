@@ -29,7 +29,7 @@ function App() {
           <PrivateRoute exact path='/dashboard' component={Dashboard}/>
           <PrivateRoute exact path='/user-order' component={Order}/>          
           <PrivateRoute exact path='/products' component={Product}/>          
-          <PrivateRoute exact path='/products/product-detail' component={ProductDetail}/>          
+          <PrivateRoute exact path='/product-detail' component={ProductDetail}/>          
         </Switch>
       </Router>
     </div>
