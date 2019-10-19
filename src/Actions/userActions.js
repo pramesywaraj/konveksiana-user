@@ -2,9 +2,35 @@ import { authService } from '../Services/authService';
 import { history } from '../Helpers/history';
 
 export const userActions = {
+    signup,
     login,
     logout
 };
+
+function signup(name, email, password, sex) {
+    return dispatch => {
+        let apiEndpoint = 'user/signUp';
+        let payload = {
+            role: 1,
+            name: name,
+            email : email,
+            password : password,
+            sex: sex
+        }
+
+        authService.post(apiEndpoint, payload)
+            .then(res => {
+                if(res.data.status === 200) {
+                    dispatch(signupSuccess(res.data));
+                    history.push('/login');
+                    alert(res.data.message);
+                } else {
+                    dispatch(loginFailed());
+                    alert(res.data.message);
+                }
+            })
+    };
+}
 
 function login(email, password) {
     return dispatch => {
@@ -48,6 +74,12 @@ export function setUserDetails(data) {
         auth: true,
         token: data.token,
         user: JSON.stringify(data.result)
+    }
+}
+
+export function signupSuccess(data) {
+    return {
+        type: "SIGNUP_SUCCESS",
     }
 }
 

@@ -9,6 +9,7 @@ import Homepage from './Components/homepage/homepage';
 import Orderpage from './Components/orderpage/orderpage';
 import Cart from './Components/cart/cart';
 import { Login } from './Components/Login/Login';
+import { Signup } from './Components/Signup/Signup';
 import { Dashboard } from './Components/Dashboard/Dashboard';
 import { Order } from './Components/Order/Order';
 import { Product } from './Components/product/product';
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/order" component={Orderpage} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path='/login' component={Login} />
+          <Route exact path='/sign-up' component={Signup} />
           {/* <Route exact path='/' render={() => (<Redirect to="/dashboard" />)} />             */}
           <PrivateRoute exact path='/dashboard' component={Dashboard}/>
           <PrivateRoute exact path='/user-order' component={Order}/>          

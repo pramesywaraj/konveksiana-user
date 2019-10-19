@@ -7,12 +7,10 @@ import { userActions } from '../../Actions/userActions';
 
 
 import { withStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
+import './Login.css';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -102,6 +100,10 @@ class Login extends Component {
         }
     }
 
+    signup = (e) => {
+        history.push('/sign-up');
+    }
+
     render() {
         const { classes } = this.props;
         const { loading } = this.state;
@@ -111,13 +113,10 @@ class Login extends Component {
                 <CssBaseline />
                 <div className={classes.paper}>
                     <Links to="/">
-                        <Avatar className={classes.avatar}>
-                            K
-                        </Avatar>
+                        <div className="row text-center">
+                            <div className="img-size" style={{ backgroundImage: `url(${"/logo-konveksiana.svg"})`}}></div>
+                        </div>
                     </Links>
-                    <Typography component="h1" variant="h5">
-                        Konveksiana User Panel Login
-                    </Typography>
                     {/* <form className={classes.form} noValidate> */}
                         <TextField
                             variant="outlined"
@@ -125,7 +124,7 @@ class Login extends Component {
                             required
                             fullWidth
                             id="email"
-                            label="Alamat Email Admin"
+                            label="Alamat Email User"
                             name="email"
                             autoComplete="email"
                             autoFocus
@@ -154,12 +153,23 @@ class Login extends Component {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
+                            color="secondary"
                             className={classes.submit}
                             disabled={loading}
                             onClick={(e) => {this.login()}} 
                         >
-                            Login
+                            Masuk
+                        </Button>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className="signup"
+                            disabled={loading}
+                            onClick={(e) => {this.signup()}} 
+                        >
+                            Daftar
                         </Button>
                     {/* </form> */}
                 </div>

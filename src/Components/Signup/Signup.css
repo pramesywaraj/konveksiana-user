@@ -1,0 +1,24 @@
+.img-size{
+    width: 15vw;
+    height: 5vh;
+    margin: 5px auto;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+h5{
+    margin-top: 15px;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.login{
+    background-color: #00C851;
+}
+
+.signup{
+    color: #3f51b5;
+}

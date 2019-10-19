@@ -20,6 +20,11 @@ export function authentication(state = initialState, action) {
                 token: action.token,
                 user: action.user
             };
+        case 'SIGNUP_SUCCESS':
+            return {
+                loggingIn: false,
+                loading: false,
+            };
         case 'LOGIN_FAILED':
             return {
                 loggingIn: false,

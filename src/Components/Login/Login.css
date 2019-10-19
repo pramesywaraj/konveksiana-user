@@ -1,0 +1,16 @@
+.img-size{
+    width: 15vw;
+    height: 5vh;
+    margin: 50px auto;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.login{
+    background-color: #00C851;
+}
+
+.signup{
+    color: #3f51b5;
+}
