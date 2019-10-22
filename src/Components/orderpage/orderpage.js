@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import './orderpage.css';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import Designpakaian from './designpakaian/designpakaian.js';
+import { Designpakaian } from './designpakaian/designpakaian.js';
 
 class Orderpage extends Component {
   render(){

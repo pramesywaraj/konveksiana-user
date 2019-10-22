@@ -25,6 +25,11 @@ export function authentication(state = initialState, action) {
                 loggingIn: false,
                 loading: false,
             };
+        case 'SIGNUP_FAILED':
+            return {
+                loggingIn: false,
+                loading: false
+            };
         case 'LOGIN_FAILED':
             return {
                 loggingIn: false,

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, {Component} from 'react';
+import { HashLink as Links } from 'react-router-hash-link';
 
 // Component
 import './productcard.css';
@@ -25,7 +26,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Fresh</span>
                                 </p>
-                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <Links className="btn btn-primary btn-sm" to="/products/product-detail">Detail</Links>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -43,7 +44,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Pemotongan</span>
                                 </p>
-                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <Links className="btn btn-primary btn-sm" to="/products/product-detail">Detail</Links>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -61,7 +62,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Penyediaan Barang</span>
                                 </p>
-                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <Links className="btn btn-primary btn-sm" to="/products/product-detail">Detail</Links>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -80,7 +81,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Draft</span>
                                 </p>
-                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <Links className="btn btn-primary btn-sm" to="/products/product-detail">Detail</Links>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -98,7 +99,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Pemaketan</span>
                                 </p>
-                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <Links className="btn btn-primary btn-sm" to="/products/product-detail">Detail</Links>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 
@@ -116,7 +117,7 @@ class ProductCard extends Component {
                                 <p>Status : &nbsp;
                                     <span className="card-status">Terkirim</span>
                                 </p>
-                                <a href="/product-detail" className="btn btn-primary btn-sm">Detail</a>
+                                <Links className="btn btn-primary btn-sm" to="/products/product-detail">Detail</Links>
                             </div>
                             <div className="card-footer text-left text-muted">
                                 <p>Tanggal Pemesanan : &nbsp; 

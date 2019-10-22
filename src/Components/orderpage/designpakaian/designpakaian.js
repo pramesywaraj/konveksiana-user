@@ -1,35 +1,69 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon  } from 'mdbreact';
 import { history } from '../../../Helpers/history';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { orderActions } from '../../../Actions/orderActions';
+import { withStyles } from '@material-ui/core/styles';
 
 // Import
 import './designpakaian.css'
 
-// API
-import api from "../../../api/api";
+const styles = theme => ({
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white,
+    },
+  },
+});
 
 class Designpakaian extends Component {
-  state ={
-    form:{
-      category: null,
-      totalOrder: null,
-      materialType: null,
-      product: null,
-      itemPrice: null,
-      size: null,
-      totalPrice: null,
-      frontDesign: [],
-      backDesign: [],
-      leftDesign: [],
-      rightDesign: [],
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      form:{
+        category: null,
+        totalOrder: null,
+        materialType: null,
+        product: null,
+        itemPrice: null,
+        size: null,
+        totalPrice: null,
+        frontDesign: [],
+        backDesign: [],
+        leftDesign: [],
+        rightDesign: [],
+      }
     }
   }
 
   componentDidMount() {
-    api.get(`dev/multipleImage`)
-      .then(res => {
-        console.log("Test Data : ", res.data);
-      })
+      if(localStorage.getItem('auth')) {
+          // history.push('/dashboard');
+      }
+  }
+
+  componentWillReceiveProps(newProps){
+      this.setState({ loading: newProps.loading }); // remove the loading progress when logged in or fail to log in
+  }
+
+  handleChange = prop => event => {
+      this.setState({ [prop]: event.target.value });
+  };
+
+  createOrder = (e) => {
+      this.setState({ loading : true });
+      const { orderImage, categoryId, userId, materialId, color, description, quantity, price } = this.state;
+      const { dispatch } = this.props;
+      if(orderImage && categoryId && userId && materialId && color && description && quantity && price) {
+        dispatch(orderActions.createOrder(orderImage, categoryId, userId, materialId, color, description, quantity, price));
+      }
+  }
+
+  signup = (e) => {
+      history.push('/sign-up');
   }
 
   frontDesign = e => {
@@ -44,7 +78,8 @@ class Designpakaian extends Component {
             ...state.form,
             frontDesign: [reader.result]
           }
-        }));      },
+        }));
+      },
       false
     );
     document.getElementsByClassName("img-preview-front")[0].style.display = "block";
@@ -62,7 +97,8 @@ class Designpakaian extends Component {
             ...state.form,
             backDesign: [reader.result]
           }
-        }));      },
+        }));
+      },
       false
     );
     document.getElementsByClassName("img-preview-back")[0].style.display = "block";
@@ -80,7 +116,8 @@ class Designpakaian extends Component {
             ...state.form,
             leftDesign: [reader.result]
           }
-        }));      },
+        }));
+      },
       false
     );
     document.getElementsByClassName("img-preview-left")[0].style.display = "block";
@@ -98,7 +135,8 @@ class Designpakaian extends Component {
             ...state.form,
             rightDesign: [reader.result]
           }
-        }));      },
+        }));
+      },
       false
     );
     document.getElementsByClassName("img-preview-right")[0].style.display = "block";
@@ -342,4 +380,20 @@ class Designpakaian extends Component {
   }
 };
 
-export default Designpakaian;
+Designpakaian.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => {
+  const { loggingIn, loading } = state.authentication;
+  return {
+      loggingIn,
+      loading
+  };
+}
+
+const connectedDesignpakaianPage = withRouter(connect(mapStateToProps, null, null, {
+  pure: false
+}) (withStyles(styles)(Designpakaian)));
+
+export { connectedDesignpakaianPage as Designpakaian };

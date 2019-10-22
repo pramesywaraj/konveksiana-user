@@ -25,7 +25,7 @@ function signup(name, email, password, sex) {
                     history.push('/login');
                     alert(res.data.message);
                 } else {
-                    dispatch(loginFailed());
+                    dispatch(signupFailed());
                     alert(res.data.message);
                 }
             })
@@ -86,6 +86,12 @@ export function signupSuccess(data) {
 export function loginFailed() {
     return {
         type: "LOGIN_FAILED",
+    }
+}
+
+export function signupFailed() {
+    return {
+        type: "SIGNUP_FAILED",
     }
 }
 

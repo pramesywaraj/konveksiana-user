@@ -1,5 +1,6 @@
 import React from 'react';
 import MaterialTable from 'material-table';
+import { HashLink as Links } from 'react-router-hash-link';
 
 // Component
 import './card.css';
@@ -50,9 +51,9 @@ function Card() {
                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                     <p className="item-status">Status:</p>
                                     <p className="item-tracker">Penjahitan</p>
-                                    <a className="detail-btn" href="/product-detail">
+                                    <Links className="detail-btn" to="/products/product-detail">
                                         <span>Detail</span>
-                                    </a>
+                                    </Links>
                                 </div>
                             </div>
 
@@ -115,9 +116,9 @@ function Card() {
                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                     <p className="item-status">Status:</p>
                                     <p className="item-tracker">Penjahitan</p>
-                                    <a className="detail-btn" href="/product-detail">
+                                    <Links className="detail-btn" to="/products/product-detail">
                                         <span>Detail</span>
-                                    </a>
+                                    </Links>
                                 </div>
                             </div>
                         </div>
@@ -145,9 +146,9 @@ function Card() {
                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                     <p className="item-status">Status:</p>
                                     <p className="item-tracker">Penjahitan</p>
-                                    <a className="detail-btn" href="/product-detail">
+                                    <Links className="detail-btn" to="/products/product-detail">
                                         <span>Detail</span>
-                                    </a>
+                                    </Links>
                                 </div>
                             </div>
                         </div>
