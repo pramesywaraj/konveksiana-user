@@ -8,7 +8,9 @@ import { orderActions } from '../../../Actions/orderActions';
 import { withStyles } from '@material-ui/core/styles';
 
 // Import
-import './designpakaian.css'
+import './designpakaian.css';
+
+let user = localStorage.getItem('user');  // Status if user has authenticated - true or false
 
 const styles = theme => ({
   '@global': {
@@ -23,14 +25,17 @@ class Designpakaian extends Component {
     super(props);
 
     this.state = {
+      userId: '',
       form:{
-        category: null,
-        totalOrder: null,
-        materialType: null,
-        product: null,
-        itemPrice: null,
-        size: null,
-        totalPrice: null,
+        category: '',
+        materialType: '',
+        color: '',
+        description: '',
+        totalOrder: '',
+        product: '',
+        itemPrice: '',
+        size: '',
+        totalPrice: '',
         frontDesign: [],
         backDesign: [],
         leftDesign: [],
@@ -55,11 +60,22 @@ class Designpakaian extends Component {
 
   createOrder = (e) => {
       this.setState({ loading : true });
-      const { orderImage, categoryId, userId, materialId, color, description, quantity, price } = this.state;
-      const { dispatch } = this.props;
-      if(orderImage && categoryId && userId && materialId && color && description && quantity && price) {
-        dispatch(orderActions.createOrder(orderImage, categoryId, userId, materialId, color, description, quantity, price));
-      }
+      // console.log("Data Form", this.state.form)
+      this.orderImage = [this.state.form.frontDesign, this.state.form.backDesign, this.state.form.leftDesign, this.state.form.rightDesign] ;
+      this.userId = this.state.userId;
+      this.materialId = this.state.form.materialType;
+      this.color = this.state.form.color;
+      this.description = this.state.form.description;
+      this.quantity = this.state.form.totalOrder;
+      this.price = this.state.form.itemPrice;
+
+      // eslint-disable-next-line no-unused-vars
+      const { orderImage, userId, categoryId, materialId, color, description, quantity, price } = this.state;
+      console.log("Cek Data : ", this.state);
+      // const { dispatch } = this.props;
+      // if(orderImage && categoryId && userId && materialId && color && description && quantity && price) {
+      //   dispatch(orderActions.createOrder(orderImage, categoryId, userId, materialId, color, description, quantity, price));
+      // }
   }
 
   signup = (e) => {
@@ -146,65 +162,78 @@ class Designpakaian extends Component {
     var type = e.target.value;
     localStorage.totalOrder = e.target.value;
     console.log(type, " was selected as Convection Type");
-    this.setState(
-      {
-        form:{
-          category: localStorage.totalOrder,
+    this.setState(state => ({
+      form: {
+        ...state.form,
+      totalOrder: localStorage.totalOrder,
         }
       }
-    );
-  }
+    )
+  )}
+
+  descriptionData = (e) =>{
+    var description = e.target.value;
+    localStorage.description = e.target.value;
+    console.log(description, " was selected as Convection Type");
+    this.setState(state => ({
+      form: {
+        ...state.form,
+        description: localStorage.description,
+        }
+      }
+    )
+  )}
 
   categoryData = (e) => {
     var type = e.target.value;
     localStorage.category = e.target.value;
     console.log(type, " was selected as Convection Type");
-    this.setState(
-      {
-        form:{
-          category: localStorage.category,
+    this.setState(state => ({
+      form: {
+        ...state.form,
+        category: localStorage.category,
         }
       }
-    );
-  }
+    )
+  )}
 
-  productData = (e) => {
-    var product = e.target.value;
-    localStorage.product = product;
-    console.log(product, " was selected as Screen Printing");
-    this.setState(
-      {
-        form:{
-          product: localStorage.product
+  colorData = (e) => {
+    var color = e.target.value;
+    localStorage.color = color;
+    console.log(color, " was selected as Screen Printing");
+    this.setState(state => ({
+      form: {
+        ...state.form,
+        color: localStorage.color
         }
       }
-    );
-  }
+    )
+  )}
 
   materialData = (e) => {
     var materialType = e.target.value;
     localStorage.material = e.target.value;
     console.log(materialType, " was selected as material");
-    this.setState(
-      {
-        form:{
-          materialType: localStorage.material,
+    this.setState(state => ({
+      form: {
+        ...state.form,
+        materialType: localStorage.material,
         }
       }
-    );
-  }
+    )
+  )}
 
   sizeData = (e) => {
     var type = e.target.value;
     console.log(type, " was selected as Size ");
-    this.setState(
-      {
-        form:{
-          size: e.target.value
+    this.setState(state => ({
+      form: {
+        ...state.form,
+        size: e.target.value
         }
       }
-    );
-  }
+    )
+  )}
 
   inserttoCart = () => {
     history.push('/cart');
@@ -279,7 +308,7 @@ class Designpakaian extends Component {
             <form>
               <MDBDropdown className="select-type">
                 <MDBDropdownToggle caret className="select-btn">
-                  Produk
+                  Material (Bahan)
                 </MDBDropdownToggle>
                 <MDBDropdownMenu basic onClick={this.materialData}>
                   <MDBDropdownItem value="Cotton Combed 30S">Cotton Combed 30S</MDBDropdownItem>
@@ -306,22 +335,22 @@ class Designpakaian extends Component {
             <form>
               <MDBDropdown className="select-type">
                 <MDBDropdownToggle caret className="select-btn">
-                  Jenis Bahan
+                  Warna
                 </MDBDropdownToggle>
-                <MDBDropdownMenu basic onClick={this.productData}>
-                  <MDBDropdownItem value="Rubber">Rubber</MDBDropdownItem>
-                  <MDBDropdownItem value="Ink">Ink</MDBDropdownItem>
+                <MDBDropdownMenu basic onClick={this.colorData}>
+                  <MDBDropdownItem value="Orange">Orange</MDBDropdownItem>
+                  <MDBDropdownItem value="Biru">Biru</MDBDropdownItem>
                 </MDBDropdownMenu>
               </MDBDropdown>
               <div className="grey-text">
                 <MDBInput
-                  label="Jenis Sablon"
+                  label="Pilih Warna"
                   group
                   type="text"
                   validate
                   error="wrong"
                   success="right"
-                  value= {localStorage.product || ' '}
+                  value= {localStorage.color || ' '}
                   disabled
                 />
               </div>
@@ -364,9 +393,27 @@ class Designpakaian extends Component {
             </form>
           </MDBCol>
 
+          <MDBCol sm="12" md="12">
+            <form>
+              <div className="grey-text">
+                <MDBInput
+                  label="Catatan"
+                  group
+                  type="textarea"
+                  min="1"
+                  validate
+                  error="wrong"
+                  success="right"
+                  value={localStorage.description || ' '}
+                  onChange={this.descriptionData}
+                />
+              </div>
+            </form>
+          </MDBCol>
+
           <div className="btn-center">
             <div className="py-4 mt-3">
-              <button className="konveksiana-btn" onClick ={this.inserttoCart}>
+              <button className="konveksiana-btn" onClick ={this.createOrder}>
               <MDBIcon fas icon="shopping-cart" className="mr-2" />
                 <span>Masukan Keranjang</span>
               </button>
@@ -392,7 +439,7 @@ const mapStateToProps = (state) => {
   };
 }
 
-const connectedDesignpakaianPage = withRouter(connect(mapStateToProps, null, null, {
+const connectedDesignpakaianPage = withRouter(connect(mapStateToProps, '', '', {
   pure: false
 }) (withStyles(styles)(Designpakaian)));
 
