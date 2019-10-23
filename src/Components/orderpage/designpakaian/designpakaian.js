@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 // Import
 import './designpakaian.css';
 
-let user = localStorage.getItem('user');  // Status if user has authenticated - true or false
+let user = JSON.parse(localStorage.user);
 
 const styles = theme => ({
   '@global': {
@@ -25,17 +25,14 @@ class Designpakaian extends Component {
     super(props);
 
     this.state = {
-      userId: '',
+      userId: user._id,
       form:{
         category: '',
         materialType: '',
         color: '',
         description: '',
         totalOrder: '',
-        product: '',
         itemPrice: '',
-        size: '',
-        totalPrice: '',
         frontDesign: [],
         backDesign: [],
         leftDesign: [],
@@ -45,7 +42,7 @@ class Designpakaian extends Component {
   }
 
   componentDidMount() {
-      if(localStorage.getItem('auth')) {
+    if(localStorage.getItem('auth')) {
           // history.push('/dashboard');
       }
   }
@@ -60,7 +57,7 @@ class Designpakaian extends Component {
 
   createOrder = (e) => {
       this.setState({ loading : true });
-      // console.log("Data Form", this.state.form)
+      this.userId = this.state.userId;
       this.orderImage = [this.state.form.frontDesign, this.state.form.backDesign, this.state.form.leftDesign, this.state.form.rightDesign] ;
       this.userId = this.state.userId;
       this.materialId = this.state.form.materialType;
@@ -71,11 +68,12 @@ class Designpakaian extends Component {
 
       // eslint-disable-next-line no-unused-vars
       const { orderImage, userId, categoryId, materialId, color, description, quantity, price } = this.state;
-      console.log("Cek Data : ", this.state);
       // const { dispatch } = this.props;
-      // if(orderImage && categoryId && userId && materialId && color && description && quantity && price) {
-      //   dispatch(orderActions.createOrder(orderImage, categoryId, userId, materialId, color, description, quantity, price));
-      // }
+      // console.log("My Data Gak Lengkap : ", this.state)
+      if(this.state) {
+        console.log("My Data Lengkap : ", this.state)
+        // dispatch(orderActions.createOrder(orderImage, userId, categoryId, materialId, color, description, quantity, price));
+      }
   }
 
   signup = (e) => {
@@ -90,6 +88,7 @@ class Designpakaian extends Component {
       "load",
       () => {
         this.setState(state => ({
+          ...state,
           form: {
             ...state.form,
             frontDesign: [reader.result]
@@ -109,6 +108,7 @@ class Designpakaian extends Component {
       "load",
       () => {
         this.setState(state => ({
+          ...state,
           form: {
             ...state.form,
             backDesign: [reader.result]
@@ -128,6 +128,7 @@ class Designpakaian extends Component {
       "load",
       () => {
         this.setState(state => ({
+          ...state,
           form: {
             ...state.form,
             leftDesign: [reader.result]
@@ -147,6 +148,7 @@ class Designpakaian extends Component {
       "load",
       () => {
         this.setState(state => ({
+          ...state,
           form: {
             ...state.form,
             rightDesign: [reader.result]
@@ -160,12 +162,18 @@ class Designpakaian extends Component {
 
   totalOrderData = (e) =>{
     var type = e.target.value;
+    var material = 5000;
+    var totalOrder = localStorage.totalOrder;
+    var itemPrice = material * totalOrder;
     localStorage.totalOrder = e.target.value;
+    console.log(itemPrice, " was Total Price");
     console.log(type, " was selected as Convection Type");
     this.setState(state => ({
+      ...state,
       form: {
         ...state.form,
-      totalOrder: localStorage.totalOrder,
+        totalOrder: localStorage.totalOrder,
+        itemPrice: itemPrice,
         }
       }
     )
@@ -176,6 +184,7 @@ class Designpakaian extends Component {
     localStorage.description = e.target.value;
     console.log(description, " was selected as Convection Type");
     this.setState(state => ({
+      ...state,
       form: {
         ...state.form,
         description: localStorage.description,
@@ -189,6 +198,7 @@ class Designpakaian extends Component {
     localStorage.category = e.target.value;
     console.log(type, " was selected as Convection Type");
     this.setState(state => ({
+      ...state,
       form: {
         ...state.form,
         category: localStorage.category,
@@ -202,6 +212,7 @@ class Designpakaian extends Component {
     localStorage.color = color;
     console.log(color, " was selected as Screen Printing");
     this.setState(state => ({
+      ...state,
       form: {
         ...state.form,
         color: localStorage.color
@@ -212,24 +223,33 @@ class Designpakaian extends Component {
 
   materialData = (e) => {
     var materialType = e.target.value;
+    var material = 5000;
+    var totalOrder = localStorage.totalOrder;
+    var itemPrice = material * totalOrder;
     localStorage.material = e.target.value;
+    console.log(itemPrice, " was Total Price");
     console.log(materialType, " was selected as material");
     this.setState(state => ({
+      ...state,
       form: {
         ...state.form,
         materialType: localStorage.material,
+        itemPrice: itemPrice,
         }
       }
     )
   )}
 
-  sizeData = (e) => {
-    var type = e.target.value;
-    console.log(type, " was selected as Size ");
+  totalPriceData = (e) => {
+    var material = 5000;
+    var totalOrder = 5;
+    var itemPrice = material * totalOrder;
+    console.log(itemPrice, " was Total Price");
     this.setState(state => ({
+      ...state,
       form: {
         ...state.form,
-        size: e.target.value
+        itemPrice: itemPrice,
         }
       }
     )
@@ -385,8 +405,8 @@ class Designpakaian extends Component {
                   validate
                   error="wrong"
                   success="right"
-                  value= {localStorage.category && localStorage.material && localStorage.product? 'Rp 50.000,00' : ' '}
-                  onChange
+                  value= {this.state.form.itemPrice}
+                  onChange={this.totalOrderData && this.materialData}
                   disabled
                 />
               </div>              

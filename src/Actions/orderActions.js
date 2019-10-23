@@ -6,31 +6,33 @@ export const orderActions = {
     login
 };
 
-function createOrder(form, userId) {
+function createOrder(orderImage, categoryId, userId, materialId, color, description, quantity, price) {
     return dispatch => {
-        let apiEndpoint = 'order';
+        // let apiEndpoint = 'order';
         let payload = {
-            orderImage: [form.frontDesign, form.backDesign, form.leftDesign, form.rightDesign],
-            categoryId: form.categoryId,
+            orderImage: orderImage,
+            categoryId: categoryId,
             userId: userId,
-            materialId: form.materialId,
-            color: form.color,
-            description: form.description,
-            quantity: form.quantity,
-            price: form.price
+            materialId: materialId,
+            color: color,
+            description: description,
+            quantity: quantity,
+            price: price
         }
 
-        orderService.post(apiEndpoint, payload)
-            .then(res => {
-                if(res.data.status === 200) {
-                    dispatch(createOrderSuccess(res.data));
-                    history.push('/user-order');
-                    alert(res.data.message);
-                } else {
-                    dispatch(createOrderFailed());
-                    alert(res.data.message);
-                }
-            })
+        console.log("Cek Data : ", payload);
+
+        // orderService.post(apiEndpoint, payload)
+        //     .then(res => {
+        //         if(res.data.status === 200) {
+        //             dispatch(createOrderSuccess(res.data));
+        //             history.push('/user-order');
+        //             alert(res.data.message);
+        //         } else {
+        //             dispatch(createOrderFailed());
+        //             alert(res.data.message);
+        //         }
+        //     })
     };
 }
 
