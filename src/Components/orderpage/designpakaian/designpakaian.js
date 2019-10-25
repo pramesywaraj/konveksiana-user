@@ -57,22 +57,23 @@ class Designpakaian extends Component {
 
   createOrder = (e) => {
       this.setState({ loading : true });
-      this.userId = this.state.userId;
-      this.orderImage = [this.state.form.frontDesign, this.state.form.backDesign, this.state.form.leftDesign, this.state.form.rightDesign] ;
-      this.userId = this.state.userId;
-      this.materialId = this.state.form.materialType;
-      this.color = this.state.form.color;
-      this.description = this.state.form.description;
-      this.quantity = this.state.form.totalOrder;
-      this.price = this.state.form.itemPrice;
+
+      let data = {
+        orderImage: [this.state.form.frontDesign, this.state.form.backDesign, this.state.form.leftDesign, this.state.form.rightDesign],
+        userId: this.state.userId,
+        materialId: this.state.form.materialType,
+        color: this.state.form.color,
+        description: this.state.form.description,
+        quantity: this.state.form.totalOrder,
+        price: this.state.form.itemPrice,
+      }
 
       // eslint-disable-next-line no-unused-vars
-      const { orderImage, userId, categoryId, materialId, color, description, quantity, price } = this.state;
-      // const { dispatch } = this.props;
-      // console.log("My Data Gak Lengkap : ", this.state)
-      if(this.state) {
-        console.log("My Data Lengkap : ", this.state)
-        // dispatch(orderActions.createOrder(orderImage, userId, categoryId, materialId, color, description, quantity, price));
+      const { dispatch } = this.props;
+      // console.log("My Data Gak Lengkap : ", data)
+      if(data) {
+        // console.log("My Data Lengkap : ", data)
+        dispatch(orderActions.createOrder(data));
       }
   }
 
@@ -401,7 +402,7 @@ class Designpakaian extends Component {
                 <MDBInput
                   label="Harga/pcs"
                   group
-                  type="text"
+                  type="number"
                   validate
                   error="wrong"
                   success="right"
