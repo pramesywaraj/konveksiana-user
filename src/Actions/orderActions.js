@@ -3,61 +3,56 @@ import { history } from '../Helpers/history';
 
 export const orderActions = {
     createOrder,
-    login
+    getAllMaterial
 };
 
 function createOrder(data) {
     return dispatch => {
-        let HTTPOption = localStorage.token;
         let apiEndpoint = 'order';
-        let payload = {
-            orderImage: data.orderImage,
-            userId: data.userId,
-            materialId: data.materialId,
-            color: data.color,
-            description: data.description,
-            quantity: data.quantity,
-            price: data.price
-        }
+        let payload = new FormData();
+        payload.append('orderImage', data.orderImage);
+        payload.append('userId', data.userId);
+        // payload.append('materialId', data.materialId);
+        payload.append('materialId', '5d79930c8c4a882f44b1b0fb');
+        payload.append('color', data.color);
+        payload.append('description', data.description);
+        payload.append('quantity', data.quantity);
+        payload.append('city', data.city);
+        payload.append('detailAddress', data.detailAddress);
 
         console.log("Cek Data : ", payload);
 
-        orderService.post(apiEndpoint, payload, HTTPOption)
+        orderService.post(apiEndpoint, payload)
             .then(res => {
                 if(res.data.status === 200) {
                     dispatch(createOrderSuccess(res.data));
                     history.push('/user-order');
-                    alert(res.data.message);
+                    alert(res.data.Message);
                 } else {
                     dispatch(createOrderFailed());
-                    alert(res.data.message);
+                    alert(res.data.Message);
                 }
             })
     };
 }
 
-function login(email, password) {
+function getAllMaterial() {
     return dispatch => {
-        let apiEndpoint = 'user/signIn';
-        let payload = {
-            email : email,
-            password : password
-        }
+        let apiEndpoint = 'material';
 
-        orderService.post(apiEndpoint, payload)
-            .then(res => {
-                if(res.data.status === 200) {
-                    localStorage.setItem('token', res.data.token);
-                    localStorage.setItem('auth', true);
-                    localStorage.setItem('user', JSON.stringify(res.data.result));                    
-                    dispatch(createOrderSuccess(res.data));
-                    history.push('/dashboard');
-                    alert(res.data.message);
-                } else {
-                    dispatch(createOrderFailed());
-                    alert(res.data.message);
+        orderService.getAllMaterials(apiEndpoint).then(
+            (res) => {
+                console.log("Cek Material Data : ", res.data.material);
+                let materials = res.data.material;
+                if (res.data.status === 200) {
+                    dispatch(getMaterialList(materials));
                 }
-            })
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
     };
 }
 
@@ -82,4 +77,11 @@ export function createOrderFailed() {
     return {
         type: "CREATE_ORDER_FAILED",
     }
+}
+
+export function getMaterialList(materials) {
+    return {
+        type: 'FETCHED_ALL_MATERIALS',
+        materials: materials,
+    };
 }

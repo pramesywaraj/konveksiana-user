@@ -10,8 +10,6 @@ import { withStyles } from '@material-ui/core/styles';
 // Import
 import './designpakaian.css';
 
-let user = JSON.parse(localStorage.user);
-
 const styles = theme => ({
   '@global': {
     body: {
@@ -20,12 +18,14 @@ const styles = theme => ({
   },
 });
 
+// let materials = [];
+
 class Designpakaian extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userId: user._id,
+      userId: '',
       form:{
         category: '',
         materialType: '',
@@ -33,6 +33,8 @@ class Designpakaian extends Component {
         description: '',
         totalOrder: '',
         itemPrice: '',
+        city: '',
+        detailAddress: '',
         frontDesign: [],
         backDesign: [],
         leftDesign: [],
@@ -43,7 +45,9 @@ class Designpakaian extends Component {
 
   componentDidMount() {
     if(localStorage.getItem('auth')) {
-          // history.push('/dashboard');
+        const { dispatch } = this.props;
+        dispatch(orderActions.getAllMaterial());
+            // history.push('/dashboard');
       }
   }
 
@@ -57,28 +61,26 @@ class Designpakaian extends Component {
 
   createOrder = (e) => {
       this.setState({ loading : true });
+      let user = JSON.parse(localStorage.user);
 
       let data = {
         orderImage: [this.state.form.frontDesign, this.state.form.backDesign, this.state.form.leftDesign, this.state.form.rightDesign],
-        userId: this.state.userId,
+        userId: user._id,
         materialId: this.state.form.materialType,
         color: this.state.form.color,
         description: this.state.form.description,
         quantity: this.state.form.totalOrder,
-        price: this.state.form.itemPrice,
+        // price: this.state.form.itemPrice,
+        city: this.state.form.city,
+        detailAddress: this.state.form.detailAddress,
       }
 
       // eslint-disable-next-line no-unused-vars
       const { dispatch } = this.props;
-      // console.log("My Data Gak Lengkap : ", data)
       if(data) {
         // console.log("My Data Lengkap : ", data)
         dispatch(orderActions.createOrder(data));
       }
-  }
-
-  signup = (e) => {
-      history.push('/sign-up');
   }
 
   frontDesign = e => {
@@ -256,6 +258,34 @@ class Designpakaian extends Component {
     )
   )}
 
+  cityData = (e) => {
+    var city = e.target.value;
+    localStorage.city = city;
+    console.log(city, " was selected as Destination City");
+    this.setState(state => ({
+      ...state,
+      form: {
+        ...state.form,
+        city: localStorage.city
+        }
+      }
+    )
+  )}
+
+  detailAddressData = (e) => {
+    var detailAddress = e.target.value;
+    localStorage.detailAddress = detailAddress;
+    console.log(detailAddress, " was selected as Destination Address");
+    this.setState(state => ({
+      ...state,
+      form: {
+        ...state.form,
+        detailAddress: localStorage.detailAddress
+        }
+      }
+    )
+  )}
+
   inserttoCart = () => {
     history.push('/cart');
   }
@@ -332,11 +362,19 @@ class Designpakaian extends Component {
                   Material (Bahan)
                 </MDBDropdownToggle>
                 <MDBDropdownMenu basic onClick={this.materialData}>
-                  <MDBDropdownItem value="Cotton Combed 30S">Cotton Combed 30S</MDBDropdownItem>
-                  <MDBDropdownItem value="Cotton Gold 30kg">Cotton Gold 30kg</MDBDropdownItem>
-                  <MDBDropdownItem value="Chain">Chain</MDBDropdownItem>
+                  {/* {materials.length > 0 ? materials.map(
+                        material => (
+                            <MDBDropdownItem key={material._id} value={material._id}>
+                              {material.name}
+                            </MDBDropdownItem>
+                        )
+                    )
+                    :
+                    <MDBDropdownItem value="-">Tidak Ada Material</MDBDropdownItem>
+                  } */}
                 </MDBDropdownMenu>
               </MDBDropdown>
+
               <div className="grey-text">
                 <MDBInput
                   label="Jenis Bahan"
@@ -396,7 +434,7 @@ class Designpakaian extends Component {
             </form>
           </MDBCol>
 
-          <MDBCol sm="12" md="6">
+          {/* <MDBCol sm="12" md="6">
             <form>
               <div className="grey-text">
                 <MDBInput
@@ -411,6 +449,41 @@ class Designpakaian extends Component {
                   disabled
                 />
               </div>              
+            </form>
+          </MDBCol> */}
+
+          <MDBCol sm="12" md="6">
+            <form>
+              <div className="grey-text">
+                <MDBInput
+                  label="Kota"
+                  group
+                  type="text"
+                  validate
+                  error="wrong"
+                  success="right"
+                  value= {localStorage.city || ''}
+                  onChange={this.cityData}
+                />
+              </div>              
+            </form>
+          </MDBCol>
+
+          <MDBCol sm="12" md="12">
+            <form>
+              <div className="grey-text">
+                <MDBInput
+                  label="Alamat Lengkap"
+                  group
+                  type="textarea"
+                  min="1"
+                  validate
+                  error="wrong"
+                  success="right"
+                  value={localStorage.detailAddress || ' '}
+                  onChange={this.detailAddressData}
+                />
+              </div>
             </form>
           </MDBCol>
 
