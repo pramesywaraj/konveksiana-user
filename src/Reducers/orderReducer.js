@@ -8,7 +8,7 @@ const initialState = auth ? {
     name: '',
 } : {};
 
-export function authentication(state = initialState, action) {
+export function orderPage(state = initialState, action) {
     switch(action.type) {
         case 'FETCHED_ALL_MATERIALS':
             return {

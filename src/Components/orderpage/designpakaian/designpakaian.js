@@ -47,7 +47,7 @@ class Designpakaian extends Component {
     if(localStorage.getItem('auth')) {
         const { dispatch } = this.props;
         dispatch(orderActions.getAllMaterial());
-            // history.push('/dashboard');
+        // history.push('/dashboard');
       }
   }
 
@@ -225,19 +225,14 @@ class Designpakaian extends Component {
   )}
 
   materialData = (e) => {
-    var materialType = e.target.value;
-    var material = 5000;
-    var totalOrder = localStorage.totalOrder;
-    var itemPrice = material * totalOrder;
-    localStorage.material = e.target.value;
-    console.log(itemPrice, " was Total Price");
-    console.log(materialType, " was selected as material");
+    // var materialType = e.target.value;
+    localStorage['material'] = e.target.value;
+    localStorage['materialName'] = e.target.name;
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
         materialType: localStorage.material,
-        itemPrice: itemPrice,
         }
       }
     )
@@ -291,6 +286,9 @@ class Designpakaian extends Component {
   }
 
   render(){
+  const { materials } = this.props;
+  console.log("Cek JSX", materials);
+
   return (
     <div className="design-pakaian">
       <MDBContainer>
@@ -362,16 +360,16 @@ class Designpakaian extends Component {
                   Material (Bahan)
                 </MDBDropdownToggle>
                 <MDBDropdownMenu basic onClick={this.materialData}>
-                  {/* {materials.length > 0 ? materials.map(
+                  {materials != null ? materials.map(
                         material => (
-                            <MDBDropdownItem key={material._id} value={material._id}>
+                            <MDBDropdownItem key={material._id} name={material.name} value={material._id}>
                               {material.name}
                             </MDBDropdownItem>
                         )
                     )
                     :
                     <MDBDropdownItem value="-">Tidak Ada Material</MDBDropdownItem>
-                  } */}
+                  }
                 </MDBDropdownMenu>
               </MDBDropdown>
 
@@ -383,7 +381,7 @@ class Designpakaian extends Component {
                   validate
                   error="wrong"
                   success="right"
-                  value= {localStorage.material || ' '}
+                  value= {localStorage.materialName || ' '}
                   disabled
                 />
               </div>
@@ -526,10 +524,9 @@ Designpakaian.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { loggingIn, loading } = state.authentication;
+  const { materials } = state.orderPage;
   return {
-      loggingIn,
-      loading
+      materials
   };
 }
 
