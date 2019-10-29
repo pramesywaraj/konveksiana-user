@@ -3,13 +3,31 @@ let auth = localStorage.getItem('auth');  // Status if user has authenticated - 
 const initialState = auth ? {
     loggedIn: true,
     loading: true,
+
+    // Landing Order
+    categories: [], 
     materials: [], 
     id: '',
     name: '',
+
+    // User Order
+    orders: [],
 } : {};
 
 export function orderPage(state = initialState, action) {
     switch(action.type) {
+        case 'FETCHED_ALL_ORDERS':
+            return {
+                ...state,
+                orders: action.orders,
+                loading: false
+            };
+        case 'FETCHED_ALL_CATEGORIES':
+            return {
+                ...state,
+                categories: action.categories,
+                loading: false
+            };
         case 'FETCHED_ALL_MATERIALS':
             return {
                 ...state,

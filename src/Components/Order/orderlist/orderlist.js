@@ -3,7 +3,7 @@ import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink
 
 // Component
 import './orderlist.css';
-import Tabledata from './tabledata/tabledata';
+import { Tabledata } from './tabledata/tabledata';
 // import Fresh from './fresh/fresh';
 // import Stock from './stock/stock';
 // import Cut from './cut/cut';

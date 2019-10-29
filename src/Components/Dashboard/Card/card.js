@@ -1,162 +1,114 @@
-import React from 'react';
-import MaterialTable from 'material-table';
+import React, { Component } from 'react';
 import { HashLink as Links } from 'react-router-hash-link';
+import { history } from '../../../Helpers/history';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { orderActions } from '../../../Actions/orderActions';
+import { withStyles } from '@material-ui/core/styles';
 
 // Component
 import './card.css';
 
-function Card() {
-    const [state, setState] = React.useState({
-        columns: [
-          { title: 'Name', field: 'name' },
-          { title: 'Surname', field: 'surname' },
-          { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-          {
-            title: 'Birth Place',
-            field: 'birthCity',
-            lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-          },
-        ],
-        data: [
-          { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-          {
-            name: 'Zerya Betül',
-            surname: 'Baran',
-            birthYear: 2017,
-            birthCity: 34,
-          },
-        ],
-    });
+const styles = theme => ({
+    '@global': {
+      body: {
+        backgroundColor: theme.palette.common.white,
+      },
+    },
+});
+  
+class Card extends Component {
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          userId: '',
+        }
+    }
 
-    return (
-        <div className="dash-card">
-            <h2 className="section-title">Dashboard</h2>
-            <div className="row item-section">
-                <div className="col">
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="row d-flex align-items-center">
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <p className="item-number">1</p>
-                                </div>
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/portfolio/portfolio-1.jpg"})`}}></div>
-                                </div>
-                                <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <p className="item-name">Nama Barang</p>
-                                    <p className="item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores pariatur odit omnis recusandae suscipit soluta ea voluptas distinctio maiores? Quisquam, necessitatibus aut est nihil iste illum placeat ea ab harum?</p>
-                                    <p className="item-price">Rp. 20.000</p>
-                                    <p className="item-unit">2 Lusin</p>
-                                </div>
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <p className="item-status">Status:</p>
-                                    <p className="item-tracker">Penjahitan</p>
-                                    <Links className="detail-btn" to="/products/product-detail">
-                                        <span>Detail</span>
-                                    </Links>
+    componentDidMount() {
+    if(localStorage.getItem('auth')) {
+        const { dispatch } = this.props;
+        dispatch(orderActions.getAllOrder());
+        // history.push('/dashboard');
+        }
+    }
+
+    componentWillReceiveProps(newProps){
+        this.setState({ loading: newProps.loading }); // remove the loading progress when logged in or fail to log in
+    }
+
+    handleChange = prop => event => {
+        this.setState({ [prop]: event.target.value });
+    };
+    
+    index(i){
+        return i+=1;
+    }
+
+    render(){
+        const { orders } = this.props;
+        return (
+            <div className="dash-card">
+                <h2 className="section-title">Dashboard</h2>
+
+                {orders != null ? orders.map(
+                        order => (
+                            <div className="row item-section">
+                                <div className="col">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <div className="row d-flex align-items-center">
+                                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                                    <p className="item-number">1</p>
+                                                </div>
+                                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/portfolio/portfolio-1.jpg"})`}}></div>
+                                                    {/* <img src={order.photourls} alt=""/> */}
+                                                </div>
+                                                <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                    <p className="item-name">{order.user.name}</p>
+                                                    <p className="item-desc">{order.description}</p>
+                                                    <p className="item-price">{order.color}</p>
+                                                    <p className="item-price">{order.productPrice}</p>
+                                                    <p className="item-unit">{order.quantity} pcs</p>
+                                                </div>
+                                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                                    <p className="item-status">Status:</p>
+                                                    <p className="item-tracker">Fresh</p>
+                                                    <Links className="detail-btn" to="/products/product-detail">
+                                                        <span>Detail</span>
+                                                    </Links>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            {/* <MaterialTable
-                                title="Editable Example"
-                                columns={state.columns}
-                                data={state.data}
-                                editable={{
-                                    onRowAdd: newData =>
-                                    new Promise(resolve => {
-                                        setTimeout(() => {
-                                        resolve();
-                                        const data = [...state.data];
-                                        data.push(newData);
-                                        setState({ ...state, data });
-                                        }, 600);
-                                    }),
-                                    onRowUpdate: (newData, oldData) =>
-                                    new Promise(resolve => {
-                                        setTimeout(() => {
-                                        resolve();
-                                        const data = [...state.data];
-                                        data[data.indexOf(oldData)] = newData;
-                                        setState({ ...state, data });
-                                        }, 600);
-                                    }),
-                                    onRowDelete: oldData =>
-                                    new Promise(resolve => {
-                                        setTimeout(() => {
-                                        resolve();
-                                        const data = [...state.data];
-                                        data.splice(data.indexOf(oldData), 1);
-                                        setState({ ...state, data });
-                                        }, 600);
-                                    }),
-                                }}
-                            /> */}
-                        </div>
-                    </div>
-                </div>
+                        )
+                    )
+                    :
+                    <h3>Tidak Ada Pesanan</h3>
+                }
             </div>
-
-            <div className="row item-section">
-                <div className="col">
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="row d-flex align-items-center">
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <p className="item-number">2</p>
-                                </div>
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/portfolio/portfolio-2.jpg"})`}}></div>
-                                </div>
-                                <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <p className="item-name">Nama Barang</p>
-                                    <p className="item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores pariatur odit omnis recusandae suscipit soluta ea voluptas distinctio maiores? Quisquam, necessitatibus aut est nihil iste illum placeat ea ab harum?</p>
-                                    <p className="item-price">Rp. 20.000</p>
-                                    <p className="item-unit">2 Lusin</p>
-                                </div>
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <p className="item-status">Status:</p>
-                                    <p className="item-tracker">Penjahitan</p>
-                                    <Links className="detail-btn" to="/products/product-detail">
-                                        <span>Detail</span>
-                                    </Links>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="row item-section">
-                <div className="col">
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="row d-flex align-items-center">
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <p className="item-number">3</p>
-                                </div>
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/portfolio/portfolio-3.jpg"})`}}></div>
-                                </div>
-                                <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <p className="item-name">Nama Barang</p>
-                                    <p className="item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores pariatur odit omnis recusandae suscipit soluta ea voluptas distinctio maiores? Quisquam, necessitatibus aut est nihil iste illum placeat ea ab harum?</p>
-                                    <p className="item-price">Rp. 20.000</p>
-                                    <p className="item-unit">2 Lusin</p>
-                                </div>
-                                <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <p className="item-status">Status:</p>
-                                    <p className="item-tracker">Penjahitan</p>
-                                    <Links className="detail-btn" to="/products/product-detail">
-                                        <span>Detail</span>
-                                    </Links>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
-export default Card;
+Card.propTypes = {
+    classes: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => {
+    const { orders } = state.orderPage;
+    return {
+        orders
+    };
+}
+
+const connectedCardPage = withRouter(connect(mapStateToProps, '', '', {
+    pure: false
+}) (withStyles(styles)(Card)));
+
+export { connectedCardPage as Card };

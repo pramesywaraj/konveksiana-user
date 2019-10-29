@@ -2,8 +2,13 @@ import axios from 'axios';
 import config from './config';
 
 export const orderService = {
+    // Landing Order
     post,
-    getAllMaterials
+    getAllCategories,
+    getAllMaterials,
+
+    // User Order
+    getAllOrders
 }
 
 function post(apiEndpoint, payload) {
@@ -18,7 +23,27 @@ function post(apiEndpoint, payload) {
 
 }
 
+function getAllCategories(apiEndpoint) {
+    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            return err;
+        });
+}
+
 function getAllMaterials(apiEndpoint) {
+    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            return err;
+        });
+}
+
+function getAllOrders(apiEndpoint) {
     return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
         .then((response) => {
             return response;

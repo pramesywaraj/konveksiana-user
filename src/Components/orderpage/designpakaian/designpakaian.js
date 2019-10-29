@@ -47,6 +47,7 @@ class Designpakaian extends Component {
     if(localStorage.getItem('auth')) {
         const { dispatch } = this.props;
         dispatch(orderActions.getAllMaterial());
+        dispatch(orderActions.getAllCategory());
         // history.push('/dashboard');
       }
   }
@@ -197,9 +198,8 @@ class Designpakaian extends Component {
   )}
 
   categoryData = (e) => {
-    var type = e.target.value;
-    localStorage.category = e.target.value;
-    console.log(type, " was selected as Convection Type");
+    localStorage['category'] = e.target.value;
+    localStorage['categoryName'] = e.target.name;
     this.setState(state => ({
       ...state,
       form: {
@@ -286,8 +286,7 @@ class Designpakaian extends Component {
   }
 
   render(){
-  const { materials } = this.props;
-  console.log("Cek JSX", materials);
+  const { categories, materials } = this.props;
 
   return (
     <div className="design-pakaian">
@@ -333,9 +332,16 @@ class Designpakaian extends Component {
                   Kategori Produk
                 </MDBDropdownToggle>
                 <MDBDropdownMenu basic onClick={this.categoryData}>
-                  <MDBDropdownItem value="Kaos">Kaos</MDBDropdownItem>
-                  <MDBDropdownItem value="Seragam">Seragam</MDBDropdownItem>
-                  <MDBDropdownItem value="Topi">Topi</MDBDropdownItem>
+                  {categories != null ? categories.map(
+                          category => (
+                              <MDBDropdownItem key={category._id} name={category.name} value={category._id}>
+                                {category.name}
+                              </MDBDropdownItem>
+                          )
+                      )
+                      :
+                      <MDBDropdownItem value="-">Tidak Ada Kategori</MDBDropdownItem>
+                    }
                 </MDBDropdownMenu>
               </MDBDropdown>
               <div className="grey-text">
@@ -346,7 +352,7 @@ class Designpakaian extends Component {
                   validate
                   error="wrong"
                   success="right"
-                  value= {localStorage.category || ' '}
+                  value= {localStorage.categoryName || ' '}
                   disabled
                 />
               </div>
@@ -432,24 +438,6 @@ class Designpakaian extends Component {
             </form>
           </MDBCol>
 
-          {/* <MDBCol sm="12" md="6">
-            <form>
-              <div className="grey-text">
-                <MDBInput
-                  label="Harga/pcs"
-                  group
-                  type="number"
-                  validate
-                  error="wrong"
-                  success="right"
-                  value= {this.state.form.itemPrice}
-                  onChange={this.totalOrderData && this.materialData}
-                  disabled
-                />
-              </div>              
-            </form>
-          </MDBCol> */}
-
           <MDBCol sm="12" md="6">
             <form>
               <div className="grey-text">
@@ -524,8 +512,9 @@ Designpakaian.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { materials } = state.orderPage;
+  const { categories, materials } = state.orderPage;
   return {
+      categories,
       materials
   };
 }

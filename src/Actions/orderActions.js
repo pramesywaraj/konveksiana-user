@@ -2,9 +2,16 @@ import { orderService } from '../Services/orderService';
 import { history } from '../Helpers/history';
 
 export const orderActions = {
+    // Landing Order
     createOrder,
-    getAllMaterial
+    getAllCategory,
+    getAllMaterial,
+
+    // User Order
+    getAllOrder
 };
+
+// Landing Order
 
 function createOrder(data) {
     return dispatch => {
@@ -36,6 +43,26 @@ function createOrder(data) {
     };
 }
 
+function getAllCategory() {
+    return dispatch => {
+        let apiEndpoint = 'category';
+
+        orderService.getAllCategories(apiEndpoint).then(
+            (res) => {
+                // console.log("Cek Material Data : ", res.data.material);
+                let categories = res.data.category;
+                if (res.data.status === 200) {
+                    dispatch(getCategoryList(categories));
+                }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    };
+}
+
 function getAllMaterial() {
     return dispatch => {
         let apiEndpoint = 'material';
@@ -56,17 +83,6 @@ function getAllMaterial() {
     };
 }
 
-// function logout() {
-//     return dispatch => {
-//         alert('Anda Keluar dari Aplikasi');
-//         localStorage.removeItem('token');
-//         localStorage.removeItem('auth');
-//         localStorage.removeItem('user');
-//         dispatch(logoutUser());
-//         history.push('/login');
-//     }
-// }
-
 export function createOrderSuccess(data) {
     return {
         type: "CREATE_ORDER_SUCCESS",
@@ -79,9 +95,45 @@ export function createOrderFailed() {
     }
 }
 
+export function getCategoryList(categories) {
+    return {
+        type: 'FETCHED_ALL_CATEGORIES',
+        categories: categories,
+    };
+}
+
 export function getMaterialList(materials) {
     return {
         type: 'FETCHED_ALL_MATERIALS',
         materials: materials,
+    };
+}
+
+// User Order
+
+function getAllOrder() {
+    return dispatch => {
+        let apiEndpoint = 'order';
+
+        orderService.getAllOrders(apiEndpoint).then(
+            (res) => {
+                // console.log("Cek Material Data : ", res.data.material);
+                let orders = res.data.order;
+                if (res.data.status === 200) {
+                    dispatch(getOrderList(orders));
+                }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    };
+}
+
+export function getOrderList(orders) {
+    return {
+        type: 'FETCHED_ALL_ORDERS',
+        orders: orders,
     };
 }

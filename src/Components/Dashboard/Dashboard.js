@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 // Component
-import Card from './Card/card'
+import { Card } from './Card/card'
 
 
 const styles = theme => ({
