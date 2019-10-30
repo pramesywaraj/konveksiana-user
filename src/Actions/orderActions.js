@@ -1,5 +1,6 @@
 import { orderService } from '../Services/orderService';
 import { history } from '../Helpers/history';
+import config from '../Services/config';
 
 export const orderActions = {
     // Landing Order
@@ -17,7 +18,13 @@ function createOrder(data) {
     return dispatch => {
         let apiEndpoint = 'order';
         let payload = new FormData();
-        payload.append('orderImage', data.orderImage);
+        // payload.append('orderImage', data.orderImage);
+
+        // console.log("Cek Image : ", data.orderImage);
+        for (const file of data.orderImage) {
+            payload.append('orderImage', file)
+        }
+
         payload.append('userId', data.userId);
         payload.append('materialId', data.materialId);
         // payload.append('materialId', '5d79930c8c4a882f44b1b0fb');
@@ -29,6 +36,14 @@ function createOrder(data) {
 
         console.log("Cek Data : ", payload);
 
+        // fetch(config.baseUrl + apiEndpoint, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        //         'Content-Type' : 'multipart/form-data; boundary=----WebKitFormBoundaryHl8DZV3dBSj0qBVe'
+        //     },
+        //     body: payload
+        // })
         orderService.post(apiEndpoint, payload)
             .then(res => {
                 if(res.data.status === 200) {

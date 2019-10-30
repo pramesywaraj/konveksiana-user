@@ -73,8 +73,9 @@ function getOptions(type) {
     if(localStorage.getItem('token')){
         options.headers = { 
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
-            'Content-Type' : 'multipart/form-data'
+            'Content-Type' : 'multipart/form-data; boundary=----WebKitFormBoundaryHl8DZV3dBSj0qBVe'
         }
+        delete options.headers['Content-Type'];
     }
     
     return options;
