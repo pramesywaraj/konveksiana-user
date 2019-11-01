@@ -32,32 +32,11 @@ class Tabledata extends Component {
       ],
       data: [
         {
-          name: 'Brute Armor',
+          name: this.props.orders.color,
           status: 'Penyablonan',
           estimate: 8,
           unit: 36,
           price: '36.000.000',
-        },
-        {
-          name: 'Curse Helmet',
-          status: 'Pemaketan',
-          estimate: 16,
-          unit: 12,
-          price: '18.000.000',
-        },
-        {
-          name: 'Oracle',
-          status: 'Penjahitan',
-          estimate: 6,
-          unit: 8,
-          price: '16.000.000',
-        },
-        {
-          name: 'Though Boots',
-          status: 'Pengiriman',
-          estimate: 4,
-          unit: 12,
-          price: '6.000.000',
         },
       ],
   }
@@ -85,6 +64,8 @@ class Tabledata extends Component {
 
   render(){
     const { orders } = this.props;
+    console.log("test console : ", orders)
+
     return (
       <div className="tabledata-order">
           <div className="row item-section">
@@ -94,7 +75,7 @@ class Tabledata extends Component {
                           <MaterialTable
                               title="Daftar Pesanan"
                               columns={this.state.columns}
-                              data={this.state.data}
+                              data={orders}
                           />
                       </div>
                   </div>

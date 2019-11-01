@@ -36,9 +36,13 @@ class Designpakaian extends Component {
         city: '',
         detailAddress: '',
         frontDesign: [],
+        front: [],
         backDesign: [],
+        back: [],
         leftDesign: [],
+        left: [],
         rightDesign: [],
+        right: [],
       }
     }
   }
@@ -65,7 +69,7 @@ class Designpakaian extends Component {
       let user = JSON.parse(localStorage.user);
 
       let data = {
-        orderImage: [this.state.form.frontDesign, this.state.form.backDesign, this.state.form.leftDesign, this.state.form.rightDesign],
+        orderImage: [this.state.form.front, this.state.form.back, this.state.form.left, this.state.form.right],
         userId: user._id,
         materialId: this.state.form.materialType,
         color: this.state.form.color,
@@ -75,6 +79,7 @@ class Designpakaian extends Component {
         city: this.state.form.city,
         detailAddress: this.state.form.detailAddress,
       }
+      console.log("Test Data : ", data.orderImage)
 
       // eslint-disable-next-line no-unused-vars
       const { dispatch } = this.props;
@@ -95,7 +100,8 @@ class Designpakaian extends Component {
           ...state,
           form: {
             ...state.form,
-            frontDesign: [reader.result]
+            frontDesign: [reader.result],
+            front: front
           }
         }));
       },
@@ -115,7 +121,8 @@ class Designpakaian extends Component {
           ...state,
           form: {
             ...state.form,
-            backDesign: [reader.result]
+            backDesign: [reader.result],
+            back: back
           }
         }));
       },
@@ -135,7 +142,8 @@ class Designpakaian extends Component {
           ...state,
           form: {
             ...state.form,
-            leftDesign: [reader.result]
+            leftDesign: [reader.result],
+            left: left
           }
         }));
       },
@@ -155,7 +163,8 @@ class Designpakaian extends Component {
           ...state,
           form: {
             ...state.form,
-            rightDesign: [reader.result]
+            rightDesign: [reader.result],
+            right: right
           }
         }));
       },

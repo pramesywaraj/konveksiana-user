@@ -40,7 +40,7 @@ function createOrder(data) {
         //     method: 'POST',
         //     headers: {
         //         'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        //         'Content-Type' : 'multipart/form-data; boundary=----WebKitFormBoundaryHl8DZV3dBSj0qBVe'
+        //         // 'Content-Type' : 'multipart/form-data; boundary=----WebKitFormBoundaryHl8DZV3dBSj0qBVe'
         //     },
         //     body: payload
         // })

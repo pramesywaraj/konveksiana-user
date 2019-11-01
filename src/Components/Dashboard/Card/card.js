@@ -47,6 +47,18 @@ class Card extends Component {
         return i+=1;
     }
 
+    gotoDetail(){
+        // navigate with data react --> Check Stack Overflow
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+        this.props.router.push({
+            pathname: '/products/product-detail',
+            state: {
+              id: 7,
+              color: 'green'
+            }
+          })
+    }
+
     render(){
         const { orders } = this.props;
         return (
@@ -54,18 +66,18 @@ class Card extends Component {
                 <h2 className="section-title">Dashboard</h2>
 
                 {orders != null ? orders.map(
-                        order => (
+                        (order, index) => (
                             <div className="row item-section">
                                 <div className="col">
                                     <div className="card">
                                         <div className="card-body">
                                             <div className="row d-flex align-items-center">
                                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                                    <p className="item-number">1</p>
+                                                    <p className="item-number">{index + 1}</p>
                                                 </div>
                                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/portfolio/portfolio-1.jpg"})`}}></div>
-                                                    {/* <img src={order.photourls} alt=""/> */}
+                                                    <div className="img-size" style={{ backgroundImage: `url(${"https://endpoint.konveksiana.id/" + order.photoUrls[0]})`}}></div>
+                                                    {/* <img className="img-size" src={"https://endpoint.konveksiana.id/" + order.photourls} alt=""/> */}
                                                 </div>
                                                 <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                                     <p className="item-name">{order.user.name}</p>
