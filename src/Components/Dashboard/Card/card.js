@@ -47,16 +47,18 @@ class Card extends Component {
         return i+=1;
     }
 
-    gotoDetail(){
+    gotoDetail(data){
+        // const { dispatch } = this.props;
+        // dispatch(orderActions.getOrderById(data));
         // navigate with data react --> Check Stack Overflow
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-        this.props.router.push({
-            pathname: '/products/product-detail',
-            state: {
-              id: 7,
-              color: 'green'
-            }
-          })
+        // this.props.router.push({
+        //     pathname: '/products/product-detail',
+        //     state: {
+        //       id: 7,
+        //       color: 'green'
+        //     }
+        //   })
     }
 
     render(){
@@ -76,8 +78,29 @@ class Card extends Component {
                                                     <p className="item-number">{index + 1}</p>
                                                 </div>
                                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                                    <div className="img-size" style={{ backgroundImage: `url(${"https://endpoint.konveksiana.id/" + order.photoUrls[0]})`}}></div>
-                                                    {/* <img className="img-size" src={"https://endpoint.konveksiana.id/" + order.photourls} alt=""/> */}
+                                                    {order.photoUrls[0] != null ?
+                                                        <div className="img-size" style={{ backgroundImage: `url(${"https://endpoint.konveksiana.id/" + order.photoUrls[0]})`}}></div>
+                                                    :
+                                                        [
+                                                            (order.photoUrls[1] != null ?
+                                                                <div className="img-size" style={{ backgroundImage: `url(${"https://endpoint.konveksiana.id/" + order.photoUrls[1]})`}}></div>
+                                                             :
+                                                                [
+                                                                    (order.photoUrls[2] != null ?
+                                                                        <div className="img-size" style={{ backgroundImage: `url(${"https://endpoint.konveksiana.id/" + order.photoUrls[2]})`}}></div>
+                                                                     :
+                                                                        [
+                                                                            (order.photoUrls[3] != null ?
+                                                                                <div className="img-size" style={{ backgroundImage: `url(${"https://endpoint.konveksiana.id/" + order.photoUrls[3]})`}}></div>
+                                                                             :
+                                                                                <div className="img-size" style={{ backgroundImage: `url(${"/logo-konveksiana-square.svg"})`}}></div>
+                                                                            )      
+                                                                        ]
+                                                                    )                                                
+                                                                ]
+                                                            )                                                
+                                                        ]
+                                                    }
                                                 </div>
                                                 <div className="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                                     <p className="item-name">{order.user.name}</p>
@@ -89,9 +112,10 @@ class Card extends Component {
                                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                                     <p className="item-status">Status:</p>
                                                     <p className="item-tracker">Fresh</p>
-                                                    <Links className="detail-btn" to="/products/product-detail">
+                                                    {/* <Links className="detail-btn" to="/products/product-detail"> */}
+                                                    <p className="detail-btn" onClick={this.gotoDetail(order)}>
                                                         <span>Detail</span>
-                                                    </Links>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>

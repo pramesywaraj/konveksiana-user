@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect, browserHistory  } from 'react-router-dom';
 import { history } from './Helpers';
 import { PrivateRoute } from './Components/PrivateRoute';
 
@@ -13,7 +13,7 @@ import { Signup } from './Components/Signup/Signup';
 import { Dashboard } from './Components/Dashboard/Dashboard';
 import { Order } from './Components/Order/Order';
 import { Product } from './Components/product/product';
-import ProductDetail from './Components/product/productdetail/productdetail';
+import { ProductDetail } from './Components/product/productdetail/productdetail';
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <PrivateRoute exact path='/dashboard' component={Dashboard}/>
           <PrivateRoute exact path='/user-order' component={Order}/>          
           <PrivateRoute exact path='/products' component={Product}/>          
-          <PrivateRoute exact path='/products/product-detail' component={ProductDetail}/>          
+          <PrivateRoute exact path='/products/product-detail/:id' component={ProductDetail}/>          
         </Switch>
       </Router>
     </div>

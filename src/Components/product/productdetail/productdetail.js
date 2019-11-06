@@ -1,9 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, {Component} from 'react';
+import { history } from '../../../Helpers/history';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { orderActions } from '../../../Actions/orderActions';
+import { withStyles } from '@material-ui/core/styles';
 
 // Component
 import './productdetail.css';
+
+const styles = theme => ({
+    '@global': {
+      body: {
+        backgroundColor: theme.palette.common.white,
+      },
+    },
+});
 
 class ProductDetail extends Component {
 
@@ -12,6 +26,7 @@ class ProductDetail extends Component {
     }
 
     render(){
+        // let productdetail = this.props.trabalhos.filter( t => t.id == this.props.params.id)[0];
         return (
             <div className="product-detail-list">
                 <h2 className="section-title">Product Detail</h2>
@@ -118,4 +133,19 @@ class ProductDetail extends Component {
     }
 };
 
-export default ProductDetail;
+ProductDetail.propTypes = {
+    classes: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => {
+    const { orders } = state.orderPage;
+    return {
+        orders
+    };
+}
+
+const connectedProductDetailPage = withRouter(connect(mapStateToProps, '', '', {
+    pure: false
+}) (withStyles(styles)(ProductDetail)));
+
+export { connectedProductDetailPage as ProductDetail };

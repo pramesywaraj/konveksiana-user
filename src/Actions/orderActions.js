@@ -9,7 +9,8 @@ export const orderActions = {
     getAllMaterial,
 
     // User Order
-    getAllOrder
+    getAllOrder,
+    getOrderById
 };
 
 // Landing Order
@@ -126,14 +127,22 @@ export function getMaterialList(materials) {
 
 // User Order
 
+let ordersData = [];
+
 function getAllOrder() {
     return dispatch => {
-        let apiEndpoint = 'order';
+        let user = JSON.parse(localStorage.user);
+
+        let apiEndpoint = 'order/user/' + user._id;
+        console.log("Cek API : ", apiEndpoint);
 
         orderService.getAllOrders(apiEndpoint).then(
             (res) => {
                 // console.log("Cek Material Data : ", res.data.material);
                 let orders = res.data.order;
+                ordersData.data = res.data.order;
+                console.log("Check Order Data : ", ordersData)
+
                 if (res.data.status === 200) {
                     dispatch(getOrderList(orders));
                 }
@@ -146,9 +155,24 @@ function getAllOrder() {
     };
 }
 
+export function getOrderById(data){
+    return dispatch => {
+        dispatch(getOrderListDataById(data));
+        console.log("Check Data : ", data)
+        return (data === undefined) ? ordersData.data[0] : ordersData.data.find(x => x.data === data);    
+    }
+};
+
 export function getOrderList(orders) {
     return {
         type: 'FETCHED_ALL_ORDERS',
         orders: orders,
+    };
+}
+
+export function getOrderListDataById(orders) {
+    return {
+        type: 'FETCHED_ORDERS_BY_ID',
+        ordersData: ordersData,
     };
 }

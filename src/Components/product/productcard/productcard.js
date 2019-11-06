@@ -52,6 +52,9 @@ class ProductCard extends Component {
         console.log("Check ID : ", data);
     }
 
+    photoCheckBack(){
+    }
+
     render(){
         const { orders } = this.props;
         return (
@@ -64,7 +67,29 @@ class ProductCard extends Component {
                             <div className="col-4">
                                 <div className="card text-center mb-5">
                                     <div className="card-body">
-                                        <img className="card-img-top" src="/assets/portfolio/portfolio-1.jpg" alt="Card image cap" />
+                                        {order.photoUrls[0] != null ?
+                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + order.photoUrls[0]} alt="Card image cap" />
+                                        :
+                                            [
+                                                (order.photoUrls[1] != null ?
+                                                    <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + order.photoUrls[0]} alt="Card image cap" />
+                                                :
+                                                    [
+                                                        (order.photoUrls[2] != null ?
+                                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + order.photoUrls[0]} alt="Card image cap" />
+                                                        :
+                                                            [
+                                                                (order.photoUrls[3] != null ?
+                                                                    <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + order.photoUrls[0]} alt="Card image cap" />
+                                                                :
+                                                                    <img className="card-img-top" src="/logo-konveksiana-square.svg" alt="Card image cap" />
+                                                                )      
+                                                            ]
+                                                        )                                                
+                                                    ]
+                                                )                                                
+                                            ]
+                                        }
                                         <h5 className="card-title mt-3">{order.user.name}</h5>
                                         <p className="card-text">{order.description}</p>
                                         <p>Status : &nbsp;

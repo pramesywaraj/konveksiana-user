@@ -12,6 +12,7 @@ const initialState = auth ? {
 
     // User Order
     orders: [],
+    ordersData: []
 } : {};
 
 export function orderPage(state = initialState, action) {
@@ -20,6 +21,12 @@ export function orderPage(state = initialState, action) {
             return {
                 ...state,
                 orders: action.orders,
+                loading: false
+            };
+        case 'FETCHED_ORDERS_BY_ID':
+            return {
+                ...state,
+                ordersData: action.ordersData,
                 loading: false
             };
         case 'FETCHED_ALL_CATEGORIES':

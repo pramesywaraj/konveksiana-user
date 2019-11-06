@@ -9,6 +9,11 @@
     text-decoration: underline;
 }
 
+.product-list .card-img-top{
+    max-height: 175px;
+    max-width: 250px;
+}
+
 .product-list .card{
     text-align: center;
 }
