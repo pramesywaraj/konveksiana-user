@@ -1,5 +1,6 @@
 import { orderService } from '../Services/orderService';
 import { history } from '../Helpers/history';
+import moment from 'moment';
 import config from '../Services/config';
 
 export const orderActions = {
@@ -160,7 +161,7 @@ export function getOrderById(data){
                 // console.log("Cek Material Data : ", res.data.material);
                 let orders = res.data.order;
                 ordersData = res.data.order;
-                console.log("Check Order Data : ", ordersData)
+                // console.log("Check Order Data : ", ordersData)
 
                 if (res.data.status === 200) {
                     dispatch(getOrderListDataById(orders));

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import MaterialTable from 'material-table';
 import { history } from '../../../../Helpers/history';
 import PropTypes from 'prop-types';
@@ -7,7 +8,8 @@ import { withRouter } from 'react-router-dom';
 import { orderActions } from '../../../../Actions/orderActions';
 import { withStyles } from '@material-ui/core/styles';
 
-// Component
+// Componenimport moment = require('moment');
+
 import './tabledata.css';
 
 const styles = theme => ({
@@ -25,27 +27,20 @@ class Tabledata extends Component {
 
     this.state = {
       columns: [
-        { title: 'Nama Pemesanan', field: 'city' },
-        { title: 'Status', field: 'quantity' },
-        { title: 'Estimasi Pengerjaan (Hari)', field: 'color' },
+        { title: 'Nama Pemesanan', field: 'user.name' },
+        { title: 'Status', field: 'orderStep' },
+        { title: 'Tanggal Dibuat', field: 'date' },
+        { title: 'Material', field: 'material.name' },
         { title: 'Jumlah Pesanan (pcs)', field: 'quantity' },
-        { title: 'Harga (Rp)', field: 'weight' },
-      ],
-      data: [
-        {
-          id: 2,
-          name: 'lala',
-          status: 'Penyablonan',
-          estimate: 8,
-          unit: 36,
-          price: '36.000.000',
-        },
+        { title: 'Berat (Kg)', field: 'weight' },
+        { title: 'Harga (Rp)', field: 'productPrice' },
+        { title: 'Alamat', field: 'detailAddress' },
       ],
     }
   }
 
   componentDidMount() {
-  if(localStorage.getItem('auth')) {
+    if(localStorage.getItem('auth')) {
       const { dispatch } = this.props;
       dispatch(orderActions.getAllOrder());
       // history.push('/dashboard');
@@ -64,8 +59,19 @@ class Tabledata extends Component {
       console.log("Check ID : ", data);
   }
 
+  formatPrice(value) {
+      let val = (value/1)
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
+
   render(){
     const { orders } = this.props;
+    // const { moment(a.created_at).format("MM DD YYYY") } = orders
+
+    for (let i = 0; i < orders.length; i++) {
+      orders[i].date = moment(orders[i].createdAt).format("DD MMMM YYYY");
+    }
+
     console.log("test console : ", orders)
 
     return (
