@@ -70,10 +70,11 @@
 
 .dash-card .detail-btn{
     display: block;
+    border: none;
     background-color: #0099CC;
     color: aliceblue;
     border-radius: 32px;
-    padding: 5px;
+    padding: 5px 20px;
     transition: 0.5s;
 }
 
@@ -82,7 +83,7 @@
     border: solid 1px #0099CC;
     color: #0099CC;
     border-radius: 32px;
-    padding: 5px;
+    padding: 5px 20px;
     transition: 0.5s;
 }
 

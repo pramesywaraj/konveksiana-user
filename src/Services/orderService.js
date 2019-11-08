@@ -8,7 +8,8 @@ export const orderService = {
     getAllMaterials,
 
     // User Order
-    getAllOrders
+    getAllOrders,
+    getOrderById
 }
 
 function post(apiEndpoint, payload) {
@@ -44,6 +45,16 @@ function getAllMaterials(apiEndpoint) {
 }
 
 function getAllOrders(apiEndpoint) {
+    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            return err;
+        });
+}
+
+function getOrderById(apiEndpoint) {
     return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
         .then((response) => {
             return response;

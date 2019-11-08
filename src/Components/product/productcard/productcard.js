@@ -52,7 +52,14 @@ class ProductCard extends Component {
         console.log("Check ID : ", data);
     }
 
-    photoCheckBack(){
+    gotoDetail(data){
+        let orderById = data;
+
+        // eslint-disable-next-line no-unused-vars
+        const { dispatch } = this.props;
+        if(orderById) {
+          dispatch(orderActions.getOrderById(orderById));
+        }
     }
 
     render(){
@@ -64,9 +71,9 @@ class ProductCard extends Component {
 
                 {orders != null ? orders.map(
                         order => (
-                            <div className="col-4">
+                            <div className="col-4" key={order._id}>
                                 <div className="card text-center mb-5">
-                                    <div className="card-body">
+                                    <div className="card-body" key={order._id}>
                                         {order.photoUrls[0] != null ?
                                             <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + order.photoUrls[0]} alt="Card image cap" />
                                         :
@@ -95,7 +102,9 @@ class ProductCard extends Component {
                                         <p>Status : &nbsp;
                                             <span className="card-status">Fresh</span>
                                         </p>
-                                        <Links className="btn btn-primary btn-sm" to="/products/product-detail">Detail</Links>
+                                        <button className="btn btn-primary btn-sm" onClick={() => this.gotoDetail(order)}>
+                                            <span>Detail</span>
+                                        </button>                                        
                                     </div>
                                     <div className="card-footer text-left text-muted">
                                         <p>Tanggal Pemesanan : &nbsp; 

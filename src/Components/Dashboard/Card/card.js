@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 // Component
 import './card.css';
+import { Link } from '@material-ui/core';
 
 const styles = theme => ({
     '@global': {
@@ -48,17 +49,18 @@ class Card extends Component {
     }
 
     gotoDetail(data){
-        // const { dispatch } = this.props;
-        // dispatch(orderActions.getOrderById(data));
-        // navigate with data react --> Check Stack Overflow
-        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-        // this.props.router.push({
-        //     pathname: '/products/product-detail',
-        //     state: {
-        //       id: 7,
-        //       color: 'green'
-        //     }
-        //   })
+        let orderById = data;
+
+        // eslint-disable-next-line no-unused-vars
+        const { dispatch } = this.props;
+        if(orderById) {
+          dispatch(orderActions.getOrderById(orderById));
+        }
+    }
+
+    formatPrice(value) {
+        let val = (value/1)
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
 
     render(){
@@ -69,7 +71,7 @@ class Card extends Component {
 
                 {orders != null ? orders.map(
                         (order, index) => (
-                            <div className="row item-section">
+                            <div className="row item-section" key={order._id}>
                                 <div className="col">
                                     <div className="card">
                                         <div className="card-body">
@@ -106,16 +108,19 @@ class Card extends Component {
                                                     <p className="item-name">{order.user.name}</p>
                                                     <p className="item-desc">{order.description}</p>
                                                     <p className="item-price">{order.color}</p>
-                                                    <p className="item-price">{order.productPrice}</p>
+                                                    <p className="item-price">Rp. {this.formatPrice(order.productPrice)}</p>
                                                     <p className="item-unit">{order.quantity} pcs</p>
                                                 </div>
                                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                                     <p className="item-status">Status:</p>
-                                                    <p className="item-tracker">Fresh</p>
-                                                    {/* <Links className="detail-btn" to="/products/product-detail"> */}
-                                                    <p className="detail-btn" onClick={this.gotoDetail(order)}>
+                                                    {order.orderStep.length !== 0?
+                                                        <p className="item-tracker">{order.orderStep[0]}</p>
+                                                        :
+                                                        <p className="item-tracker">Fresh</p>
+                                                    }
+                                                    <button className="detail-btn" onClick={() => this.gotoDetail(order)}>
                                                         <span>Detail</span>
-                                                    </p>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

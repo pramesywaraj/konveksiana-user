@@ -21,25 +21,27 @@ const styles = theme => ({
 class Tabledata extends Component {
   constructor(props) {
     super(props);
+    // const { orders } = this.props;
 
     this.state = {
       columns: [
-        { title: 'Nama Pesanan', field: 'name' },
-        { title: 'Status', field: 'status' },
-        { title: 'Estimasi Pengerjaan (Hari)', field: 'estimate', type: 'numeric' },
-        { title: 'Jumlah Pesanan (pcs)', field: 'unit', type: 'numeric' },
-        { title: 'Harga (Rp)', field: 'price', type: 'numeric' },
+        { title: 'Nama Pemesanan', field: 'city' },
+        { title: 'Status', field: 'quantity' },
+        { title: 'Estimasi Pengerjaan (Hari)', field: 'color' },
+        { title: 'Jumlah Pesanan (pcs)', field: 'quantity' },
+        { title: 'Harga (Rp)', field: 'weight' },
       ],
       data: [
         {
-          name: this.props.orders.color,
+          id: 2,
+          name: 'lala',
           status: 'Penyablonan',
           estimate: 8,
           unit: 36,
           price: '36.000.000',
         },
       ],
-  }
+    }
   }
 
   componentDidMount() {
@@ -75,6 +77,7 @@ class Tabledata extends Component {
                           <MaterialTable
                               title="Daftar Pesanan"
                               columns={this.state.columns}
+                              key={orders._id}
                               data={orders}
                           />
                       </div>
