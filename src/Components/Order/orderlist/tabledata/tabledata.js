@@ -35,6 +35,7 @@ class Tabledata extends Component {
         { title: 'Berat (Kg)', field: 'weight' },
         { title: 'Harga (Rp)', field: 'productPrice' },
         { title: 'Alamat', field: 'detailAddress' },
+        { title: 'Action', field: 'btn' },
       ],
     }
   }
@@ -64,12 +65,27 @@ class Tabledata extends Component {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
+  gotoDetail(data){
+    let orderById = data;
+
+    // eslint-disable-next-line no-unused-vars
+    const { dispatch } = this.props;
+    if(orderById) {
+      dispatch(orderActions.getOrderById(orderById));
+    }
+  }
+
   render(){
     const { orders } = this.props;
     // const { moment(a.created_at).format("MM DD YYYY") } = orders
 
     for (let i = 0; i < orders.length; i++) {
       orders[i].date = moment(orders[i].createdAt).format("DD MMMM YYYY");
+      orders[i].btn = (
+        <button className="btn btn-primary btn-sm" onClick={() => this.gotoDetail(orders[i])}>
+            <span>Detail</span>
+        </button>                                        
+      )
     }
 
     console.log("test console : ", orders)
@@ -85,6 +101,7 @@ class Tabledata extends Component {
                               columns={this.state.columns}
                               key={orders._id}
                               data={orders}
+                              onClick={() => this.getcheck(orders)}
                           />
                       </div>
                   </div>

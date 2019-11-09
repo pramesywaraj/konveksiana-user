@@ -153,17 +153,18 @@ export function getOrderById(data){
         let order = data;
 
         let apiEndpoint = 'order/id/' + order._id;
-        console.log("Cek API : ", apiEndpoint);
-        console.log("check Data : ", order);
+        // console.log("Cek API : ", apiEndpoint);
+        // console.log("check Data : ", order);
 
         orderService.getAllOrders(apiEndpoint).then(
             (res) => {
                 // console.log("Cek Material Data : ", res.data.material);
                 let orders = res.data.order;
-                ordersData = res.data.order;
-                // console.log("Check Order Data : ", ordersData)
+                // localStorage.orderData = JSON.stringify(ordersData);
+                console.log("Check Order Data : ", localStorage.ordersData);
 
                 if (res.data.status === 200) {
+                    localStorage.setItem('ordersData', JSON.stringify(orders));
                     dispatch(getOrderListDataById(orders));
                     history.push('/products/product-detail/'+ orders._id);
                 }
@@ -186,6 +187,6 @@ export function getOrderList(orders) {
 export function getOrderListDataById(orders) {
     return {
         type: 'FETCHED_ORDERS_BY_ID',
-        ordersData: ordersData,
+        ordersData: orders,
     };
 }

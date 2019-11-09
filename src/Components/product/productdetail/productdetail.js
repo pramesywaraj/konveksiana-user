@@ -40,6 +40,8 @@ class ProductDetail extends Component {
 
     render(){
         const { ordersData } = this.props;
+        let ordersDataById = JSON.parse(localStorage.getItem('ordersData'));
+
         return (
             <div className="product-detail-list">
                 <h2 className="section-title">Product Detail</h2>
@@ -50,32 +52,32 @@ class ProductDetail extends Component {
                                 <div className="row">
                                     <div className="col">
                                         <p className="section-sub-title">Tampak Depan</p>
-                                        {ordersData.photoUrls[0] != null?
-                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + ordersData.photoUrls[0]} alt="Card image cap" />
+                                        {ordersDataById.photoUrls[0] != null?
+                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + ordersDataById.photoUrls[0]} alt="Card image cap" />
                                             :
                                             <img className="card-img-top" src="/logo-konveksiana-square.svg" alt="Card image cap" />
                                         }
                                     </div>
                                     <div className="col">
                                         <p className="section-sub-title">Tampak Belakang</p>
-                                        {ordersData.photoUrls[1] != null?
-                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + ordersData.photoUrls[1]} alt="Card image cap" />
+                                        {ordersDataById.photoUrls[1] != null?
+                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + ordersDataById.photoUrls[1]} alt="Card image cap" />
                                             :
                                             <img className="card-img-top" src="/logo-konveksiana-square.svg" alt="Card image cap" />
                                         }
                                     </div>
                                     <div className="col">
                                         <p className="section-sub-title">Tampak Kiri</p>
-                                        {ordersData.photoUrls[2] != null?
-                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + ordersData.photoUrls[2]} alt="Card image cap" />
+                                        {ordersDataById.photoUrls[2] != null?
+                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + ordersDataById.photoUrls[2]} alt="Card image cap" />
                                             :
                                             <img className="card-img-top" src="/logo-konveksiana-square.svg" alt="Card image cap" />
                                         }
                                     </div>
                                     <div className="col">
                                         <p className="section-sub-title">Tampak Kanan</p>
-                                        {ordersData.photoUrls[3] != null?
-                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + ordersData.photoUrls[3]} alt="Card image cap" />
+                                        {ordersDataById.photoUrls[3] != null?
+                                            <img className="card-img-top" src={"https://endpoint.konveksiana.id/" + ordersDataById.photoUrls[3]} alt="Card image cap" />
                                             :
                                             <img className="card-img-top" src="/logo-konveksiana-square.svg" alt="Card image cap" />
                                         }
@@ -88,7 +90,7 @@ class ProductDetail extends Component {
                                         <p className="text-left">Tanggal Pemesanan</p>
                                     </div>
                                     <div className="col-4">
-                                        <p className="text-left">: <span className="card-date">{ moment(ordersData.createdAt).format('DD MMMM YYYY') }</span></p>
+                                        <p className="text-left">: <span className="card-date">{ moment(ordersDataById.createdAt).format('DD MMMM YYYY') }</span></p>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -96,8 +98,8 @@ class ProductDetail extends Component {
                                         <p className="text-left">Status</p>
                                     </div>
                                     <div className="col-4">
-                                        {ordersData.orderStep.length !== 0?
-                                            <p className="text-left">: <span className="card-status">{ordersData.orderStep[0]}</span></p>
+                                        {ordersDataById.orderStep.length !== 0?
+                                            <p className="text-left">: <span className="card-status">{ordersDataById.orderStep[0]}</span></p>
                                             :
                                             <p className="text-left">: <span className="card-status">Fresh</span></p>
                                         }
@@ -111,7 +113,7 @@ class ProductDetail extends Component {
                                                 <p className="text-left">Nama</p>
                                             </div>
                                             <div className="col-6">
-                                                <p className="text-left">: {ordersData.user.name}</p>
+                                                <p className="text-left">: {ordersDataById.user.name}</p>
                                             </div>
                                         </div>                                
                                         <div className="row">
@@ -127,7 +129,7 @@ class ProductDetail extends Component {
                                                 <p className="text-left">Jenis Material</p>
                                             </div>
                                             <div className="col-6">
-                                                <p className="text-left">: {ordersData.material.name}</p>
+                                                <p className="text-left">: {ordersDataById.material.name}</p>
                                             </div>
                                         </div>                                
                                         <div className="row">
@@ -135,7 +137,7 @@ class ProductDetail extends Component {
                                                 <p className="text-left">Warna</p>
                                             </div>
                                             <div className="col-6">
-                                                <p className="text-left">: {ordersData.color}</p>
+                                                <p className="text-left">: {ordersDataById.color}</p>
                                             </div>
                                         </div>                                
                                     </div>
@@ -146,7 +148,7 @@ class ProductDetail extends Component {
                                                 <p className="text-left">Address</p>
                                             </div>
                                             <div className="col-6">
-                                                <p className="text-left card-unit">: {ordersData.detailAddress}, {ordersData.city}</p>
+                                                <p className="text-left card-unit">: {ordersDataById.detailAddress}, {ordersDataById.city}</p>
                                             </div>
                                         </div>                                
                                         <div className="row">
@@ -154,7 +156,7 @@ class ProductDetail extends Component {
                                                 <p className="text-left">Jumlah Unit (pcs)</p>
                                             </div>
                                             <div className="col-6">
-                                                <p className="text-left card-unit">: {ordersData.quantity}</p>
+                                                <p className="text-left card-unit">: {ordersDataById.quantity}</p>
                                             </div>
                                         </div>                                
                                         <div className="row">
@@ -162,7 +164,7 @@ class ProductDetail extends Component {
                                                 <p className="text-left">Harga Pengiriman</p>
                                             </div>
                                             <div className="col-6">
-                                                <p className="text-left card-price">: Rp. {this.formatPrice(ordersData.shippingPrice)}</p>
+                                                <p className="text-left card-price">: Rp. {this.formatPrice(ordersDataById.shippingPrice)}</p>
                                             </div>
                                         </div>                                
                                         <div className="row">
@@ -170,7 +172,7 @@ class ProductDetail extends Component {
                                                 <p className="text-left">Harga Produk</p>
                                             </div>
                                             <div className="col-6">
-                                                <p className="text-left card-price">: Rp. {this.formatPrice(ordersData.productPrice)}</p>
+                                                <p className="text-left card-price">: Rp. {this.formatPrice(ordersDataById.productPrice)}</p>
                                             </div>
                                         </div>                                
                                     </div>
