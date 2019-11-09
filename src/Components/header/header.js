@@ -61,19 +61,19 @@ class Header extends React.Component {
                   <MDBNavbarNav className="nav-container">
                     <MDBNavItem>
                       {/* <Links to="#about">test</Links> */}
-                      <MDBNavLink className="text" to="/#status">Cek Pesanan</MDBNavLink>
+                      <MDBNavLink className="text" to="#status">Cek Pesanan</MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="/#value">Keunggulan</MDBNavLink>
+                      <MDBNavLink className="text" to="#value">Keunggulan</MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="/#about">About</MDBNavLink>
+                      <MDBNavLink className="text" to="#about">About</MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="/#portfolio">Portfolio</MDBNavLink>
+                      <MDBNavLink className="text" to="#portfolio">Portfolio</MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="/#contact">Kontak Kami</MDBNavLink>
+                      <MDBNavLink className="text" to="#contact">Kontak Kami</MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
                       <MDBNavLink className="text" to="/order"><strong>Pesan</strong></MDBNavLink>
@@ -105,8 +105,8 @@ class Header extends React.Component {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav className="nav-container">
                   <MDBNavItem>
-                  {/* <Links smooth to="/#about">test</Links> */}
-                    <MDBNavLink className="text" to="/#status">Cek Pesanan</MDBNavLink>
+                  {/* <Links smooth to="#contact">test</Links> */}
+                    <MDBNavLink className="text" to="/#status" >Cek Pesanan</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
                     <MDBNavLink className="text" to="/#value">Keunggulan</MDBNavLink>
