@@ -7,12 +7,13 @@ export const userActions = {
     logout
 };
 
-function signup(name, email, password, sex) {
+function signup(name, phone, email, password, sex) {
     return dispatch => {
         let apiEndpoint = 'user/signUp';
         let payload = {
             role: 1,
             name: name,
+            phoneNumber: phone,
             email : email,
             password : password,
             sex: sex

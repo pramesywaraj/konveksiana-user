@@ -61,6 +61,31 @@ const Klien = () => {
                             </div>
                         </div>
                     </div>
+
+                    <div className="carousel-item">
+                        <div className="row text-center">
+                            <div className="col-6 col-sm-6 col-md-3 col-lg-3 card-center card-size">
+                                <div className="mb-3">                    
+                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/client/bps-sumbar.svg"})`}}></div>
+                                </div>
+                            </div>
+                            <div className="col-6 col-sm-6 col-md-3 col-lg-3 card-center card-size">
+                                <div className="mb-3">                    
+                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/client/pt-kai.svg"})`}}></div>
+                                </div>
+                            </div>
+                            <div className="col-6 col-sm-6 col-md-3 col-lg-3 card-center card-size">
+                                <div className="mb-3">                    
+                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/client/pln.svg"})`}}></div>
+                                </div>
+                            </div>
+                            <div className="col-6 col-sm-6 col-md-3 col-lg-3 card-center card-size">
+                                <div className="mb-3">                    
+                                    <div className="img-size" style={{ backgroundImage: `url(${"/assets/client/sucofindo.svg"})`}}></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div> 
             </div>
         </div>

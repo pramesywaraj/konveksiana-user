@@ -65,48 +65,34 @@ class Tabledata extends Component {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
-  gotoDetail(data){
-    let orderById = data;
-
+  gotoCreateOrder(){
     // eslint-disable-next-line no-unused-vars
-    const { dispatch } = this.props;
-    if(orderById) {
-      dispatch(orderActions.getOrderById(orderById));
-    }
+    history.push('/order');
   }
 
   render(){
     const { orders } = this.props;
-    // const { moment(a.created_at).format("MM DD YYYY") } = orders
-
-    // let orderData = JSON.stringify(orders);
 
     for (let i = 0; i < orders.length; i++) {
       orders[i].date = moment(orders[i].createdAt).format("DD MMMM YYYY");
-      // orders[i].btn = (
-      //   <button className="btn btn-primary btn-sm" onClick={() => this.gotoDetail(orders[i])}>
-      //       <span>Detail</span>
-      //   </button>
-      // );
-      // orders[i].button = JSON.stringify(orders[i].btn);
     }
-    // localStorage.getItem('getOrderById', JSON.stringify(orders));
-
-    // console.log("test console : ", JSON.stringify(orders))
 
     return (
       <div className="tabledata-order">
           <div className="row item-section">
               <div className="col">
                   <div className="card">
-                      <div className="card-body">
-                          <MaterialTable
-                              title="Daftar Pesanan"
-                              columns={this.state.columns}
-                              key={orders._id}
-                              data={orders}
-                          />
-                      </div>
+                    <button className="detail-btn" onClick={() => this.gotoCreateOrder()}>
+                        <span>Create New Order</span>
+                    </button>
+                    <div className="card-body">
+                        <MaterialTable
+                            title="Daftar Pesanan"
+                            columns={this.state.columns}
+                            key={orders._id}
+                            data={orders}
+                        />
+                    </div>
                   </div>
               </div>
           </div>

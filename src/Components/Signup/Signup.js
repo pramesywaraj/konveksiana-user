@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { history } from '../../Helpers/history';
 import { userActions } from '../../Actions/userActions';
+import { MDBRow, MDBCol, MDBInput } from 'mdbreact';
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -75,6 +76,7 @@ class Signup extends Component {
 
         this.state = {
             name: '',
+            phone: '',
             email: '',
             password: '',
             sex: '',
@@ -99,11 +101,15 @@ class Signup extends Component {
 
     signup = (e) => {
         this.setState({ loading : true });
-        const { name, email, password, sex } = this.state;
+        const { name, phone, email, password, sex } = this.state;
         // console.log("Data : ", this.state);
         const { dispatch } = this.props;
-        if(name && email && password) {
-            dispatch(userActions.signup(name, email, password, sex));
+        if(name && phone && email && password) {
+            dispatch(userActions.signup(name, phone, email, password, sex));
+        }
+        else{
+            alert("Data Tidak Lengkap");
+            history.push('/sign-up');
         }
     }
 
@@ -125,90 +131,115 @@ class Signup extends Component {
                         </div>
                     </Links>
                     {/* <form className={classes.form} noValidate> */}
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="name"
-                            label="Nama User"
-                            name="name"
-                            autoComplete="name"
-                            autoFocus
-                            value={this.state.name}
-                            onChange={this.handleChange('name')}
+                    <MDBRow>
+                        <MDBCol sm="12" md="12">
+                            <form>
+                                <div className="grey-text">
+                                    <MDBInput
+                                    label="Name"
+                                    group
+                                    type="text"
+                                    minLength="3"
+                                    validate
+                                    error="Required"
+                                    success="Benar"
+                                    value={this.state.name}
+                                    onChange={this.handleChange('name')}
+                                    />
+                                </div>
+                            </form>
+                        </MDBCol>
+                        <MDBCol sm="12" md="12">
+                            <form>
+                                <div className="grey-text">
+                                    <MDBInput
+                                    label="Phone"
+                                    group
+                                    type="number"
+                                    min="1"
+                                    minLength="11"
+                                    maxLength="13"
+                                    validate
+                                    error="Required"
+                                    success="Benar"
+                                    value={this.state.phone}
+                                    onChange={this.handleChange('phone')}
+                                    />
+                                </div>
+                            </form>
+                        </MDBCol>
+                        <MDBCol sm="12" md="12">
+                            <form>
+                                <div className="grey-text">
+                                    <MDBInput
+                                    label="Email"
+                                    group
+                                    type="email"
+                                    validate
+                                    error="Required"
+                                    success="Benar"
+                                    value={this.state.email}
+                                    onChange={this.handleChange('email')}
+                                    />
+                                </div>
+                            </form>
+                        </MDBCol>
+                        <MDBCol sm="12" md="12">
+                            <form>
+                                <div className="grey-text">
+                                    <MDBInput
+                                    label="Password"
+                                    group
+                                    type="password"
+                                    validate
+                                    error="Required"
+                                    success="Benar"
+                                    autoComplete="current-password"
+                                    value={this.state.value}
+                                    onChange={this.handleChange('password')}
+                                    />
+                                </div>
+                            </form>
+                        </MDBCol>
+                    </MDBRow>
+                    <h5 className="text-left">Pilih Jenis Kelamin</h5>
+                    <RadioGroup aria-label="position" name="position" value={this.state.sex} onChange={this.handleChange('sex')} row>
+                        <FormControlLabel
+                        value="1"
+                        control={<Radio color="primary" />}
+                        label="Laki-laki"
+                        labelPlacement="end"
                         />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Alamat Email User"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            value={this.state.email}
-                            onChange={this.handleChange('email')}
+                        <FormControlLabel
+                        value="2"
+                        control={<Radio color="primary" />}
+                        label="Perempuan"
+                        labelPlacement="end"
                         />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            value={this.state.value}
-                            onChange={this.handleChange('password')}
+                    </RadioGroup>
 
-                        />
-
-                        <h5 className="text-left">Pilih Jenis Kelamin</h5>
-                        <RadioGroup aria-label="position" name="position" value={this.state.sex} onChange={this.handleChange('sex')} row>
-                            <FormControlLabel
-                            value="1"
-                            control={<Radio color="primary" />}
-                            label="Laki-laki"
-                            labelPlacement="end"
-                            />
-                            <FormControlLabel
-                            value="2"
-                            control={<Radio color="primary" />}
-                            label="Perempuan"
-                            labelPlacement="end"
-                            />
-                        </RadioGroup>
-
-                        {/* <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        /> */}
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="secondary"
-                            className="signup"
-                            disabled={loading}
-                            onClick={(e) => {this.signup()}} 
-                        >
-                            Daftar
-                        </Button>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            disabled={loading}
-                            onClick={(e) => {this.login()}} 
-                        >
-                            Masuk
-                        </Button>
-                    {/* </form> */}
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="secondary"
+                        className="signup"
+                        disabled={loading}
+                        onClick={(e) => {this.signup()}} 
+                    >
+                        Daftar
+                    </Button>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        disabled={loading}
+                        onClick={(e) => {this.login()}} 
+                    >
+                        Masuk
+                    </Button>
                 </div>
                 <Box m={5}>
                     <MadeWithLove />

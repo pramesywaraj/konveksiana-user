@@ -54,14 +54,14 @@
 
 .pesanan h3{
     font-family: 'Nunito', sans-serif;
-    color: #3b73c5;
-    font-size: 3em;
+    color: #5d5857;
+    font-size: 2em;
 }
 
 .pesanan .pesanan-card{
     display: none;
     background-color: white;
-    border: solid 2px #3b73c5;
+    border: solid 2px #5d5857;
     border-radius: 10px;
 }
 
@@ -90,13 +90,13 @@
 
 .pesanan input{
     width: 80vw;
-    height: 10vh;
+    height: 50px;
     border-radius: 10px;
     background: none;
-    border: none;
-    border-bottom: solid 2px #3b73c5;
-    font-size: 2em;
-    color: #3b73c5;
+    border: solid 2px #5d5857;
+    /* border-bottom: solid 2px #3b73c5; */
+    font-size: 1.2em;
+    color: #5d5857;
 }
 
 .pesanan button{
@@ -106,10 +106,10 @@
     width: 15vw;
     height: 8vh;
     background: none;
-    border: solid 2px #3b73c5;
+    border: solid 2px #5d5857;
     border-radius: 10px;
     font-size: 1em;
-    color: #3b73c5;
+    color: #5d5857;
 }
 
 .pesanan button:hover{
@@ -118,7 +118,7 @@
 
     width: 12vw;
     height: 7vh;
-    background: #3b73c5;
+    background: #5d5857;
     color: #f4f7fb;
     transition: 0.5s;
 }

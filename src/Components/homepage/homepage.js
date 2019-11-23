@@ -19,14 +19,28 @@ class Homepage extends Component {
       <div className="body">
         <Header />
         <Carousel id="promotion-banner" />
-        <Banner />          
-        <Pesanan id="status" />
-        <Value id="value" />
-        <About id="about" />
-        <Order id="order" />
-        <Klien id="client" />
-        <Portfolio id="portfolio" />
-        <Footer id="contact" />
+        <Banner />    
+        <div id="status">
+          <Pesanan />        
+        </div>      
+        <div id="value">
+          <Value />
+        </div>
+        <div id="about">
+          <About />
+        </div>
+        <div id="order">
+          <Order />
+        </div>
+        <div id="client">
+          <Klien />
+        </div>
+        <div id="portfolio">
+          <Portfolio />
+        </div>
+        <div id="contact">
+          <Footer />
+        </div>
       </div>
     );  
   }

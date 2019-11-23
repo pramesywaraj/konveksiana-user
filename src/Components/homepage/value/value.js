@@ -11,7 +11,7 @@ function Value() {
                 <div className="row">
                     <div className="col">
                         <p className="section-title">&nbsp; Apa yang Membedakan Kita? &nbsp;</p>
-                        <p className="section-subtitle text-center">Konveksiana memberikan pelayanan termudah dan harga terjangkau kepada masyarakat di Indonesia dengan sistem pemesanan daring (Online)</p>
+                        <p className="section-subtitle text-center text-desktop">Konveksiana memberikan pelayanan termudah dan harga terjangkau kepada masyarakat di Indonesia dengan sistem pemesanan daring (Online)</p>
                     </div>
                 </div>
 
@@ -49,11 +49,11 @@ function Value() {
                                 </span>        
                                 <p className="card-title">Terjamin</p>
                                 <p className="card-desc">Rekam jejak yang dimiliki oleh konveksiana dapat dilihat melalui rating yang diberikan maupun berbagai portfolio kerjasama yang telah dilakukan</p>
+                                <p className="section-subtitle text-center text-mobile py-2">Konveksiana memberikan pelayanan termudah dan harga terjangkau kepada masyarakat di Indonesia dengan sistem pemesanan daring (Online)</p>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

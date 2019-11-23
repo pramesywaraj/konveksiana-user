@@ -1,7 +1,7 @@
 import React from 'react';
+import ScrollIntoView from 'react-scroll-into-view';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBIcon } from 'mdbreact';
 import { history } from '../../Helpers/history';
-import { HashLink as Links } from 'react-router-hash-link';
 
 // Component
 import './header.css'
@@ -60,20 +60,29 @@ class Header extends React.Component {
                 <MDBCollapse isOpen={this.state.collapse} navbar>
                   <MDBNavbarNav className="nav-container">
                     <MDBNavItem>
-                      {/* <Links to="#about">test</Links> */}
-                      <MDBNavLink className="text" to="#status">Cek Pesanan</MDBNavLink>
+                      <ScrollIntoView selector="#status">
+                        <MDBNavLink className="text" to="/#status" >Cek Pesanan</MDBNavLink>
+                      </ScrollIntoView>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="#value">Keunggulan</MDBNavLink>
+                      <ScrollIntoView selector="#value">
+                        <MDBNavLink className="text" to="/#value">Keunggulan</MDBNavLink>
+                      </ScrollIntoView>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="#about">About</MDBNavLink>
+                      <ScrollIntoView selector="#about">
+                        <MDBNavLink className="text" to="/#about">About</MDBNavLink>
+                      </ScrollIntoView>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="#portfolio">Portfolio</MDBNavLink>
+                      <ScrollIntoView selector="#portfolio">
+                        <MDBNavLink className="text" to="/#portfolio">Portfolio</MDBNavLink>
+                      </ScrollIntoView>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="#contact">Kontak Kami</MDBNavLink>
+                      <ScrollIntoView selector="#contact">
+                        <MDBNavLink className="text" to="/#contact">Kontak Kami</MDBNavLink>
+                      </ScrollIntoView>
                     </MDBNavItem>
                     <MDBNavItem>
                       <MDBNavLink className="text" to="/order"><strong>Pesan</strong></MDBNavLink>
@@ -105,20 +114,29 @@ class Header extends React.Component {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav className="nav-container">
                   <MDBNavItem>
-                  {/* <Links smooth to="#contact">test</Links> */}
-                    <MDBNavLink className="text" to="/#status" >Cek Pesanan</MDBNavLink>
+                    <ScrollIntoView selector="#status">
+                      <MDBNavLink className="text" to="/#status" >Cek Pesanan</MDBNavLink>
+                    </ScrollIntoView>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink className="text" to="/#value">Keunggulan</MDBNavLink>
+                    <ScrollIntoView selector="#value">
+                      <MDBNavLink className="text" to="/#value">Keunggulan</MDBNavLink>
+                    </ScrollIntoView>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink className="text" to="/#about">About</MDBNavLink>
+                    <ScrollIntoView selector="#about">
+                      <MDBNavLink className="text" to="/#about">About</MDBNavLink>
+                    </ScrollIntoView>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink className="text" to="/#portfolio">Portfolio</MDBNavLink>
+                    <ScrollIntoView selector="#portfolio">
+                      <MDBNavLink className="text" to="/#portfolio">Portfolio</MDBNavLink>
+                    </ScrollIntoView>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink className="text" to="/#contact">Kontak Kami</MDBNavLink>
+                    <ScrollIntoView selector="#contact">
+                      <MDBNavLink className="text" to="/#contact">Kontak Kami</MDBNavLink>
+                    </ScrollIntoView>
                   </MDBNavItem>
                   <MDBNavItem>
                     <MDBNavLink className="text" to="/order"><strong>Pesan</strong></MDBNavLink>

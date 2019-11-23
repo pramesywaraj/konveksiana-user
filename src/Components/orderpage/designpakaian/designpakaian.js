@@ -31,9 +31,10 @@ class Designpakaian extends Component {
         materialType: '',
         color: '',
         description: '',
-        totalOrder: '',
-        itemPrice: '',
-        city: '',
+        totalOrder: 0,
+        itemPrice: 0,
+        province: '',
+        city: '',      
         detailAddress: '',
         frontDesign: [],
         front: [],
@@ -174,11 +175,12 @@ class Designpakaian extends Component {
   }
 
   totalOrderData = (e) =>{
+    localStorage.totalOrder = e.target.value;
     var type = e.target.value;
     var material = 5000;
     var totalOrder = localStorage.totalOrder;
     var itemPrice = material * totalOrder;
-    localStorage.totalOrder = e.target.value;
+    localStorage.price = itemPrice;
     console.log(itemPrice, " was Total Price");
     console.log(type, " was selected as Convection Type");
     this.setState(state => ({
@@ -237,6 +239,11 @@ class Designpakaian extends Component {
     // var materialType = e.target.value;
     localStorage['material'] = e.target.value;
     localStorage['materialName'] = e.target.name;
+    var material = 5000;
+    var totalOrder = localStorage.totalOrder;
+    var itemPrice = material * totalOrder;
+    localStorage.price = itemPrice;
+
     this.setState(state => ({
       ...state,
       form: {
@@ -249,7 +256,7 @@ class Designpakaian extends Component {
 
   totalPriceData = (e) => {
     var material = 5000;
-    var totalOrder = 5;
+    var totalOrder = this.totalOrder;
     var itemPrice = material * totalOrder;
     console.log(itemPrice, " was Total Price");
     this.setState(state => ({
@@ -257,6 +264,20 @@ class Designpakaian extends Component {
       form: {
         ...state.form,
         itemPrice: itemPrice,
+        }
+      }
+    )
+  )}
+
+  provinceData = (e) => {
+    var province = e.target.value;
+    localStorage.province = province;
+    console.log(province, " was selected as Destination province");
+    this.setState(state => ({
+      ...state,
+      form: {
+        ...state.form,
+        province: localStorage.province
         }
       }
     )
@@ -308,25 +329,25 @@ class Designpakaian extends Component {
         <p className="h5 text-center mb-4 sub-title">Order Desain</p>
         <MDBRow className="design-pakaian-form">
           <MDBCol sm="12" md="3">
-            <label className="text-upload">Desain Tampak Depan</label>
+            <label className="text-upload">Gambar</label>
             <input type="file" name="front" onChange={this.frontDesign}/>
             <img className="img-fluid img-preview-front" src={this.state.form.frontDesign} alt="front-design"/>
           </MDBCol>
 
           <MDBCol sm="12" md="3">
-            <p className="text-upload">Desain Tampak Belakang</p>
+            <p className="text-upload">Gambar</p>
             <input type="file" name="back" onChange={this.backDesign}/>
             <img className="img-fluid img-preview-back" src={this.state.form.backDesign} alt="back-design"/>
           </MDBCol>
 
           <MDBCol sm="12" md="3">
-            <p className="text-upload">Desain Tampak Kiri</p>
+            <p className="text-upload">Gambar</p>
             <input type="file" name="left" onChange={this.leftDesign}/>
             <img className="img-fluid img-preview-left" src={this.state.form.leftDesign} alt="left-design"/>
           </MDBCol>
 
           <MDBCol sm="12" md="3">
-            <p className="text-upload">Desain Tampak Kanan</p>
+            <p className="text-upload">Gambar</p>
             <input type="file" name="right" onChange={this.rightDesign}/>
             <img className="img-fluid img-preview-right" src={this.state.form.rightDesign} alt="right-design"/>
           </MDBCol>
@@ -359,8 +380,8 @@ class Designpakaian extends Component {
                   group
                   type="text"
                   validate
-                  error="wrong"
-                  success="right"
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
                   value= {localStorage.categoryName || ' '}
                   disabled
                 />
@@ -394,8 +415,8 @@ class Designpakaian extends Component {
                   group
                   type="text"
                   validate
-                  error="wrong"
-                  success="right"
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
                   value= {localStorage.materialName || ' '}
                   disabled
                 />
@@ -420,10 +441,82 @@ class Designpakaian extends Component {
                   group
                   type="text"
                   validate
-                  error="wrong"
-                  success="right"
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
                   value= {localStorage.color || ' '}
                   disabled
+                />
+              </div>
+            </form>
+          </MDBCol>
+
+          <MDBCol sm="12" md="3">
+            <form>
+            <MDBDropdown className="select-type">
+                <MDBDropdownToggle caret className="select-btn">
+                  Pilih Provinsi
+                </MDBDropdownToggle>
+                <MDBDropdownMenu basic onClick={this.provinceData}>
+                  <MDBDropdownItem value="Jawa Barat">Jawa Barat</MDBDropdownItem>
+                  <MDBDropdownItem value="Jawa Timur">Jawa Timur</MDBDropdownItem>
+                </MDBDropdownMenu>
+              </MDBDropdown>
+
+              <div className="grey-text">
+                <MDBInput
+                  label="Kota"
+                  group
+                  type="text"
+                  validate
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
+                  value= {localStorage.province || ''}
+                  onChange={this.provinceData}
+                />
+              </div>              
+            </form>
+          </MDBCol>
+
+          <MDBCol sm="12" md="3">
+            <form>
+              <MDBDropdown className="select-type">
+                <MDBDropdownToggle caret className="select-btn">
+                  Pilih Kota
+                </MDBDropdownToggle>
+                <MDBDropdownMenu basic onClick={this.cityData}>
+                  <MDBDropdownItem value="Orange">Orange</MDBDropdownItem>
+                  <MDBDropdownItem value="Biru">Biru</MDBDropdownItem>
+                </MDBDropdownMenu>
+              </MDBDropdown>
+
+              <div className="grey-text">
+                <MDBInput
+                  label="Kota"
+                  group
+                  type="text"
+                  validate
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
+                  value= {localStorage.city || ''}
+                  onChange={this.cityData}
+                />
+              </div>              
+            </form>
+          </MDBCol>
+
+          <MDBCol sm="12" md="6">
+            <form>
+              <div className="grey-text">
+                <MDBInput
+                  label="Alamat Lengkap"
+                  group
+                  type="textarea"
+                  min="1"
+                  validate
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
+                  value={localStorage.detailAddress || ' '}
+                  onChange={this.detailAddressData}
                 />
               </div>
             </form>
@@ -438,8 +531,8 @@ class Designpakaian extends Component {
                   type="number"
                   min="1"
                   validate
-                  error="wrong"
-                  success="right"
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
                   value={localStorage.totalOrder || ' '}
                   onChange={this.totalOrderData}
                 />
@@ -451,32 +544,16 @@ class Designpakaian extends Component {
             <form>
               <div className="grey-text">
                 <MDBInput
-                  label="Kota"
+                  label="Harga Pesanan Sementara"
                   group
-                  type="text"
+                  type="number"
+                  min="10000"
                   validate
-                  error="wrong"
-                  success="right"
-                  value= {localStorage.city || ''}
-                  onChange={this.cityData}
-                />
-              </div>              
-            </form>
-          </MDBCol>
-
-          <MDBCol sm="12" md="12">
-            <form>
-              <div className="grey-text">
-                <MDBInput
-                  label="Alamat Lengkap"
-                  group
-                  type="textarea"
-                  min="1"
-                  validate
-                  error="wrong"
-                  success="right"
-                  value={localStorage.detailAddress || ' '}
-                  onChange={this.detailAddressData}
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
+                  value={localStorage.price || ' '}
+                  onChange={this.totalOrderData || this.materialData}
+                  disabled
                 />
               </div>
             </form>
@@ -491,20 +568,21 @@ class Designpakaian extends Component {
                   type="textarea"
                   min="1"
                   validate
-                  error="wrong"
-                  success="right"
+                  error="Data yang dimasukan kurang tepat"
+                  success="Benar"
                   value={localStorage.description || ' '}
                   onChange={this.descriptionData}
                 />
               </div>
             </form>
+            <p>Contoh: Ukuran L (Lengan Pendek) = 18pcs, L (Lengan Panjang) = 6 pcs, XL = 12 pcs</p>
           </MDBCol>
 
           <div className="btn-center">
             <div className="py-4 mt-3">
               <button className="konveksiana-btn" onClick ={this.createOrder}>
-              <MDBIcon fas icon="shopping-cart" className="mr-2" />
-                <span>Masukan Keranjang</span>
+              <MDBIcon fas="true" icon="shopping-cart" className="mr-2" />
+                <span>Cek Ringkasan Pesanan</span>
               </button>
             </div>
           </div>
