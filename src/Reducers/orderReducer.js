@@ -12,7 +12,8 @@ const initialState = auth ? {
 
     // User Order
     orders: [],
-    ordersData: []
+    ordersData: [],
+    provinces:[]
 } : {};
 
 export function orderPage(state = initialState, action) {
@@ -39,6 +40,12 @@ export function orderPage(state = initialState, action) {
             return {
                 ...state,
                 materials: action.materials,
+                loading: false
+            };
+        case 'FETCHED_ALL_PROVINCES':
+            return {
+                ...state,
+                provinces: action.provinces,
                 loading: false
             };
         case 'CREATE_ORDER_SUCCESS':

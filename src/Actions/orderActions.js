@@ -8,6 +8,7 @@ export const orderActions = {
     createOrder,
     getAllCategory,
     getAllMaterial,
+    getAllProvince,
 
     // User Order
     getAllOrder,
@@ -93,6 +94,26 @@ function getAllMaterial() {
     };
 }
 
+function getAllProvince() {
+    return dispatch => {
+        let apiEndpoint = 'starter/province';
+
+        orderService.getAllProvinces(apiEndpoint).then(
+            (res) => {
+                let provinces = res ? res : 'Tidak Ada';
+                console.log("Cek Province : ", provinces)
+                // if (res.data.rajaongkir.status.code === 200) {
+                //     dispatch(getProvincesList(provinces));
+                // }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    };
+}
+
 export function createOrderSuccess(data) {
     return {
         type: "CREATE_ORDER_SUCCESS",
@@ -119,6 +140,12 @@ export function getMaterialList(materials) {
     };
 }
 
+export function getProvincesList(provinces) {
+    return {
+        type: 'FETCHED_ALL_PROVINCES',
+        provinces: provinces,
+    };
+}
 // User Order
 
 // let ordersData = [];
@@ -154,12 +181,6 @@ export function getOrderById(data){
     return dispatch => {
         let orderById = data;
         localStorage.setItem('getOrderById', JSON.stringify(orderById));
-        // console.log((data))
-        // console.log("Data Adam : ", orderById)
-
-        // let apiEndpoint = 'order/id/' + order._id;
-        // console.log("Cek API : ", apiEndpoint);
-        // console.log("check Data : ", order);
 
         if (orderById) {
             localStorage.getItem('getOrderById', JSON.stringify(orderById));
@@ -167,24 +188,6 @@ export function getOrderById(data){
             history.push('/products/product-detail/'+ orderById._id);
         }
 
-        // orderService.getAllOrders(apiEndpoint).then(
-        //     (res) => {
-        //         // console.log("Cek Material Data : ", res.data.material);
-        //         let orders = res.data.order;
-        //         // localStorage.orderData = JSON.stringify(ordersData);
-        //         console.log("Check Order Data : ", localStorage.ordersData);
-
-        //         if (res.data.status === 200) {
-        //             localStorage.setItem('allOrderData', JSON.stringify(orders));
-        //             dispatch(getOrderListDataById(orders));
-        //             history.push('/products/product-detail/'+ orders._id);
-        //         }
-        //     }
-        // ).catch(
-        //     err => {
-        //         console.log(err);
-        //     }
-        // );
     };
 };
 
@@ -193,34 +196,12 @@ export function getOrderByIdTable(data){
         let orderById = data;
         localStorage.setItem('getOrderByIdTable', orderById);
 
-        // let apiEndpoint = 'order/id/' + order._id;
-        // console.log("Cek API : ", apiEndpoint);
-        // console.log("check Data : ", order);
-
         if (orderById) {
             localStorage.getItem('getOrderByIdTable', orderById);
             dispatch(getOrderListDataById(orderById));
             history.push('/products/product-detail/'+ orderById._id);
         }
 
-        // orderService.getAllOrders(apiEndpoint).then(
-        //     (res) => {
-        //         // console.log("Cek Material Data : ", res.data.material);
-        //         let orders = res.data.order;
-        //         // localStorage.orderData = JSON.stringify(ordersData);
-        //         console.log("Check Order Data : ", localStorage.ordersData);
-
-        //         if (res.data.status === 200) {
-        //             localStorage.setItem('allOrderData', JSON.stringify(orders));
-        //             dispatch(getOrderListDataById(orders));
-        //             history.push('/products/product-detail/'+ orders._id);
-        //         }
-        //     }
-        // ).catch(
-        //     err => {
-        //         console.log(err);
-        //     }
-        // );
     };
 };
 

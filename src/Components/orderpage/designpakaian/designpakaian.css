@@ -53,6 +53,7 @@
 
 .design-pakaian .design-pakaian-form{
     padding-top: 5vh;
+    padding-bottom: 200px;
 }
 
 .design-pakaian .select-type{
@@ -72,7 +73,7 @@
 
 .design-pakaian .konveksiana-btn{
     color: #222222;
-    font-size: 1em;
+    font-size: 1.5em;
     padding-left: 2vw;
     padding-right: 2vw;
     border: none;
@@ -87,6 +88,23 @@
     outline: solid 2px linear-gradient(to right, #fbdb54 , #dd4b39); 
     border: solid 2px linear-gradient(to right, #fbdb54 , #dd4b39);
     transition: 0.5s ease-in;
+}
+
+.design-pakaian .order-summary{
+    padding: 50px;
+}
+
+.design-pakaian .price{
+    color: #dd4b39;
+}
+
+.design-pakaian .nav-item a{
+    color: #222222;
+}
+
+.design-pakaian .nav-item .active{
+    background: #fbdb54;
+    color: #222222;
 }
 
 @media screen and (max-width: 800px){

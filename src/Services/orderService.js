@@ -6,6 +6,7 @@ export const orderService = {
     post,
     getAllCategories,
     getAllMaterials,
+    getAllProvinces,
 
     // User Order
     getAllOrders,
@@ -44,6 +45,16 @@ function getAllMaterials(apiEndpoint) {
         });
 }
 
+function getAllProvinces(apiEndpoint) {
+    return axios.get(config.rajaUrl + apiEndpoint, getOptionsKey())
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            return err;
+        });
+}
+
 function getAllOrders(apiEndpoint) {
     return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
         .then((response) => {
@@ -72,6 +83,19 @@ function getOptionsAuth(type) {
         options.headers = { 
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
         }
+    }
+    
+    return options;
+}
+
+function getOptionsKey() {
+
+    let options = {};
+
+    options.headers = { 
+        'Access-Control-Allow-Origin': '*',
+        'key': 'fb3eff68fde63af6463c46650d68c4f1',
+        withCredentials: true,
     }
     
     return options;
