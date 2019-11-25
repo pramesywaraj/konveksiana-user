@@ -9,6 +9,7 @@ export const orderActions = {
     getAllCategory,
     getAllMaterial,
     getAllProvince,
+    getAllCity,
 
     // User Order
     getAllOrder,
@@ -96,15 +97,35 @@ function getAllMaterial() {
 
 function getAllProvince() {
     return dispatch => {
-        let apiEndpoint = 'starter/province';
+        let apiEndpoint = 'order/get-province-list';
 
         orderService.getAllProvinces(apiEndpoint).then(
             (res) => {
-                let provinces = res ? res : 'Tidak Ada';
+                let provinces = res.data.rajaongkir.results;
                 console.log("Cek Province : ", provinces)
-                // if (res.data.rajaongkir.status.code === 200) {
-                //     dispatch(getProvincesList(provinces));
-                // }
+                if (res.data.rajaongkir.status.code === 200) {
+                    dispatch(getProvincesList(provinces));
+                }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    };
+}
+
+function getAllCity(data) {
+    return dispatch => {
+        let apiEndpoint = 'order/get-city-list?provinceId=' + data;
+
+        orderService.getAllCities(apiEndpoint).then(
+            (res) => {
+                let cities = res.data.rajaongkir.results;
+                console.log("Cek City : ", cities)
+                if (res.data.rajaongkir.status.code === 200) {
+                    dispatch(getCitiesList(cities));
+                }
             }
         ).catch(
             err => {
@@ -146,6 +167,14 @@ export function getProvincesList(provinces) {
         provinces: provinces,
     };
 }
+
+export function getCitiesList(cities) {
+    return {
+        type: 'FETCHED_ALL_CITIES',
+        cities: cities,
+    };
+}
+
 // User Order
 
 // let ordersData = [];

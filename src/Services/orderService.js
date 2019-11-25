@@ -7,6 +7,7 @@ export const orderService = {
     getAllCategories,
     getAllMaterials,
     getAllProvinces,
+    getAllCities,
 
     // User Order
     getAllOrders,
@@ -46,7 +47,17 @@ function getAllMaterials(apiEndpoint) {
 }
 
 function getAllProvinces(apiEndpoint) {
-    return axios.get(config.rajaUrl + apiEndpoint, getOptionsKey())
+    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            return err;
+        });
+}
+
+function getAllCities(apiEndpoint) {
+    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
         .then((response) => {
             return response;
         })

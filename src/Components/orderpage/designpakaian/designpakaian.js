@@ -284,8 +284,16 @@ class Designpakaian extends Component {
 
   provinceData = (e) => {
     var province = e.target.value;
-    localStorage.province = province;
-    console.log(province, " was selected as Destination province");
+    localStorage.province = e.target.value;
+    localStorage.provinceName = e.target.name;
+
+    // eslint-disable-next-line no-unused-vars
+    const { dispatch } = this.props;
+    if(localStorage.province) {
+      dispatch(orderActions.getAllCity(localStorage.province));
+    }
+
+  console.log(province, " was selected as Destination province");
     this.setState(state => ({
       ...state,
       form: {
@@ -348,7 +356,7 @@ class Designpakaian extends Component {
   }
 
   render(){
-  const { categories, materials, provinces } = this.props;
+  const { categories, materials, provinces, cities } = this.props;
 
   return (
     <div className="design-pakaian">
@@ -543,7 +551,7 @@ class Designpakaian extends Component {
 
             <p className="h5 text-center mb-4 sub-title">Detail Ekspedisi</p>
             <MDBRow className="design-pakaian-form">
-              <MDBCol sm="12" md="3">
+              <MDBCol sm="12" md="6">
                 <form>
                 <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
@@ -553,25 +561,25 @@ class Designpakaian extends Component {
                         {provinces != null ? provinces.map(
                                 province => (
                                     <MDBDropdownItem key={province.province_id} name={province.province} value={province.province_id}>
-                                    {province.province_id}
+                                    {province.province}
                                     </MDBDropdownItem>
                                 )
                             )
                             :
-                            <MDBDropdownItem value="-">Tidak Ada Material</MDBDropdownItem>
+                            <MDBDropdownItem value="-">Tidak Ada Provinsi</MDBDropdownItem>
                         }
                     </MDBDropdownMenu>
                   </MDBDropdown>
 
                   <div className="grey-text">
                     <MDBInput
-                      label="Kota"
+                      label="Provinsi"
                       group
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
                       success="Benar"
-                      value= {localStorage.province || ''}
+                      value= {localStorage.provinceName || ''}
                       onChange={this.provinceData}
                       disabled
                     />
@@ -579,16 +587,24 @@ class Designpakaian extends Component {
                 </form>
               </MDBCol>
 
-              <MDBCol sm="12" md="3">
+              <MDBCol sm="12" md="6">
                 <form>
                   <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Kota
                     </MDBDropdownToggle>
                     <MDBDropdownMenu basic onClick={this.cityData}>
-                      <MDBDropdownItem value="Orange">Orange</MDBDropdownItem>
-                      <MDBDropdownItem value="Biru">Biru</MDBDropdownItem>
-                    </MDBDropdownMenu>
+                      {cities != null ? cities.map(
+                            city => (
+                                <MDBDropdownItem key={city.city_id} name={city.city_name} value={city.city_id}>
+                                {city.city_name}
+                                </MDBDropdownItem>
+                            )
+                          )
+                          :
+                          <MDBDropdownItem value="-">Tidak Ada Kota</MDBDropdownItem>
+                      }
+                  </MDBDropdownMenu>
                   </MDBDropdown>
 
                   <div className="grey-text">
@@ -607,7 +623,7 @@ class Designpakaian extends Component {
                 </form>
               </MDBCol>
 
-              <MDBCol sm="12" md="6">
+              <MDBCol sm="12" md="12">
                 <form>
                   <div className="grey-text">
                     <MDBInput
@@ -624,35 +640,35 @@ class Designpakaian extends Component {
                   </div>
                 </form>
               </MDBCol>
+
+              <MDBCol sm="12" md="12">
+                <form>
+                  <MDBDropdown className="select-type">
+                    <MDBDropdownToggle caret className="select-btn">
+                      Pilih Kurir
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu basic onClick={this.courierData}>
+                      <MDBDropdownItem value="JNE">JNE</MDBDropdownItem>
+                      <MDBDropdownItem value="Tiki">Tiki</MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+
+                  <div className="grey-text">
+                    <MDBInput
+                      label="Pilih Kurir"
+                      group
+                      type="text"
+                      validate
+                      error="Data yang dimasukan kurang tepat"
+                      success="Benar"
+                      value= {localStorage.courier || ''}
+                      onChange={this.courierData}
+                      disabled
+                    />
+                  </div>              
+                </form>
+              </MDBCol>
             </MDBRow>
-
-            <MDBCol sm="12" md="12">
-              <form>
-                <MDBDropdown className="select-type">
-                  <MDBDropdownToggle caret className="select-btn">
-                    Pilih Kurir
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu basic onClick={this.courierData}>
-                    <MDBDropdownItem value="JNE">JNE</MDBDropdownItem>
-                    <MDBDropdownItem value="Tiki">Tiki</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-
-                <div className="grey-text">
-                  <MDBInput
-                    label="Pilih Kurir"
-                    group
-                    type="text"
-                    validate
-                    error="Data yang dimasukan kurang tepat"
-                    success="Benar"
-                    value= {localStorage.courier || ''}
-                    onChange={this.courierData}
-                    disabled
-                  />
-                </div>              
-              </form>
-            </MDBCol>
 
           </div>
 
@@ -832,11 +848,12 @@ Designpakaian.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { categories, materials, provinces } = state.orderPage;
+  const { categories, materials, provinces, cities } = state.orderPage;
   return {
       categories,
       materials,
-      provinces
+      provinces,
+      cities
   };
 }
 

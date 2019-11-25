@@ -13,7 +13,8 @@ const initialState = auth ? {
     // User Order
     orders: [],
     ordersData: [],
-    provinces:[]
+    provinces:[],
+    cities:[]
 } : {};
 
 export function orderPage(state = initialState, action) {
@@ -46,6 +47,12 @@ export function orderPage(state = initialState, action) {
             return {
                 ...state,
                 provinces: action.provinces,
+                loading: false
+            };
+        case 'FETCHED_ALL_CITIES':
+            return {
+                ...state,
+                cities: action.cities,
                 loading: false
             };
         case 'CREATE_ORDER_SUCCESS':
