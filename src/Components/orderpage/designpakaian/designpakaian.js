@@ -22,15 +22,14 @@ const styles = theme => ({
 
 class Designpakaian extends Component {
   constructor(props) {
-    let user = JSON.parse(localStorage.user);
     super(props);
 
     this.state = {
       userId: '',
-      userName: user.name,
-      userEmail: user.email,
-      userPhone: user.name,
-      userAddress: user.email,
+      userName: '',
+      userEmail: '',
+      userPhone: '',
+      userAddress: '',
       form:{
         category: '',
         materialType: '',
@@ -41,7 +40,8 @@ class Designpakaian extends Component {
         shippingPrice: 0,
         weightPrediction: 0,
         province: '',
-        city: '',      
+        city: '',  
+        district: '',    
         detailAddress: '',
         frontDesign: [],
         front: [],
@@ -57,13 +57,27 @@ class Designpakaian extends Component {
   }
 
   componentDidMount() {
-    if(localStorage.getItem('auth')) {
-        const { dispatch } = this.props;
-        dispatch(orderActions.getAllMaterial());
-        dispatch(orderActions.getAllCategory());
-        dispatch(orderActions.getAllProvince());
-        // history.push('/dashboard');
-      }
+    const { dispatch } = this.props;
+    dispatch(orderActions.getAllCategory());
+    dispatch(orderActions.getAllMaterial());
+    dispatch(orderActions.getAllProvince());
+    // history.push('/dashboard');
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    if(user) {
+      this.setState(state => ({
+          ...state,
+          userName: user.name,
+          userEmail: user.email,
+          userPhone: user.phone,
+          userAddress: user.address,    
+          form: {
+            ...state.form,
+            }
+          }
+        )
+      )  
+    }
   }
 
   componentWillReceiveProps(newProps){
@@ -255,7 +269,7 @@ class Designpakaian extends Component {
 
   materialData = (e) => {
     // var materialType = e.target.value;
-    let [id, priceMargin] = e.target.value.split(",");
+    let [id, priceMargin, weight] = e.target.value.split(",");
     localStorage['material'] = id;
     localStorage['materialName'] = e.target.name;
     localStorage['priceMargin'] = priceMargin;
@@ -264,7 +278,7 @@ class Designpakaian extends Component {
     var totalOrder = localStorage.totalOrder;
     var itemPrice = material * totalOrder;
     var shippingPrice = material * 0.05;
-    var weightPrediction = totalOrder / 250;
+    var weightPrediction = weight;
     localStorage.price = itemPrice;
     localStorage.shippingPrice = shippingPrice;
     localStorage.weightPrediction = weightPrediction;
@@ -293,26 +307,50 @@ class Designpakaian extends Component {
       dispatch(orderActions.getAllCity(localStorage.province));
     }
 
-  console.log(province, " was selected as Destination province");
-    this.setState(state => ({
-      ...state,
-      form: {
-        ...state.form,
-        province: localStorage.province
+    console.log(province, " was selected as Destination province");
+      this.setState(state => ({
+        ...state,
+        form: {
+          ...state.form,
+          province: localStorage.province
+          }
         }
-      }
+      )
     )
-  )}
+  }
 
   cityData = (e) => {
+    let [cityName, postalCode] = e.target.name.split(",");
     var city = e.target.value;
-    localStorage.city = city;
+    localStorage.city = cityName + ", " + postalCode;
+    localStorage.cityId = city;
+
+    // eslint-disable-next-line no-unused-vars
+    const { dispatch } = this.props;
+    if(localStorage.cityId) {
+      dispatch(orderActions.getAllDistrict(localStorage.cityId));
+    }
+    
     console.log(city, " was selected as Destination City");
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        city: localStorage.city
+        city: city
+        }
+      }
+    )
+  )}
+
+  districtData = (e) => {
+    var district = e.target.value;
+    localStorage.district = e.target.name;
+    console.log(district, " was selected as Destination District");
+    this.setState(state => ({
+      ...state,
+      form: {
+        ...state.form,
+        district: district
         }
       }
     )
@@ -356,7 +394,7 @@ class Designpakaian extends Component {
   }
 
   render(){
-  const { categories, materials, provinces, cities } = this.props;
+  const { categories, materials, provinces, cities, districts } = this.props;
 
   return (
     <div className="design-pakaian">
@@ -464,7 +502,7 @@ class Designpakaian extends Component {
                     <MDBDropdownMenu basic onClick={this.materialData}>
                       {materials != null ? materials.map(
                             material => (
-                                <MDBDropdownItem key={material._id} name={material.name} value={material._id + "," + material.priceMargin}>
+                                <MDBDropdownItem key={material._id} name={material.name} value={material._id + "," + material.priceMargin + "," + material.weight}>
                                   {material.name}
                                 </MDBDropdownItem>
                             )
@@ -551,7 +589,7 @@ class Designpakaian extends Component {
 
             <p className="h5 text-center mb-4 sub-title">Detail Ekspedisi</p>
             <MDBRow className="design-pakaian-form">
-              <MDBCol sm="12" md="6">
+              <MDBCol sm="12" md="4">
                 <form>
                 <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
@@ -587,7 +625,7 @@ class Designpakaian extends Component {
                 </form>
               </MDBCol>
 
-              <MDBCol sm="12" md="6">
+              <MDBCol sm="12" md="4">
                 <form>
                   <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
@@ -596,8 +634,8 @@ class Designpakaian extends Component {
                     <MDBDropdownMenu basic onClick={this.cityData}>
                       {cities != null ? cities.map(
                             city => (
-                                <MDBDropdownItem key={city.city_id} name={city.city_name} value={city.city_id}>
-                                {city.city_name}
+                                <MDBDropdownItem key={city.city_id} name={city.city_name + ", " + city.postal_code} value={city.city_id}>
+                                {city.city_name}, {city.postal_code}
                                 </MDBDropdownItem>
                             )
                           )
@@ -617,6 +655,42 @@ class Designpakaian extends Component {
                       success="Benar"
                       value= {localStorage.city || ''}
                       onChange={this.cityData}
+                      disabled
+                    />
+                  </div>              
+                </form>
+              </MDBCol>
+
+              <MDBCol sm="12" md="4">
+                <form>
+                  <MDBDropdown className="select-type">
+                    <MDBDropdownToggle caret className="select-btn">
+                      Pilih Kecamatan
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu basic onClick={this.districtData}>
+                      {districts != null ? districts.map(
+                        district => (
+                                <MDBDropdownItem key={district.subdistrict_id} name={district.subdistrict_name} value={district.subdistrict_id}>
+                                {district.subdistrict_name}
+                                </MDBDropdownItem>
+                            )
+                          )
+                          :
+                          <MDBDropdownItem value="-">Tidak Ada Kota</MDBDropdownItem>
+                      }
+                  </MDBDropdownMenu>
+                  </MDBDropdown>
+
+                  <div className="grey-text">
+                    <MDBInput
+                      label="Kecamatan"
+                      group
+                      type="text"
+                      validate
+                      error="Data yang dimasukan kurang tepat"
+                      success="Benar"
+                      value= {localStorage.district || ''}
+                      onChange={this.districtData}
                       disabled
                     />
                   </div>              
@@ -648,8 +722,11 @@ class Designpakaian extends Component {
                       Pilih Kurir
                     </MDBDropdownToggle>
                     <MDBDropdownMenu basic onClick={this.courierData}>
-                      <MDBDropdownItem value="JNE">JNE</MDBDropdownItem>
-                      <MDBDropdownItem value="Tiki">Tiki</MDBDropdownItem>
+                      <MDBDropdownItem value="RPX Holding (RPX)">RPX Holding (RPX)</MDBDropdownItem>
+                      <MDBDropdownItem value="Citra Van Titipan Kilat (TIKI)">Citra Van Titipan Kilat (TIKI)</MDBDropdownItem>
+                      <MDBDropdownItem value="Eka Sari Lorena (ESL)">Eka Sari Lorena (ESL)</MDBDropdownItem>
+                      <MDBDropdownItem value="Jalur Nugraha Ekakurir (JNE)">Jalur Nugraha Ekakurir (JNE)</MDBDropdownItem>
+                      <MDBDropdownItem value="POS Indonesia (POS)">POS Indonesia (POS)</MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>
 
@@ -777,7 +854,7 @@ class Designpakaian extends Component {
                   <p>Provinsi</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.province}</strong></p>
+                  <p>: <strong>{localStorage.provinceName}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -786,6 +863,14 @@ class Designpakaian extends Component {
                 </MDBCol>
                 <MDBCol sm="12" md="8">
                   <p>: <strong>{localStorage.city}</strong></p>
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol sm="12" md="4">
+                  <p>Kecamatan</p>
+                </MDBCol>
+                <MDBCol sm="12" md="8">
+                  <p>: <strong>{localStorage.district}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -848,12 +933,13 @@ Designpakaian.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { categories, materials, provinces, cities } = state.orderPage;
+  const { categories, materials, provinces, cities, districts } = state.orderPage;
   return {
       categories,
       materials,
       provinces,
-      cities
+      cities,
+      districts
   };
 }
 

@@ -8,6 +8,7 @@ export const orderService = {
     getAllMaterials,
     getAllProvinces,
     getAllCities,
+    getAllDistricts,
 
     // User Order
     getAllOrders,
@@ -21,13 +22,14 @@ function post(apiEndpoint, payload) {
             console.log("Cek Response : ", res);
             return res;
         }, err => {
+            alert("Harap login terlebih dahulu Untuk memesan")
             return err.response;
         })
 
 }
 
 function getAllCategories(apiEndpoint) {
-    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+    return axios.get(config.baseUrl + apiEndpoint)
         .then((response) => {
             return response;
         })
@@ -37,7 +39,7 @@ function getAllCategories(apiEndpoint) {
 }
 
 function getAllMaterials(apiEndpoint) {
-    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+    return axios.get(config.baseUrl + apiEndpoint)
         .then((response) => {
             return response;
         })
@@ -47,7 +49,7 @@ function getAllMaterials(apiEndpoint) {
 }
 
 function getAllProvinces(apiEndpoint) {
-    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+    return axios.get(config.baseUrl + apiEndpoint)
         .then((response) => {
             return response;
         })
@@ -57,7 +59,17 @@ function getAllProvinces(apiEndpoint) {
 }
 
 function getAllCities(apiEndpoint) {
-    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+    return axios.get(config.baseUrl + apiEndpoint)
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            return err;
+        });
+}
+
+function getAllDistricts(apiEndpoint) {
+    return axios.get(config.baseUrl + apiEndpoint)
         .then((response) => {
             return response;
         })

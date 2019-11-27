@@ -10,6 +10,7 @@ export const orderActions = {
     getAllMaterial,
     getAllProvince,
     getAllCity,
+    getAllDistrict,
 
     // User Order
     getAllOrder,
@@ -135,6 +136,26 @@ function getAllCity(data) {
     };
 }
 
+function getAllDistrict(data) {
+    return dispatch => {
+        let apiEndpoint = 'order/get-subdistrict-list?cityId=' + data;
+
+        orderService.getAllDistricts(apiEndpoint).then(
+            (res) => {
+                let districts = res.data.rajaongkir.results;
+                console.log("Cek District : ", districts)
+                if (res.data.rajaongkir.status.code === 200) {
+                    dispatch(getDistrictsList(districts));
+                }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    };
+}
+
 export function createOrderSuccess(data) {
     return {
         type: "CREATE_ORDER_SUCCESS",
@@ -172,6 +193,13 @@ export function getCitiesList(cities) {
     return {
         type: 'FETCHED_ALL_CITIES',
         cities: cities,
+    };
+}
+
+export function getDistrictsList(districts) {
+    return {
+        type: 'FETCHED_ALL_DISTRICTS',
+        districts: districts,
     };
 }
 

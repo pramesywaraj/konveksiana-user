@@ -1,6 +1,6 @@
 import React from 'react';
 import ScrollIntoView from 'react-scroll-into-view';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBIcon } from 'mdbreact';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer } from 'mdbreact';
 import { history } from '../../Helpers/history';
 
 // Component
@@ -84,6 +84,7 @@ class Header extends React.Component {
                         <MDBNavLink className="text" to="/#contact">Kontak Kami</MDBNavLink>
                       </ScrollIntoView>
                     </MDBNavItem>
+                    
                     <MDBNavItem>
                       <MDBNavLink className="text" to="/order"><strong>Pesan</strong></MDBNavLink>
                     </MDBNavItem>
@@ -138,6 +139,7 @@ class Header extends React.Component {
                       <MDBNavLink className="text" to="/#contact">Kontak Kami</MDBNavLink>
                     </ScrollIntoView>
                   </MDBNavItem>
+
                   <MDBNavItem>
                     <MDBNavLink className="text" to="/order"><strong>Pesan</strong></MDBNavLink>
                   </MDBNavItem>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch, Route, Redirect, browserHistory  } from 'react-router-dom';
+import { Router, Switch, Route, Redirect, BrowserRouter  } from 'react-router-dom';
 import { history } from './Helpers';
 import { PrivateRoute } from './Components/PrivateRoute';
 
@@ -17,22 +17,25 @@ import { ProductDetail } from './Components/product/productdetail/productdetail'
 
 function App() {
   return (
-    <div>
-      <Router history={history}>
-        <Switch>
-          <Route exact path="/" component={Homepage} />
-          <Route exact path="/order" component={Orderpage} />
-          <Route exact path="/cart" component={Cart} />
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/sign-up' component={Signup} />
-          {/* <Route exact path='/' render={() => (<Redirect to="/dashboard" />)} />             */}
-          <PrivateRoute exact path='/dashboard' component={Dashboard}/>
-          <PrivateRoute exact path='/user-order' component={Order}/>          
-          <PrivateRoute exact path='/products' component={Product}/>          
-          <PrivateRoute exact path='/products/product-detail/:id' component={ProductDetail}/>          
-        </Switch>
-      </Router>
-    </div>
+    <BrowserRouter>
+      <div>
+        <Router history={history}>
+          <Switch>
+            <Route exact path="/" component={Homepage} />
+            <Route exact path="/order" component={Orderpage} />
+            <Route exact path="/cart" component={Cart} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/sign-up' component={Signup} />
+            {/* <Route exact path='/' render={() => (<Redirect to="/dashboard" />)} />             */}
+            <PrivateRoute exact path='/dashboard' component={Dashboard}/>
+            <PrivateRoute exact path='/user-order' component={Order}/>          
+            <PrivateRoute exact path='/products' component={Product}/>          
+            <PrivateRoute exact path='/products/product-detail/:id' component={ProductDetail}/>          
+            <Route path='*' component={Homepage} />            
+          </Switch>
+        </Router>
+      </div>    
+    </BrowserRouter>
   );
 }
 
