@@ -403,10 +403,13 @@ class Designpakaian extends Component {
   }
 
   serviceData = (e) => {
-    var shippingPrice = e.target.value;
+    let [value, etd] = e.target.value.split(",");
+    var shippingPrice = value;
     var serviceName = e.target.name;
+    var estimatedShippingTime = etd + " Hari";
     localStorage.shippingPrice = shippingPrice;
     localStorage.serviceName = serviceName;
+    localStorage.estimatedShippingTime = estimatedShippingTime;
 
     this.setState(state => ({
       ...state,
@@ -436,6 +439,11 @@ class Designpakaian extends Component {
   formatPrice(value) {
     let val = (value/1)
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
+
+  totalPrice(productPrice, shippingPrice){
+    let total = parseInt(productPrice) + parseInt(shippingPrice);
+    return this.formatPrice(total);
   }
 
   inserttoCart = () => {
@@ -738,7 +746,7 @@ class Designpakaian extends Component {
                       validate
                       error="Data yang dimasukan kurang tepat"
                       success="Benar"
-                      value= {localStorage.district || ''}
+                      value= {localStorage.districtName || ''}
                       onChange={this.districtData}
                       disabled
                     />
@@ -764,7 +772,7 @@ class Designpakaian extends Component {
                 </form>
               </MDBCol>
 
-              <MDBCol sm="12" md="6">
+              <MDBCol sm="12" md="12">
                 <form>
                 <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
@@ -795,7 +803,7 @@ class Designpakaian extends Component {
                 </form>
               </MDBCol>
 
-              <MDBCol sm="12" md="6">
+              <MDBCol sm="12" md="12">
                 <form>
                   <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
@@ -804,10 +812,8 @@ class Designpakaian extends Component {
                     <MDBDropdownMenu basic onClick={this.serviceData}>
                     {shipmentFees != null ? shipmentFees.map(
                       shipmentFee => (
-                                <MDBDropdownItem key={shipmentFee.service} name={shipmentFee.description}>
-                                {shipmentFee.description}, {shipmentFee.cost.map(
-                                  cost => (<li key={cost.value} value={cost.value}> {cost.etd} Hari</li>
-                                  ))}
+                                <MDBDropdownItem key={shipmentFee.service} name={shipmentFee.description + "(" + shipmentFee.service + ")"} value={shipmentFee.cost[0].value + "," + shipmentFee.cost[0].etd}>
+                                  {shipmentFee.description} ({shipmentFee.service}), {shipmentFee.cost[0].etd} Hari
                                 </MDBDropdownItem>
                             )
                           )
@@ -818,7 +824,7 @@ class Designpakaian extends Component {
                   </MDBDropdown>
 
                   <MDBRow>
-                    <MDBCol sm="12" md="6">
+                    <MDBCol sm="12" md="4">
                       <div className="grey-text">
                         <MDBInput
                           label="Jenis Pengiriman"
@@ -834,7 +840,23 @@ class Designpakaian extends Component {
                       </div> 
                     </MDBCol>
 
-                    <MDBCol sm="12" md="6">
+                    <MDBCol sm="12" md="4">
+                      <div className="grey-text">
+                        <MDBInput
+                          label="Perkiraan Waktu Pengiriman"
+                          group
+                          type="text"
+                          validate
+                          error="Data yang dimasukan kurang tepat"
+                          success="Benar"
+                          value= {localStorage.estimatedShippingTime || ''}
+                          onChange={this.serviceData}
+                          disabled
+                        />
+                      </div> 
+                    </MDBCol>
+
+                    <MDBCol sm="12" md="4">
                       <div className="grey-text">
                         <MDBInput
                           label="Harga Pengiriman"
@@ -843,7 +865,7 @@ class Designpakaian extends Component {
                           validate
                           error="Data yang dimasukan kurang tepat"
                           success="Benar"
-                          value= { "Rp. " + this.formatPrice(localStorage.shippingPrice) || ''}
+                          value= { localStorage.shippingPrice || ''}
                           onChange={this.serviceData}
                           disabled
                         />
@@ -970,7 +992,7 @@ class Designpakaian extends Component {
                   <p>Kecamatan</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.district}</strong></p>
+                  <p>: <strong>{localStorage.districtName}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -987,6 +1009,22 @@ class Designpakaian extends Component {
                 </MDBCol>
                 <MDBCol sm="12" md="8">
                   <p>: <strong>{localStorage.courierName}</strong></p>
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol sm="12" md="4">
+                  <p>Jenis Pengiriman</p>
+                </MDBCol>
+                <MDBCol sm="12" md="8">
+                  <p>: <strong>{localStorage.serviceName}</strong></p>
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol sm="12" md="4">
+                  <p>Estimasi Pengiriman</p>
+                </MDBCol>
+                <MDBCol sm="12" md="8">
+                  <p>: <strong>{localStorage.estimatedShippingTime}</strong></p>
                 </MDBCol>
               </MDBRow>
 
@@ -1013,6 +1051,19 @@ class Designpakaian extends Component {
                 </MDBCol>
                 <MDBCol sm="12" md="8">
                   <p className="price">: <strong>Rp. {this.formatPrice(localStorage.shippingPrice)}</strong></p>
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol sm="12" md="4">
+                  <p><strong>Harga Total</strong></p>
+                </MDBCol>
+                <MDBCol sm="12" md="8">
+                  <p className="price">: <strong>Rp. {this.totalPrice(localStorage.price, localStorage.shippingPrice)}</strong></p>
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol sm="12" md="12">
+                  <small><strong>Catatan</strong>: Semua pemesanan dikirim melalui alamat <i>Jl. Raya Dramaga no.143, Dramaga, Bogor, Jawa Barat</i></small>
                 </MDBCol>
               </MDBRow>
             </div>
