@@ -90,26 +90,34 @@ class Designpakaian extends Component {
 
   createOrder = (e) => {
       this.setState({ loading : true });
-      let user = JSON.parse(localStorage.user);
 
-      let data = {
-        orderImage: [this.state.form.front, this.state.form.back, this.state.form.left, this.state.form.right],
-        userId: user._id,
-        materialId: this.state.form.materialType,
-        color: this.state.form.color,
-        description: this.state.form.description,
-        quantity: this.state.form.totalOrder,
-        productPricePrediction: this.state.form.itemPrice,
-        city: this.state.form.city,
-        detailAddress: this.state.form.detailAddress,
+      if(localStorage.auth){
+        let user = JSON.parse(localStorage.user);
+
+        let data = {
+          orderImage: [this.state.form.front, this.state.form.back, this.state.form.left, this.state.form.right],
+          userId: user._id,
+          materialId: this.state.form.materialType,
+          color: this.state.form.color,
+          description: this.state.form.description,
+          quantity: this.state.form.totalOrder,
+          productPricePrediction: this.state.form.itemPrice,
+          city: this.state.form.city,
+          detailAddress: this.state.form.detailAddress,
+        }
+        console.log("Test Data : ", data.orderImage)
+  
+        // eslint-disable-next-line no-unused-vars
+        const { dispatch } = this.props;
+        if(data) {
+          // console.log("My Data Lengkap : ", data)
+          dispatch(orderActions.createOrder(data));
+        }  
       }
-      console.log("Test Data : ", data.orderImage)
 
-      // eslint-disable-next-line no-unused-vars
-      const { dispatch } = this.props;
-      if(data) {
-        // console.log("My Data Lengkap : ", data)
-        dispatch(orderActions.createOrder(data));
+      else{
+        alert("Harap Login Terlebih Dahulu untuk Melakukan Pemesanan")
+        history.push('/login');
       }
   }
 
@@ -201,31 +209,6 @@ class Designpakaian extends Component {
     document.getElementsByClassName("img-preview-right")[1].style.display = "block";
   }
 
-  totalOrderData = (e) =>{
-    localStorage.totalOrder = e.target.value;
-    var type = e.target.value;
-    var material = localStorage.priceMargin;
-    var totalOrder = localStorage.totalOrder;
-    var itemPrice = material * totalOrder;
-    var shippingPrice = material * totalOrder;
-    var weightPrediction = material * totalOrder;
-    localStorage.price = itemPrice;
-    localStorage.shippingPrice = shippingPrice;
-    localStorage.weightPrediction = weightPrediction;
-    console.log(type, " was selected as Convection Type");
-    this.setState(state => ({
-      ...state,
-      form: {
-        ...state.form,
-        totalOrder: localStorage.totalOrder,
-        itemPrice: itemPrice,
-        shippingPrice: shippingPrice,
-        weightPrediction: weightPrediction,
-        }
-      }
-    )
-  )}
-
   descriptionData = (e) =>{
     var description = e.target.value;
     localStorage.description = e.target.value;
@@ -273,12 +256,19 @@ class Designpakaian extends Component {
     localStorage['material'] = id;
     localStorage['materialName'] = e.target.name;
     localStorage['priceMargin'] = priceMargin;
+    localStorage['weight'] = weight;
     console.log("Price Margin : ", priceMargin)
     var material = localStorage.priceMargin;
-    var totalOrder = localStorage.totalOrder;
-    var itemPrice = material * totalOrder;
-    var shippingPrice = material * 0.05;
-    var weightPrediction = weight;
+    if(localStorage.totalOrder){
+      var totalOrder = localStorage.totalOrder;
+    }
+    else{
+      var totalOrder = 1;
+    }
+    var itemPrice = (material * totalOrder) - ((material * totalOrder)*
+    (Math.min(10, Math.floor(totalOrder / 12))) / 100);
+    var shippingPrice = material * 3;
+    var weightPrediction = weight * totalOrder;
     localStorage.price = itemPrice;
     localStorage.shippingPrice = shippingPrice;
     localStorage.weightPrediction = weightPrediction;
@@ -291,6 +281,38 @@ class Designpakaian extends Component {
         itemPrice: localStorage.price,
         shippingPrice: localStorage.shippingPrice,
         weightPrediction: localStorage.weightPrediction,
+        }
+      }
+    )
+  )}
+
+  totalOrderData = (e) =>{
+    localStorage.totalOrder = e.target.value;
+    var type = e.target.value;
+    var material = localStorage.priceMargin;
+    var totalOrder = e.target.value;
+    if(localStorage.weightPrediction){
+      var weight = localStorage.weight;
+    }
+    else{
+      var weight = 1;
+    }
+    var itemPrice = (material * totalOrder) - ((material * totalOrder)*
+    (Math.min(10, Math.floor(totalOrder / 12))) / 100);
+    var shippingPrice = material * 3;
+    var weightPrediction = weight * totalOrder;
+    localStorage.price = itemPrice;
+    localStorage.shippingPrice = shippingPrice;
+    localStorage.weightPrediction = weightPrediction;
+    console.log(type, " was selected as Convection Type");
+    this.setState(state => ({
+      ...state,
+      form: {
+        ...state.form,
+        totalOrder: localStorage.totalOrder,
+        itemPrice: itemPrice,
+        shippingPrice: shippingPrice,
+        weightPrediction: weightPrediction,
         }
       }
     )
@@ -358,7 +380,9 @@ class Designpakaian extends Component {
 
   courierData = (e) => {
     var courier = e.target.value;
+    var courierName = e.target.name;
     localStorage.courier = courier;
+    localStorage.courierName = courierName;
     console.log(courier, " was selected as Courier");
     this.setState(state => ({
       ...state,
@@ -722,11 +746,11 @@ class Designpakaian extends Component {
                       Pilih Kurir
                     </MDBDropdownToggle>
                     <MDBDropdownMenu basic onClick={this.courierData}>
-                      <MDBDropdownItem value="RPX Holding (RPX)">RPX Holding (RPX)</MDBDropdownItem>
-                      <MDBDropdownItem value="Citra Van Titipan Kilat (TIKI)">Citra Van Titipan Kilat (TIKI)</MDBDropdownItem>
-                      <MDBDropdownItem value="Eka Sari Lorena (ESL)">Eka Sari Lorena (ESL)</MDBDropdownItem>
-                      <MDBDropdownItem value="Jalur Nugraha Ekakurir (JNE)">Jalur Nugraha Ekakurir (JNE)</MDBDropdownItem>
-                      <MDBDropdownItem value="POS Indonesia (POS)">POS Indonesia (POS)</MDBDropdownItem>
+                      <MDBDropdownItem name="RPX Holding (RPX)"  value="rpx">RPX Holding (RPX)</MDBDropdownItem>
+                      <MDBDropdownItem name="Citra Van Titipan Kilat (TIKI)" value="tiki">Citra Van Titipan Kilat (TIKI)</MDBDropdownItem>
+                      <MDBDropdownItem name="Eka Sari Lorena (ESL)" value="esl">Eka Sari Lorena (ESL)</MDBDropdownItem>
+                      <MDBDropdownItem name="Jalur Nugraha Ekakurir (JNE)" value="jne">Jalur Nugraha Ekakurir (JNE)</MDBDropdownItem>
+                      <MDBDropdownItem name="POS Indonesia (POS)" value="pos">POS Indonesia (POS)</MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>
 
@@ -738,7 +762,7 @@ class Designpakaian extends Component {
                       validate
                       error="Data yang dimasukan kurang tepat"
                       success="Benar"
-                      value= {localStorage.courier || ''}
+                      value= {localStorage.courierName || ''}
                       onChange={this.courierData}
                       disabled
                     />
@@ -795,14 +819,6 @@ class Designpakaian extends Component {
                 </MDBCol>
                 <MDBCol sm="12" md="8">
                   <p>: <strong>{this.state.userPhone}</strong></p>
-                </MDBCol>
-              </MDBRow>
-              <MDBRow>
-                <MDBCol sm="12" md="4">
-                  <p>Alamat Pemesan</p>
-                </MDBCol>
-                <MDBCol sm="12" md="8">
-                  <p>: <strong>{this.state.userAddress}</strong></p>
                 </MDBCol>
               </MDBRow>
 
@@ -879,6 +895,14 @@ class Designpakaian extends Component {
                 </MDBCol>
                 <MDBCol sm="12" md="8">
                   <p>: <strong>{localStorage.detailAddress}</strong></p>
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol sm="12" md="4">
+                  <p>Kurir Pengiriman</p>
+                </MDBCol>
+                <MDBCol sm="12" md="8">
+                  <p>: <strong>{localStorage.courierName}</strong></p>
                 </MDBCol>
               </MDBRow>
 

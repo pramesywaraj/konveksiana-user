@@ -22,8 +22,8 @@ function Order() {
                                     <p className="card-title">Siapkan Desain Kamu</p>
                                     <p className="card-desc">Siapkan desain pakaian yang kamu inginkan dalam format PNG high Definition. Siapkan juga file Vector-nya berformat CDR ya!</p>
 
-                                    <p className="card-title-2">Belum ada desain vector-nya?</p>
-                                    <p className="card-desc">Hubungi admin kami, akan kami coba buatkan</p>
+                                    {/* <p className="card-title-2">Belum ada desain vector-nya?</p>
+                                    <p className="card-desc">Hubungi admin kami, akan kami coba buatkan.</p> */}
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@ function Order() {
                             <div className=" mb-3">                                        
                                 <div className="card-body">        
                                     <p className="card-title">Klik Pesan</p>
-                                    <p className="card-desc">Klik pesan dipojok kanan halaman ini untuk mengisi Form Pemesanan. <br/>Lalu ikuti semua langkahnya</p>
+                                    <p className="card-desc">Klik pesan dipojok kanan halaman ini untuk mengisi Form Pemesanan. <br/>Lalu ikuti semua langkahnya.</p>
                                 </div>
                             </div>
                         </div>
@@ -41,10 +41,20 @@ function Order() {
                             <div className=" mb-3">                                        
                                 <div className="card-body">        
                                     <p className="card-title">Selesai!</p>
-                                    <p className="card-desc">Setelah mengikuti semua petunjuk dari form, kamu tinggal menunggu pesanan kamu jadi dan siap untuk diantar</p>
+                                    <p className="card-desc">Setelah mengikuti semua petunjuk dari form, kamu tinggal menunggu pesanan kamu jadi dan siap untuk diantar.</p>
                                 </div>
                             </div>
                         </div>
+
+                        <div className="col-12 col-sm-6 col-md-12 col-lg-12 py-3">
+                            <div className=" mb-3">                                        
+                                <div className="card-body">        
+                                    <p className="card-title-2">Belum ada desain vector-nya?</p>
+                                    <p className="card-desc">Hubungi admin kami, akan kami coba buatkan.</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -63,7 +73,7 @@ function Order() {
                             <div className=" mb-3">                                        
                                 <div className="card-body">        
                                     <p className="card-title">2. Klik Pesan</p>
-                                    <p className="card-desc">Klik pesan dipojok kanan halaman ini untuk mengisi Form Pemesanan. <br/>Lalu ikuti semua langkahnya</p>
+                                    <p className="card-desc">Klik pesan dipojok kanan halaman ini untuk mengisi Form Pemesanan. <br/>Lalu ikuti semua langkahnya.</p>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +82,16 @@ function Order() {
                             <div className=" mb-3">                                        
                                 <div className="card-body">        
                                     <p className="card-title">3. Selesai!</p>
-                                    <p className="card-desc">Setelah mengikuti semua petunjuk dari form, kamu tinggal menunggu pesanan kamu jadi dan siap untuk diantar</p>
+                                    <p className="card-desc">Setelah mengikuti semua petunjuk dari form, kamu tinggal menunggu pesanan kamu jadi dan siap untuk diantar.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-12 col-sm-6 col-md-12 col-lg-12 py-3">
+                            <div className=" mb-3">                                        
+                                <div className="card-body">        
+                                    <p className="card-title-2">Belum ada desain vector-nya?</p>
+                                    <p className="card-desc">Hubungi admin kami, akan kami coba buatkan.</p>
                                 </div>
                             </div>
                         </div>
