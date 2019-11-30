@@ -9,6 +9,7 @@ export const orderService = {
     getAllProvinces,
     getAllCities,
     getAllDistricts,
+    getShipmentFees,
 
     // User Order
     getAllOrders,
@@ -78,6 +79,18 @@ function getAllDistricts(apiEndpoint) {
         });
 }
 
+function getShipmentFees(apiEndpoint, payload) {
+
+    return axios.post(config.baseUrl + apiEndpoint, payload)
+        .then(res => {
+            return res;
+        }, err => {
+            alert("Harap melengkapi Data yang lain terlebih dahulu")
+            return err.response;
+        })
+
+}
+
 function getAllOrders(apiEndpoint) {
     return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
         .then((response) => {
@@ -106,19 +119,6 @@ function getOptionsAuth(type) {
         options.headers = { 
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
         }
-    }
-    
-    return options;
-}
-
-function getOptionsKey() {
-
-    let options = {};
-
-    options.headers = { 
-        'Access-Control-Allow-Origin': '*',
-        'key': 'fb3eff68fde63af6463c46650d68c4f1',
-        withCredentials: true,
     }
     
     return options;

@@ -52,6 +52,7 @@ class Designpakaian extends Component {
         rightDesign: [],
         right: [],
         courier: '',
+        service: ''
       }
     }
   }
@@ -257,7 +258,7 @@ class Designpakaian extends Component {
     localStorage['materialName'] = e.target.name;
     localStorage['priceMargin'] = priceMargin;
     localStorage['weight'] = weight;
-    console.log("Price Margin : ", priceMargin)
+
     var material = localStorage.priceMargin;
     if(localStorage.totalOrder){
       var totalOrder = localStorage.totalOrder;
@@ -265,12 +266,11 @@ class Designpakaian extends Component {
     else{
       var totalOrder = 1;
     }
+
     var itemPrice = (material * totalOrder) - ((material * totalOrder)*
     (Math.min(10, Math.floor(totalOrder / 12))) / 100);
-    var shippingPrice = material * 3;
     var weightPrediction = weight * totalOrder;
     localStorage.price = itemPrice;
-    localStorage.shippingPrice = shippingPrice;
     localStorage.weightPrediction = weightPrediction;
 
     this.setState(state => ({
@@ -279,7 +279,6 @@ class Designpakaian extends Component {
         ...state.form,
         materialType: localStorage.material,
         itemPrice: localStorage.price,
-        shippingPrice: localStorage.shippingPrice,
         weightPrediction: localStorage.weightPrediction,
         }
       }
@@ -288,30 +287,27 @@ class Designpakaian extends Component {
 
   totalOrderData = (e) =>{
     localStorage.totalOrder = e.target.value;
-    var type = e.target.value;
     var material = localStorage.priceMargin;
     var totalOrder = e.target.value;
+
     if(localStorage.weightPrediction){
       var weight = localStorage.weight;
     }
     else{
       var weight = 1;
     }
+
     var itemPrice = (material * totalOrder) - ((material * totalOrder)*
     (Math.min(10, Math.floor(totalOrder / 12))) / 100);
-    var shippingPrice = material * 3;
     var weightPrediction = weight * totalOrder;
     localStorage.price = itemPrice;
-    localStorage.shippingPrice = shippingPrice;
     localStorage.weightPrediction = weightPrediction;
-    console.log(type, " was selected as Convection Type");
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
         totalOrder: localStorage.totalOrder,
         itemPrice: itemPrice,
-        shippingPrice: shippingPrice,
         weightPrediction: weightPrediction,
         }
       }
@@ -366,33 +362,62 @@ class Designpakaian extends Component {
 
   districtData = (e) => {
     var district = e.target.value;
-    localStorage.district = e.target.name;
+    localStorage.district = district;
+    localStorage.districtName = e.target.name;
     console.log(district, " was selected as Destination District");
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        district: district
+        district: localStorage.district
         }
       }
     )
   )}
 
   courierData = (e) => {
-    var courier = e.target.value;
-    var courierName = e.target.name;
-    localStorage.courier = courier;
-    localStorage.courierName = courierName;
-    console.log(courier, " was selected as Courier");
+
+    // eslint-disable-next-line no-unused-vars
+    const { dispatch } = this.props;
+    if(localStorage.district && localStorage.material && localStorage.totalOrder) {
+      var courier = e.target.value;
+      var courierName = e.target.name;
+      localStorage.courier = courier;
+      localStorage.courierName = courierName;
+      console.log(courier, " was selected as Courier");  
+
+      dispatch(orderActions.getShipmentFee());
+
+      this.setState(state => ({
+        ...state,
+        form: {
+          ...state.form,
+          courier: localStorage.courier,
+          }
+        }
+      )
+    )}
+    else{
+      alert("Harap untuk melengkapi data pada tahap 1, 2, dan 3 terlebih dahulu")
+    }
+  }
+
+  serviceData = (e) => {
+    var shippingPrice = e.target.value;
+    var serviceName = e.target.name;
+    localStorage.shippingPrice = shippingPrice;
+    localStorage.serviceName = serviceName;
+
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        courier: localStorage.courier
+        shippingPrice: localStorage.shippingPrice,
+        service: localStorage.serviceName
         }
       }
-    )
-  )}
+    ))
+  }
 
   detailAddressData = (e) => {
     var detailAddress = e.target.value;
@@ -418,7 +443,7 @@ class Designpakaian extends Component {
   }
 
   render(){
-  const { categories, materials, provinces, cities, districts } = this.props;
+  const { categories, materials, provinces, cities, districts, shipmentFees } = this.props;
 
   return (
     <div className="design-pakaian">
@@ -739,9 +764,9 @@ class Designpakaian extends Component {
                 </form>
               </MDBCol>
 
-              <MDBCol sm="12" md="12">
+              <MDBCol sm="12" md="6">
                 <form>
-                  <MDBDropdown className="select-type">
+                <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Kurir
                     </MDBDropdownToggle>
@@ -766,9 +791,68 @@ class Designpakaian extends Component {
                       onChange={this.courierData}
                       disabled
                     />
-                  </div>              
+                    </div> 
                 </form>
               </MDBCol>
+
+              <MDBCol sm="12" md="6">
+                <form>
+                  <MDBDropdown className="select-type">
+                    <MDBDropdownToggle caret className="select-btn">
+                      Pilih Jenis Pengiriman
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu basic onClick={this.serviceData}>
+                    {shipmentFees != null ? shipmentFees.map(
+                      shipmentFee => (
+                                <MDBDropdownItem key={shipmentFee.service} name={shipmentFee.description}>
+                                {shipmentFee.description}, {shipmentFee.cost.map(
+                                  cost => (<li key={cost.value} value={cost.value}> {cost.etd} Hari</li>
+                                  ))}
+                                </MDBDropdownItem>
+                            )
+                          )
+                          :
+                          <MDBDropdownItem value="-">Tidak Ada Jenis Pengiriman</MDBDropdownItem>
+                      }
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+
+                  <MDBRow>
+                    <MDBCol sm="12" md="6">
+                      <div className="grey-text">
+                        <MDBInput
+                          label="Jenis Pengiriman"
+                          group
+                          type="text"
+                          validate
+                          error="Data yang dimasukan kurang tepat"
+                          success="Benar"
+                          value= {localStorage.serviceName || ''}
+                          onChange={this.serviceData}
+                          disabled
+                        />
+                      </div> 
+                    </MDBCol>
+
+                    <MDBCol sm="12" md="6">
+                      <div className="grey-text">
+                        <MDBInput
+                          label="Harga Pengiriman"
+                          group
+                          type="number"
+                          validate
+                          error="Data yang dimasukan kurang tepat"
+                          success="Benar"
+                          value= { "Rp. " + this.formatPrice(localStorage.shippingPrice) || ''}
+                          onChange={this.serviceData}
+                          disabled
+                        />
+                      </div>                           
+                    </MDBCol>
+                  </MDBRow>
+                </form>
+              </MDBCol>
+
             </MDBRow>
 
           </div>
@@ -957,13 +1041,14 @@ Designpakaian.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { categories, materials, provinces, cities, districts } = state.orderPage;
+  const { categories, materials, provinces, cities, districts, shipmentFees } = state.orderPage;
   return {
       categories,
       materials,
       provinces,
       cities,
-      districts
+      districts,
+      shipmentFees
   };
 }
 

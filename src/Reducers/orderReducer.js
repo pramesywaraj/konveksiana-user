@@ -16,6 +16,7 @@ const initialState = auth ? {
     provinces:[],
     cities:[],
     districts:[],
+    shipmentFees: []
 } : {};
 
 export function orderPage(state = initialState, action) {
@@ -60,6 +61,12 @@ export function orderPage(state = initialState, action) {
             return {
                 ...state,
                 districts: action.districts,
+                loading: false
+            };
+        case 'FETCHED_ALL_SHIPMENT_FEES':
+            return {
+                ...state,
+                shipmentFees: action.shipmentFees,
                 loading: false
             };
         case 'CREATE_ORDER_SUCCESS':

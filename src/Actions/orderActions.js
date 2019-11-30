@@ -11,6 +11,7 @@ export const orderActions = {
     getAllProvince,
     getAllCity,
     getAllDistrict,
+    getShipmentFee,
 
     // User Order
     getAllOrder,
@@ -156,6 +157,33 @@ function getAllDistrict(data) {
     };
 }
 
+function getShipmentFee() {
+    return dispatch => {
+        let apiEndpoint = 'order/getexpeditioncost';
+
+        let payload = {
+            originCityId: "1038",
+            destinationCityId: localStorage.district,
+            weightPackage: localStorage.weightPrediction,
+            expedition: localStorage.courier
+        };
+
+        orderService.getShipmentFees(apiEndpoint, payload).then(
+            (res) => {
+                let shipmentFees = res.data.rajaongkir.results[0].costs;
+                console.log("Cek Shipment Fee : ", shipmentFees)
+                if (res.data.rajaongkir.status.code === 200) {
+                    dispatch(getShipmentFeesList(shipmentFees));
+                }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    };
+}
+
 export function createOrderSuccess(data) {
     return {
         type: "CREATE_ORDER_SUCCESS",
@@ -200,6 +228,13 @@ export function getDistrictsList(districts) {
     return {
         type: 'FETCHED_ALL_DISTRICTS',
         districts: districts,
+    };
+}
+
+export function getShipmentFeesList(shipmentFees) {
+    return {
+        type: 'FETCHED_ALL_SHIPMENT_FEES',
+        shipmentFees: shipmentFees,
     };
 }
 
