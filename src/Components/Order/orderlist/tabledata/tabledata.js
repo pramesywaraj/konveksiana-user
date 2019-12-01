@@ -32,8 +32,8 @@ class Tabledata extends Component {
         { title: 'Tanggal Dibuat', field: 'date' },
         { title: 'Material', field: 'material.name' },
         { title: 'Jumlah Pesanan (pcs)', field: 'quantity' },
-        { title: 'Berat (Kg)', field: 'weight' },
-        { title: 'Harga (Rp)', field: 'productPrice' },
+        { title: 'Berat (Gram)', field: 'weightPrediction' },
+        { title: 'Harga Total (Rp)', field: 'price' },
         { title: 'Alamat', field: 'detailAddress' },
         // { title: 'Action', field: 'btn' },
       ],
@@ -65,6 +65,11 @@ class Tabledata extends Component {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
+  totalPrice(productPrice, shippingPrice){
+    let total = parseInt(productPrice) + parseInt(shippingPrice);
+    return "Rp. " + this.formatPrice(total);
+  }
+
   gotoCreateOrder(){
     // eslint-disable-next-line no-unused-vars
     history.push('/order');
@@ -75,6 +80,7 @@ class Tabledata extends Component {
 
     for (let i = 0; i < orders.length; i++) {
       orders[i].date = moment(orders[i].createdAt).format("DD MMMM YYYY");
+      orders[i].price = this.totalPrice(orders[i].productPricePrediction, orders[i].shippingPricePrediction)
     }
 
     return (

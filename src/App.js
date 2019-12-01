@@ -27,9 +27,10 @@ function App() {
             <Route exact path='/login' component={Login} />
             <Route exact path='/sign-up' component={Signup} />
             {/* <Route exact path='/' render={() => (<Redirect to="/dashboard" />)} />             */}
-            <PrivateRoute exact path='/dashboard' component={Dashboard}/>
+            {/* <PrivateRoute exact path='/dashboard' component={Dashboard}/> */}
+            <PrivateRoute exact path='/dashboard' component={Product}/>          
             <PrivateRoute exact path='/user-order' component={Order}/>          
-            <PrivateRoute exact path='/products' component={Product}/>          
+            {/* <PrivateRoute exact path='/products' component={Product}/>           */}
             <PrivateRoute exact path='/products/product-detail/:id' component={ProductDetail}/>          
             <Route path='*' component={Homepage} />            
           </Switch>

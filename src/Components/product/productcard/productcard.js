@@ -62,6 +62,11 @@ class ProductCard extends Component {
         }
     }
 
+    checkStatus(status){
+        let statusChecker = status;
+        return statusChecker;
+    }
+
     render(){
         const { orders } = this.props;
         return (
@@ -71,7 +76,7 @@ class ProductCard extends Component {
 
                 {orders != null ? orders.map(
                         order => (
-                            <div className="col-4" key={order._id}>
+                            <div className="col-12 col-sm-6 col-md-6 col-lg-4" key={order._id}>
                                 <div className="card text-center mb-5">
                                     <div className="card-body" key={order._id}>
                                         {order.photoUrls[0] != null ?
@@ -100,9 +105,9 @@ class ProductCard extends Component {
                                         <h5 className="card-title mt-3">{order.user.name}</h5>
                                         <p className="card-text">{order.description}</p>
                                         <p>Status : &nbsp;
-                                            <span className="card-status">Fresh</span>
+                                            <span className="card-status">fresh</span>
                                         </p>
-                                        <button className="btn btn-primary btn-sm" onClick={() => this.gotoDetail(order)}>
+                                        <button className="btn btn-product btn-sm" onClick={() => this.gotoDetail(order)}>
                                             <span>Detail</span>
                                         </button>                                        
                                     </div>

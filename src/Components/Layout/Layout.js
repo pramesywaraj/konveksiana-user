@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
+        color: "white"
     },
     toolbarIcon: {
         display: 'flex',
@@ -110,28 +111,21 @@ export default function Layout(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)} style={{backgroundColor: "#fbdb54"}}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton
                         edge="start"
-                        color="inherit"
+                        color="black"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                        style={{color: "black"}}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                    <Typography component="h1" variant="h6" color="black" noWrap className={classes.title} style={{color: "black"}}>
                         Konveksiana User Panel
                     </Typography>
-                    {/* <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton> */}
-                    <IconButton color="inherit">
-                        <AccountCircleIcon />
-                    </IconButton>
                 </Toolbar>
             </AppBar>
             <Drawer

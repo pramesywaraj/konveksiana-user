@@ -70,7 +70,7 @@ class Designpakaian extends Component {
           ...state,
           userName: user.name,
           userEmail: user.email,
-          userPhone: user.phone,
+          userPhone: user.phoneNumber,
           userAddress: user.address,    
           form: {
             ...state.form,
@@ -103,8 +103,12 @@ class Designpakaian extends Component {
           description: this.state.form.description,
           quantity: this.state.form.totalOrder,
           productPricePrediction: this.state.form.itemPrice,
-          city: this.state.form.city,
+          city: this.state.form.district,
           detailAddress: this.state.form.detailAddress,
+          courier: this.state.form.courier,
+          phoneNumber: user.phoneNumber,
+          shippingPricePrediction: this.state.form.shippingPrice,
+          weightPrediction: this.state.form.weightPrediction
         }
         console.log("Test Data : ", data.orderImage)
   
@@ -239,8 +243,8 @@ class Designpakaian extends Component {
 
   colorData = (e) => {
     var color = e.target.value;
-    localStorage.color = color.toLowerCase();
-    console.log(color.toLowerCase(), " was selected as Screen Printing");
+    localStorage.color = color.toUpperCase();
+    console.log(color.toUpperCase(), " was selected as Screen Printing");
     this.setState(state => ({
       ...state,
       form: {
@@ -423,18 +427,23 @@ class Designpakaian extends Component {
   }
 
   detailAddressData = (e) => {
-    var detailAddress = e.target.value;
-    localStorage.detailAddress = detailAddress;
-    console.log(detailAddress, " was selected as Destination Address");
-    this.setState(state => ({
-      ...state,
-      form: {
-        ...state.form,
-        detailAddress: localStorage.detailAddress
+    if(localStorage.districtName && localStorage.city && localStorage.provinceName){
+      var detailAddress = e.target.value;
+      localStorage.detailAddress = detailAddress;
+      console.log(detailAddress, " was selected as Destination Address");
+      this.setState(state => ({
+        ...state,
+        form: {
+          ...state.form,
+          detailAddress: localStorage.detailAddress + ", " + localStorage.districtName + ", " +  localStorage.city + ", " + localStorage.provinceName
+          }
         }
-      }
-    )
-  )}
+      )
+    )}
+    else{
+      alert("Harap Mengisi Provinsi, Kota, dan Kecamatan Terlebih dahulu")
+    }
+  }
 
   formatPrice(value) {
     let val = (value/1)
@@ -764,7 +773,6 @@ class Designpakaian extends Component {
                       min="1"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
                       value={localStorage.detailAddress || ' '}
                       onChange={this.detailAddressData}
                     />
@@ -884,19 +892,19 @@ class Designpakaian extends Component {
             <p className="h5 text-center mb-4 sub-title">Rincian Pesanan</p>
             <div className="card order-summary">
               <MDBRow>
-                <MDBCol sm="12" md="3">
+                <MDBCol xs="6" sm="6" md="3">
                   <p className="text-upload">Gambar</p>
                   <img className="img-fluid img-preview-front" src={this.state.form.frontDesign} alt="front-design"/>
                 </MDBCol>
-                <MDBCol sm="12" md="3">
+                <MDBCol xs="6" sm="6" md="3">
                   <p className="text-upload">&nbsp;</p>
                   <img className="img-fluid img-preview-back" src={this.state.form.backDesign} alt="left-design"/>
                 </MDBCol>
-                <MDBCol sm="12" md="3">
+                <MDBCol xs="6" sm="6" md="3">
                   <p className="text-upload">&nbsp;</p>
                   <img className="img-fluid img-preview-left" src={this.state.form.leftDesign} alt="left-design"/>
                 </MDBCol>
-                <MDBCol sm="12" md="3">
+                <MDBCol xs="6" sm="6" md="3">
                   <p className="text-upload">&nbsp;</p>
                   <img className="img-fluid img-preview-right" src={this.state.form.rightDesign} alt="left-design"/>
                 </MDBCol>

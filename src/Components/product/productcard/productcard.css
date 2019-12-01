@@ -48,6 +48,11 @@
     font-weight: bold;
 }
 
+.product-list .btn-product{
+    background-color: #ffbb33;
+    color: #2E2E2E;
+}
+
 .product-list .product-btn{
     display: inline-block;
     text-align: right;

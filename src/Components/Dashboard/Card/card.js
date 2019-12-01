@@ -63,6 +63,16 @@ class Card extends Component {
         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
 
+    totalPrice(productPrice, shippingPrice){
+        let total = parseInt(productPrice) + parseInt(shippingPrice);
+        return this.formatPrice(total);
+    }
+
+    statusChecker(status){
+        // let checkStatus = status;
+        // if(checkStatus == "")
+    }
+    
     render(){
         const { orders } = this.props;
         return (
@@ -108,13 +118,13 @@ class Card extends Component {
                                                     <p className="item-name">{order.user.name}</p>
                                                     <p className="item-desc">{order.description}</p>
                                                     <p className="item-price">{order.color}</p>
-                                                    <p className="item-price">Rp. {this.formatPrice(order.productPrice)}</p>
+                                                    <p className="item-price">Rp. {this.totalPrice(order.productPricePrediction, order.shippingPricePrediction)}</p>
                                                     <p className="item-unit">{order.quantity} pcs</p>
                                                 </div>
                                                 <div className="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                                     <p className="item-status">Status:</p>
-                                                    {order.orderStep.length !== 0?
-                                                        <p className="item-tracker">{order.orderStep[0]}</p>
+                                                    {order.status !== 0?
+                                                        <p className="item-tracker">{this.statusChecker(order.status)}</p>
                                                         :
                                                         <p className="item-tracker">Fresh</p>
                                                     }

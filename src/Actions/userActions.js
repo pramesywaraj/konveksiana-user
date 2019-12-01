@@ -49,7 +49,7 @@ function login(email, password) {
                     localStorage.setItem('user', JSON.stringify(res.data.result));                    
                     dispatch(setUserDetails(res.data));
                     history.push('/dashboard');
-                    alert(res.data.message);
+                    // alert(res.data.message);
                 } else {
                     dispatch(loginFailed());
                     alert(res.data.message);

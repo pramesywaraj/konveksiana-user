@@ -25,30 +25,29 @@ function createOrder(data) {
     return dispatch => {
         let apiEndpoint = 'order';
         let payload = new FormData();
-        // payload.append('orderImage', data.orderImage);
 
-        // console.log("Cek Image : ", data.orderImage);
         for (const file of data.orderImage) {
             payload.append('orderImage', file)
         }
-
         payload.append('userId', data.userId);
         payload.append('materialId', data.materialId);
-        // payload.append('materialId', '5d79930c8c4a882f44b1b0fb');
         payload.append('color', data.color);
         payload.append('description', data.description);
         payload.append('quantity', data.quantity);
         payload.append('city', data.city);
         payload.append('detailAddress', data.detailAddress);
-
-        console.log("Cek Data : ", payload);
+        payload.append('courier', data.courier);
+        payload.append('phoneNumber', data.phoneNumber);
+        payload.append('shippingPricePrediction', data.shippingPricePrediction);
+        payload.append('weightPrediction', data.weightPrediction);
+        payload.append('productPricePrediction', data.productPricePrediction);
 
         orderService.post(apiEndpoint, payload)
             .then(res => {
                 if(res.data.status === 200) {
                     alert(res.data.Message);
                     dispatch(createOrderSuccess(res.data));
-                    history.push('/user-order');
+                    history.push('/');
                 } else {
                     dispatch(createOrderFailed());
                     alert(res.data.Message);
@@ -63,7 +62,6 @@ function getAllCategory() {
 
         orderService.getAllCategories(apiEndpoint).then(
             (res) => {
-                // console.log("Cek Material Data : ", res.data.material);
                 let categories = res.data.category;
                 if (res.data.status === 200) {
                     dispatch(getCategoryList(categories));
@@ -83,7 +81,6 @@ function getAllMaterial() {
 
         orderService.getAllMaterials(apiEndpoint).then(
             (res) => {
-                // console.log("Cek Material Data : ", res.data.material);
                 let materials = res.data.material;
                 if (res.data.status === 200) {
                     dispatch(getMaterialList(materials));
@@ -104,7 +101,6 @@ function getAllProvince() {
         orderService.getAllProvinces(apiEndpoint).then(
             (res) => {
                 let provinces = res.data.rajaongkir.results;
-                console.log("Cek Province : ", provinces)
                 if (res.data.rajaongkir.status.code === 200) {
                     dispatch(getProvincesList(provinces));
                 }
@@ -124,7 +120,6 @@ function getAllCity(data) {
         orderService.getAllCities(apiEndpoint).then(
             (res) => {
                 let cities = res.data.rajaongkir.results;
-                console.log("Cek City : ", cities)
                 if (res.data.rajaongkir.status.code === 200) {
                     dispatch(getCitiesList(cities));
                 }
@@ -144,7 +139,6 @@ function getAllDistrict(data) {
         orderService.getAllDistricts(apiEndpoint).then(
             (res) => {
                 let districts = res.data.rajaongkir.results;
-                console.log("Cek District : ", districts)
                 if (res.data.rajaongkir.status.code === 200) {
                     dispatch(getDistrictsList(districts));
                 }
@@ -171,7 +165,6 @@ function getShipmentFee() {
         orderService.getShipmentFees(apiEndpoint, payload).then(
             (res) => {
                 let shipmentFees = res.data.rajaongkir.results[0].costs;
-                console.log("Cek Shipment Fee : ", shipmentFees)
                 if (res.data.rajaongkir.status.code === 200) {
                     dispatch(getShipmentFeesList(shipmentFees));
                 }
@@ -254,7 +247,7 @@ function getAllOrder() {
                 // console.log("Cek Material Data : ", res.data.material);
                 let orders = res.data.order;
                 // ordersData.data = res.data.order;
-                // console.log("Check Order Data : ", ordersData)
+                console.log("Check Order Data : ", orders)
 
                 if (res.data.status === 200) {
                     localStorage.setItem('ordersData', JSON.stringify(orders));
