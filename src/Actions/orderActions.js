@@ -7,6 +7,7 @@ export const orderActions = {
     // Landing Order
     createOrder,
     getAllCategory,
+    getAllProduct,
     getAllMaterial,
     getAllProvince,
     getAllCity,
@@ -75,10 +76,29 @@ function getAllCategory() {
     };
 }
 
-function getAllMaterial() {
+function getAllProduct(data) {
     return dispatch => {
-        let apiEndpoint = 'material';
+        let apiEndpoint = 'product/category/' + data;
+        console.log("Cek product : ", apiEndpoint)
 
+        orderService.getAllProducts(apiEndpoint).then(
+            (res) => {
+                let products = res.data.product;
+                if (res.data.status === 200) {
+                    dispatch(getProductList(products));
+                }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    };
+}
+
+function getAllMaterial(data) {
+    return dispatch => {
+        let apiEndpoint = 'material/product/' + data;
         orderService.getAllMaterials(apiEndpoint).then(
             (res) => {
                 let materials = res.data.material;
@@ -193,6 +213,13 @@ export function getCategoryList(categories) {
     return {
         type: 'FETCHED_ALL_CATEGORIES',
         categories: categories,
+    };
+}
+
+export function getProductList(products) {
+    return {
+        type: 'FETCHED_ALL_PRODUCTS',
+        products: products,
     };
 }
 

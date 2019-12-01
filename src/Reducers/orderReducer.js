@@ -6,6 +6,7 @@ const initialState = auth ? {
 
     // Landing Order
     categories: [], 
+    products: [],
     materials: [], 
     id: '',
     name: '',
@@ -37,6 +38,12 @@ export function orderPage(state = initialState, action) {
             return {
                 ...state,
                 categories: action.categories,
+                loading: false
+            };
+        case 'FETCHED_ALL_PRODUCTS':
+            return {
+                ...state,
+                products: action.products,
                 loading: false
             };
         case 'FETCHED_ALL_MATERIALS':

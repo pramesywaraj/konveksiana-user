@@ -32,6 +32,7 @@ class Designpakaian extends Component {
       userAddress: '',
       form:{
         category: '',
+        product: '',
         materialType: '',
         color: '',
         description: '',
@@ -90,6 +91,8 @@ class Designpakaian extends Component {
   };
 
   createOrder = (e) => {
+
+    if(localStorage.courier){
       this.setState({ loading : true });
 
       if(localStorage.auth){
@@ -110,7 +113,6 @@ class Designpakaian extends Component {
           shippingPricePrediction: this.state.form.shippingPrice,
           weightPrediction: this.state.form.weightPrediction
         }
-        console.log("Test Data : ", data.orderImage)
   
         // eslint-disable-next-line no-unused-vars
         const { dispatch } = this.props;
@@ -124,6 +126,12 @@ class Designpakaian extends Component {
         alert("Harap Login Terlebih Dahulu untuk Melakukan Pemesanan")
         history.push('/login');
       }
+    }
+
+    else{
+      alert("Harap Melengkapi semua Data terlebih dahulu")
+    }
+
   }
 
   frontDesign = e => {
@@ -217,7 +225,6 @@ class Designpakaian extends Component {
   descriptionData = (e) =>{
     var description = e.target.value;
     localStorage.description = e.target.value;
-    console.log(description, " was selected as Convection Type");
     this.setState(state => ({
       ...state,
       form: {
@@ -228,23 +235,9 @@ class Designpakaian extends Component {
     )
   )}
 
-  categoryData = (e) => {
-    localStorage['category'] = e.target.value;
-    localStorage['categoryName'] = e.target.name;
-    this.setState(state => ({
-      ...state,
-      form: {
-        ...state.form,
-        category: localStorage.category,
-        }
-      }
-    )
-  )}
-
   colorData = (e) => {
     var color = e.target.value;
     localStorage.color = color.toUpperCase();
-    console.log(color.toUpperCase(), " was selected as Screen Printing");
     this.setState(state => ({
       ...state,
       form: {
@@ -255,39 +248,92 @@ class Designpakaian extends Component {
     )
   )}
 
-  materialData = (e) => {
-    // var materialType = e.target.value;
-    let [id, priceMargin, weight] = e.target.value.split(",");
-    localStorage['material'] = id;
-    localStorage['materialName'] = e.target.name;
-    localStorage['priceMargin'] = priceMargin;
-    localStorage['weight'] = weight;
+  categoryData = (e) => {
+    localStorage['category'] = e.target.value;
+    localStorage['categoryName'] = e.target.name;
 
-    var material = localStorage.priceMargin;
-    if(localStorage.totalOrder){
-      var totalOrder = localStorage.totalOrder;
+    // eslint-disable-next-line no-unused-vars
+    const { dispatch } = this.props;
+    if(localStorage.category) {
+      dispatch(orderActions.getAllProduct(localStorage.category));
     }
-    else{
-      var totalOrder = 1;
-    }
-
-    var itemPrice = (material * totalOrder) - ((material * totalOrder)*
-    (Math.min(10, Math.floor(totalOrder / 12))) / 100);
-    var weightPrediction = weight * totalOrder;
-    localStorage.price = itemPrice;
-    localStorage.weightPrediction = weightPrediction;
-
+    
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        materialType: localStorage.material,
-        itemPrice: localStorage.price,
-        weightPrediction: localStorage.weightPrediction,
+        category: localStorage.category,
         }
       }
     )
   )}
+
+  productData = (e) => {
+
+    if(localStorage.category){
+      localStorage['product'] = e.target.value;
+      localStorage['productName'] = e.target.name;
+  
+      // eslint-disable-next-line no-unused-vars
+      const { dispatch } = this.props;
+      if(localStorage.product) {
+        dispatch(orderActions.getAllMaterial(localStorage.product));
+      }
+  
+      this.setState(state => ({
+        ...state,
+        form: {
+          ...state.form,
+          product: localStorage.product,
+          }
+        }
+      )
+    )}
+
+    else{
+      alert("Harap Memilih Kategori terlebih dahulu")
+    }
+  }
+
+  materialData = (e) => {
+
+    if(localStorage.product){
+      // var materialType = e.target.value;
+      let [id, priceMargin, weight] = e.target.value.split(",");
+      localStorage['material'] = id;
+      localStorage['materialName'] = e.target.name;
+      localStorage['priceMargin'] = priceMargin;
+      localStorage['weight'] = weight;
+
+      var material = localStorage.priceMargin;
+      if(localStorage.totalOrder){
+        var totalOrder = localStorage.totalOrder;
+      }
+      else{
+        var totalOrder = 1;
+      }
+
+      var itemPrice = (material * totalOrder) - ((material * totalOrder)*
+      (Math.min(10, Math.floor(totalOrder / 12))) / 100);
+      var weightPrediction = weight * totalOrder;
+      localStorage.price = itemPrice;
+      localStorage.weightPrediction = weightPrediction;
+
+      this.setState(state => ({
+        ...state,
+        form: {
+          ...state.form,
+          materialType: localStorage.material,
+          itemPrice: localStorage.price,
+          weightPrediction: localStorage.weightPrediction,
+          }
+        }
+      )
+    )}
+    else{
+      alert("Harap Memilih Produk terlebih dahulu")
+    }
+}
 
   totalOrderData = (e) =>{
     localStorage.totalOrder = e.target.value;
@@ -329,7 +375,6 @@ class Designpakaian extends Component {
       dispatch(orderActions.getAllCity(localStorage.province));
     }
 
-    console.log(province, " was selected as Destination province");
       this.setState(state => ({
         ...state,
         form: {
@@ -353,7 +398,6 @@ class Designpakaian extends Component {
       dispatch(orderActions.getAllDistrict(localStorage.cityId));
     }
     
-    console.log(city, " was selected as Destination City");
     this.setState(state => ({
       ...state,
       form: {
@@ -368,7 +412,6 @@ class Designpakaian extends Component {
     var district = e.target.value;
     localStorage.district = district;
     localStorage.districtName = e.target.name;
-    console.log(district, " was selected as Destination District");
     this.setState(state => ({
       ...state,
       form: {
@@ -388,7 +431,6 @@ class Designpakaian extends Component {
       var courierName = e.target.name;
       localStorage.courier = courier;
       localStorage.courierName = courierName;
-      console.log(courier, " was selected as Courier");  
 
       dispatch(orderActions.getShipmentFee());
 
@@ -430,7 +472,6 @@ class Designpakaian extends Component {
     if(localStorage.districtName && localStorage.city && localStorage.provinceName){
       var detailAddress = e.target.value;
       localStorage.detailAddress = detailAddress;
-      console.log(detailAddress, " was selected as Destination Address");
       this.setState(state => ({
         ...state,
         form: {
@@ -460,7 +501,7 @@ class Designpakaian extends Component {
   }
 
   render(){
-  const { categories, materials, provinces, cities, districts, shipmentFees } = this.props;
+  const { categories, products, materials, provinces, cities, districts, shipmentFees } = this.props;
 
   return (
     <div className="design-pakaian">
@@ -494,25 +535,25 @@ class Designpakaian extends Component {
 
             <p className="h5 text-center mb-4 sub-title">Order Desain</p>
             <MDBRow className="design-pakaian-form">
-              <MDBCol sm="12" md="3">
-                <label className="text-upload">Gambar</label>
+              <MDBCol sm="12" md="6">
+                <p className="text-upload">Gambar</p>
                 <input type="file" name="front" onChange={this.frontDesign}/>
                 <img className="img-fluid img-preview-front" src={this.state.form.frontDesign} alt="front-design"/>
               </MDBCol>
 
-              <MDBCol sm="12" md="3">
+              <MDBCol sm="12" md="6">
                 <p className="text-upload">Gambar</p>
                 <input type="file" name="back" onChange={this.backDesign}/>
                 <img className="img-fluid img-preview-back" src={this.state.form.backDesign} alt="back-design"/>
               </MDBCol>
 
-              <MDBCol sm="12" md="3">
+              <MDBCol sm="12" md="6">
                 <p className="text-upload">Gambar</p>
                 <input type="file" name="left" onChange={this.leftDesign}/>
                 <img className="img-fluid img-preview-left" src={this.state.form.leftDesign} alt="left-design"/>
               </MDBCol>
 
-              <MDBCol sm="12" md="3">
+              <MDBCol sm="12" md="6">
                 <p className="text-upload">Gambar</p>
                 <input type="file" name="right" onChange={this.rightDesign}/>
                 <img className="img-fluid img-preview-right" src={this.state.form.rightDesign} alt="right-design"/>
@@ -525,11 +566,11 @@ class Designpakaian extends Component {
 
             <p className="h5 text-center mb-4 sub-title">Order Detail</p>
             <MDBRow className="design-pakaian-form">
-              <MDBCol sm="12" md="6">
+              <MDBCol sm="12" md="4">
                 <form>
                   <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
-                      Kategori Produk
+                      Pilih Jenis Kategori
                     </MDBDropdownToggle>
                     <MDBDropdownMenu basic onClick={this.categoryData}>
                       {categories != null ? categories.map(
@@ -546,7 +587,7 @@ class Designpakaian extends Component {
                   </MDBDropdown>
                   <div className="grey-text">
                     <MDBInput
-                      label="Jenis Barang"
+                      label="Jenis Kategori Barang"
                       group
                       type="text"
                       validate
@@ -559,7 +600,41 @@ class Designpakaian extends Component {
                 </form>
               </MDBCol>
 
-              <MDBCol sm="12" md="6">
+              <MDBCol sm="12" md="4">
+                <form>
+                  <MDBDropdown className="select-type">
+                    <MDBDropdownToggle caret className="select-btn">
+                      Pilih Jenis Produk
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu basic onClick={this.productData}>
+                      {products != null ? products.map(
+                              product => (
+                                  <MDBDropdownItem key={product._id} name={product.name} value={product._id}>
+                                    {product.name}
+                                  </MDBDropdownItem>
+                              )
+                          )
+                          :
+                          <MDBDropdownItem value="-">Tidak Ada Produk</MDBDropdownItem>
+                        }
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                  <div className="grey-text">
+                    <MDBInput
+                      label="Jenis Produk"
+                      group
+                      type="text"
+                      validate
+                      error="Data yang dimasukan kurang tepat"
+                      success="Benar"
+                      value= {localStorage.productName || ' '}
+                      disabled
+                    />
+                  </div>
+                </form>
+              </MDBCol>
+
+              <MDBCol sm="12" md="4">
                 <form>
                   <MDBDropdown className="select-type">
                     <MDBDropdownToggle caret className="select-btn">
@@ -1100,9 +1175,10 @@ Designpakaian.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { categories, materials, provinces, cities, districts, shipmentFees } = state.orderPage;
+  const { categories, products, materials, provinces, cities, districts, shipmentFees } = state.orderPage;
   return {
       categories,
+      products,
       materials,
       provinces,
       cities,

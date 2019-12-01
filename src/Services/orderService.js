@@ -5,6 +5,7 @@ export const orderService = {
     // Landing Order
     post,
     getAllCategories,
+    getAllProducts,
     getAllMaterials,
     getAllProvinces,
     getAllCities,
@@ -39,8 +40,18 @@ function getAllCategories(apiEndpoint) {
         });
 }
 
+function getAllProducts(apiEndpoint) {
+    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            return err;
+        });
+}
+
 function getAllMaterials(apiEndpoint) {
-    return axios.get(config.baseUrl + apiEndpoint)
+    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
         .then((response) => {
             return response;
         })

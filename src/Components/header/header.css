@@ -51,7 +51,7 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     /* transform: translateY(5vh); */
-    margin-top: 50px;
+    margin-top: 90px;
     z-index: 999;
 }
 
@@ -80,6 +80,18 @@
 
 .konveksiana-nav .toggle{
     text-align: left;
+}
+
+@media screen and (max-width: 2560px) and (min-height: 1600px){
+    .konveksiana-nav{
+        margin-top: 130px;
+    }    
+}
+
+@media screen and (max-width: 1920px) and (min-height: 1920px){
+    .konveksiana-nav{
+        margin-top: 90px;
+    }    
 }
 
 @media screen and (max-width: 1366px){
