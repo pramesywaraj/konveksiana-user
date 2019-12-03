@@ -41,7 +41,7 @@ function getAllCategories(apiEndpoint) {
 }
 
 function getAllProducts(apiEndpoint) {
-    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+    return axios.get(config.baseUrl + apiEndpoint)
         .then((response) => {
             return response;
         })
@@ -51,7 +51,7 @@ function getAllProducts(apiEndpoint) {
 }
 
 function getAllMaterials(apiEndpoint) {
-    return axios.get(config.baseUrl + apiEndpoint, getOptionsAuth())
+    return axios.get(config.baseUrl + apiEndpoint)
         .then((response) => {
             return response;
         })

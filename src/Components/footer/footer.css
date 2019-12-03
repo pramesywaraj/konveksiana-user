@@ -27,3 +27,32 @@
     color: #fbdb54;
     transition: 0.5s;
 }
+
+@media screen and (min-width: 1921px){
+    .konveksiana-footer .foot-title{
+        font-size: 4em;
+    }
+    
+    .konveksiana-footer .icon{
+        font-size: 8em;
+        color: aliceblue;
+    }
+    
+    .konveksiana-footer a{
+        text-decoration: none;
+        font-size: 1.25em;
+        color: aliceblue;
+    }
+    
+    .konveksiana-footer p, .konveksiana-footer span{
+        text-decoration: none;
+        font-size: 2.5em;
+        color: aliceblue;
+    }
+
+    .konveksiana-footer a:hover , .konveksiana-footer .icon:hover{
+        color: #fbdb54;
+        transition: 0.5s;
+    }
+    
+}

@@ -24,7 +24,7 @@ const Footer = () => {
                   <i className="fab fa-line"></i>
                 </span> 
                 <br/>
-                @konveksiana
+                <p>@konveksiana</p>
               </a>       
             </MDBContainer>
           </div>
@@ -37,7 +37,7 @@ const Footer = () => {
                   <i className="fab fa-instagram"></i>
                 </span>       
                 <br/> 
-                @konveksiana.id
+                <p>@konveksiana.id</p>
               </a>   
             </MDBContainer>
           </div>
@@ -50,7 +50,7 @@ const Footer = () => {
                   <i className="fab fa-whatsapp"></i>
                 </span>      
                 <br/>
-                0877-8465-6175
+                <p>0877-8465-6175</p>
               </a>       
             </MDBContainer>
           </div>
@@ -71,7 +71,7 @@ const Footer = () => {
         <div className="col">
           <div className="footer-copyright text-center py-3">
             <MDBContainer fluid>
-              &copy; {new Date().getFullYear()} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a> modified by <a target="__blank" href="https://codepanda.id">codepanda.id</a>
+              <p>&copy; {new Date().getFullYear()} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a> modified by <a target="__blank" href="https://codepanda.id">codepanda.id</a></p>
             </MDBContainer>
           </div>
         </div>

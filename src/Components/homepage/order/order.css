@@ -81,6 +81,72 @@
     display: none;
 }
 
+@media screen and (min-width: 1921px){
+    .order{
+        min-height: 100vh;
+        background-image: url("/assets/background/slide-4.jpg");
+        /* background-attachment: fixed; */
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    .order .container{
+        padding-top: 10vh;
+        max-width: 1800px;
+    }
+    
+    .order .section-title{
+        display: inline-block;
+        font-size: 5em;
+        font-weight: 500;
+        color: #1c2331;
+        background-color: #fbdb54;
+        border-radius: 8px;
+        text-align: center;
+    }
+    
+    .order .section-subtitle{
+        font-size: 1.5em;
+        font-weight: 300;
+        color: aliceblue;
+    }
+    
+    .order .card{
+        height: 70vh;
+    }
+    
+    .order .icon{
+        text-align: center;
+        font-size: 5em;
+        /* color: #fbdb54; */
+        color: aliceblue;
+        border-radius: 8px;
+    }
+    
+    .order .card-title{
+        font-size: 3.25em;
+        font-weight: bold;
+        color: #1c2331;
+        background-color: #fbdb54;
+        border-radius: 8px;
+    }
+    
+    .order .card-title-2{
+        font-size: 3.25em;
+        font-weight: bold;
+        color: #1c2331;
+        background-color: #fbdb54;
+        border-radius: 8px;
+    }
+    
+    .order .card-desc{
+        font-size: 2.75em;
+        font-weight: 500;
+        color: aliceblue;
+    }
+    
+}
+
 @media screen and (max-width: 768px){
     .order .section-title{
         font-size: 1.5em;

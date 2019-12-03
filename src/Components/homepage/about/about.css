@@ -87,6 +87,80 @@
     background-repeat: no-repeat;
 }
 
+@media screen and (min-width: 1921px){
+    .about{
+        width: 100%;
+        max-width: 100vw;
+        /* min-height: 100vh; */
+        background-image: url("/assets/background/slide-3.jpg");
+        /* background-attachment: fixed; */
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+        
+    .about .container{
+        padding-top: 50px;
+        padding-bottom: 20vh;
+    }
+    
+    .about .section-title{
+        display: inline-block;
+        font-size: 4em;
+        font-weight: bold;
+        color: #1c2331;
+        background-color: #fbdb54;
+        border-radius: 8px;
+    }
+    
+    .about .section-subtitle{
+        margin: 0% auto;
+        max-width: 1800px;
+        font-size: 3em;
+        font-weight: 300;
+        color: #1c2331;
+    }
+    
+    .about .highlight{
+        font-weight: 500;
+        color: #1c2331;
+        background-color: #fbdb54;
+        border-radius: 8px;
+    }
+    
+    .about .icon{
+        text-align: center;
+        font-size: 5em;
+        color: #fbdb54;
+        border-radius: 8px;
+    }
+    
+    .about .card-title{
+        font-size: 3em;
+        font-weight: 700;
+        color: #1c2331;
+    }
+    
+    .about .img-size{
+        width: 15vw;
+        height: 15vh;
+        margin: 5vh auto;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    
+    .about .img-size-logo{
+        width: 15vw;
+        height: 15vh;
+        margin: 0vh auto;
+        margin-bottom: 5vh;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }    
+}
+
 @media screen and (max-width: 992px){    
     .about{
         background-image: url("/assets/background/slide-3.jpg");

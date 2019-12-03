@@ -111,6 +111,130 @@
     color: #222222;
 }
 
+@media screen and (min-width: 1921px){
+    .design-pakaian{
+        min-height: auto;
+        background-color: #f1f1f1;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .design-pakaian .container{
+        padding-top: 300px;
+        max-width: 1800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .design-pakaian .title{
+        text-align: center;
+        font-weight: bold;
+        color: #2e2e2e;
+    }
+    
+    .design-pakaian .title h1{
+        font-size: 5em;
+        color: #222222;
+    }
+    
+    .design-pakaian .title h4{
+        font-size: 2.75em;
+        color: #222222;
+    }
+    
+    .design-pakaian .sub-title{
+        padding-top: 100px;
+        font-size: 4em;
+        font-weight: 600;
+        color: #222222;
+    }
+    
+    .design-pakaian .img-preview{
+        display: none;    
+    }
+    
+    .design-pakaian .img-preview-front,
+    .design-pakaian .img-preview-back,
+    .design-pakaian .img-preview-left,
+    .design-pakaian .img-preview-right{
+        display: none;    
+        padding-top: 2vh;
+        object-fit: cover;
+        width: 35vw;
+        height: 35vw;
+    }
+    
+    .design-pakaian .text-upload{
+        font-size: 2.75em;
+        font-weight: 600;
+        color: #222222;
+    }
+    
+    .design-pakaian .design-pakaian-form{
+        padding-top: 5vh;
+        padding-bottom: 200px;
+    }
+    
+    .design-pakaian .select-type{
+        text-align: center;
+    }
+    
+    .design-pakaian .select-btn{
+        color: #222222;
+        font-size: 1.75em;
+        font-weight: bold;
+        background: -webkit-linear-gradient(#fbdb54, #fbdb54);
+    }
+    
+    .design-pakaian input{
+        color: #dd4b39;
+        font-size: 2.25em;
+    }
+    
+    .design-pakaian .konveksiana-btn{
+        color: #222222;
+        font-size: 2em;
+        padding-left: 2vw;
+        padding-right: 2vw;
+        border: none;
+        border-radius: 20px;
+        background: -webkit-linear-gradient(#fbdb54, #fbdb54);
+    }
+    
+    .design-pakaian .konveksiana-btn:hover{
+        font-size: 2.25em;
+        color: #dd4b39;
+        background: transparent;
+        outline: solid 2px linear-gradient(to right, #fbdb54 , #dd4b39); 
+        border: solid 2px linear-gradient(to right, #fbdb54 , #dd4b39);
+        transition: 0.5s ease-in;
+    }
+    
+    .design-pakaian .order-summary{
+        padding: 50px;
+    }
+
+    .design-pakaian p{
+        font-size: 2em;
+    }
+
+    .design-pakaian label{
+        font-size: 2em;
+    }
+
+    .design-pakaian .md-form label, .md-form label.active{
+        font-size: 1.75em;
+    }
+
+    .design-pakaian strong{
+        font-size: 1.15em;
+    }
+    
+    .design-pakaian small{
+        font-size: 1.5em;
+    }
+}
+
 @media screen and (max-width: 800px){
     .design-pakaian .title h1{
         font-size: 1.5em;
