@@ -365,7 +365,6 @@ class Designpakaian extends Component {
   )}
 
   provinceData = (e) => {
-    var province = e.target.value;
     localStorage.province = e.target.value;
     localStorage.provinceName = e.target.name;
 

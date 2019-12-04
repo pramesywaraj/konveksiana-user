@@ -11,6 +11,7 @@ export const orderService = {
     getAllCities,
     getAllDistricts,
     getShipmentFees,
+    getOrderStatuses,
 
     // User Order
     getAllOrders,
@@ -97,6 +98,18 @@ function getShipmentFees(apiEndpoint, payload) {
             return res;
         }, err => {
             alert("Harap melengkapi Data yang lain terlebih dahulu")
+            return err.response;
+        })
+
+}
+
+function getOrderStatuses(apiEndpoint, payload) {
+
+    return axios.post(config.baseUrl + apiEndpoint, payload, getOptionsAuth())
+        .then(res => {
+            return res;
+        }, err => {
+            alert("Harap Check kembali Nomor Status Pesanan Kalian")
             return err.response;
         })
 

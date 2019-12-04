@@ -1,9 +1,9 @@
-.img-size{
+.konvek-header .img-size{
     width: 15vw;
     height: 5vh;
-    margin: 50px auto;
+    margin: 5px auto;
     background-position: center;
-    background-size: contain;
+    /* background-size: contain; */
     background-repeat: no-repeat;
 }
 
@@ -13,4 +13,14 @@
 
 .signup{
     color: #3f51b5;
+}
+
+@media screen and (max-width: 576px){
+    .konvek-header .img-size{
+        width: 50vw;
+        height: 15vh;
+        background-position: center;
+        /* background-size: contain; */
+        background-repeat: no-repeat;
+    }
 }

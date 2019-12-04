@@ -103,6 +103,24 @@ class ProductDetail extends Component {
                             </MDBCol>
                         </MDBRow>
 
+                        <p className="text-upload mt-5">Nomor Status Pengiriman</p>
+                        <MDBRow>
+                            <MDBCol sm="12" md="4">
+                                <p>Nomor Status Pemesanan</p>
+                            </MDBCol>
+                            <MDBCol sm="12" md="8">
+                                <p>: <strong>{ordersDataById.baseId}</strong></p>
+                            </MDBCol>
+                        </MDBRow>
+                        <MDBRow>
+                            <MDBCol sm="12" md="4">
+                                <p>Status Pemesanan</p>
+                            </MDBCol>
+                            <MDBCol sm="12" md="8">
+                                <p>: <strong>&nbsp;</strong></p>
+                            </MDBCol>
+                        </MDBRow>
+
                         <p className="text-upload mt-5">Rincian Pemesan</p>
                         <MDBRow>
                             <MDBCol sm="12" md="4">

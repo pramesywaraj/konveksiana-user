@@ -108,7 +108,7 @@ class Login extends Component {
         const { classes } = this.props;
         const { loading } = this.state;
         return (
-            <Container component="main" maxWidth="xs">
+            <Container className="konvek-header" component="main" maxWidth="xs">
                 {loading ? <LinearProgress variant="query" /> : ''}
                 <CssBaseline />
                 <div className={classes.paper}>

@@ -6,7 +6,7 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import Carousel from './carousel/carousel';
 import Banner from './banner/banner'
-import Pesanan from './pesanan/pesanan';
+import { Pesanan } from './pesanan/pesanan';
 import Value from './value/value';
 import About from './about/about';
 import Order from './order/order';

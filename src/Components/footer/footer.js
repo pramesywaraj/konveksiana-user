@@ -45,7 +45,7 @@ const Footer = () => {
         <div className="col-12 col-sm-4 col-md-4 col-lg-4">
           <div className="footer-copyright text-center py-3">
             <MDBContainer fluid>
-              <a target="__blank" href="https://wa.me/087784656175">
+              <a target="__blank" href="https://wa.me/+6287784656175">
                 <span className="icon">
                   <i className="fab fa-whatsapp"></i>
                 </span>      

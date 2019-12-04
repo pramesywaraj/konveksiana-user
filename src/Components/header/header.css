@@ -13,7 +13,7 @@
     z-index: 1000;
     max-width: 1920px;
     min-height: 60px;
-    max-height: 100px;
+    /* max-height: 100px; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -145,6 +145,18 @@
         display: block;
     }
 
+    .konveksiana-upper-nav{
+        /* background-color: rgba(40, 44, 52, 0.7); */
+        background-color: #ffffff;
+        color: #1c2331;
+        z-index: 1000;
+        max-width: 1920px;
+        min-height: 60px;
+        max-height: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
     .konveksiana-upper-nav .img-size{
         width: 100vw;
         height: 100vh;

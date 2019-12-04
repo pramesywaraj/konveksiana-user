@@ -13,6 +13,7 @@ export const orderActions = {
     getAllCity,
     getAllDistrict,
     getShipmentFee,
+    getOrderStatus,
 
     // User Order
     getAllOrder,
@@ -197,6 +198,33 @@ function getShipmentFee() {
     };
 }
 
+function getOrderStatus(data) {
+    return dispatch => {
+        let apiEndpoint = 'order/get/base-id';
+        console.log("cek data : ", data)
+
+        let payload = {
+            baseId: data,
+        };
+
+        orderService.getOrderStatuses(apiEndpoint, payload).then(
+            (res) => {
+                let orderStatuses = res.data.order;
+                if (res.data.status === 200) {
+                    dispatch(getOrderStatusesList(orderStatuses));
+                }
+                else{
+                    alert("Harap Cek Kembali Nomor Status Pesanan Kalian")
+                }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    };
+}
+
 export function createOrderSuccess(data) {
     return {
         type: "CREATE_ORDER_SUCCESS",
@@ -248,6 +276,13 @@ export function getDistrictsList(districts) {
     return {
         type: 'FETCHED_ALL_DISTRICTS',
         districts: districts,
+    };
+}
+
+export function getOrderStatusesList(orderStatuses) {
+    return {
+        type: 'FETCHED_ALL_ORDERSTATUSES',
+        orderStatuses: orderStatuses,
     };
 }
 
