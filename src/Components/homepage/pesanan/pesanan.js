@@ -77,64 +77,129 @@ class Pesanan extends Component {
                     <br />
 
                     <div className="pesanan-card">
-                        <div className="pesanan-container">
-                            <div className="row text-left">
-                                <div className="title col-4">
-                                    <p>
-                                        Nama Orderan
-                                    </p>            
+                        {orderStatuses != null ? orderStatuses.map(
+                            orderStatus => (
+                                <div key={orderStatus._id} className="pesanan-container">
+                                    <div className="row text-left">
+                                        <div className="title col-4">
+                                            <p>
+                                                Nama Pemesan
+                                            </p>            
+                                        </div>
+                                        <div className="col-1">
+                                            <p>
+                                                :
+                                            </p>            
+                                        </div>
+                                        <div className="goods col-7">
+                                            <p>
+                                                {orderStatus.user.name}
+                                            </p>            
+                                        </div>
+                                    </div>
+                                    <div className="row text-left">
+                                        <div className="title col-4">
+                                            <p>
+                                                Nama Orderan
+                                            </p>            
+                                        </div>
+                                        <div className="col-1">
+                                            <p>
+                                                :
+                                            </p>            
+                                        </div>
+                                        <div className="goods col-7">
+                                            <p>
+                                                {orderStatus.material.product.category.name} ({orderStatus.material.product.name}), {orderStatus.material.name}
+                                            </p>            
+                                        </div>
+                                    </div>
+                                    <div className="row text-left">
+                                        <div className="title col-4">
+                                            <p>
+                                                Jumlah Pesanan (pcs)
+                                            </p>            
+                                        </div>
+                                        <div className="col-1">
+                                            <p>
+                                                :
+                                            </p>            
+                                        </div>
+                                        <div className="goods col-7">
+                                            <p>
+                                                {orderStatus.quantity} pcs
+                                            </p>            
+                                        </div>
+                                    </div>
+                                    <div className="row text-left">
+                                        <div className="title col-4">
+                                            <p>
+                                                Keterangan
+                                            </p>           
+                                        </div>
+                                        <div className="col-1">
+                                            <p>
+                                                :
+                                            </p>            
+                                        </div>
+                                        <div className="goods col-7">
+                                            <ol>
+                                                <li>Penyediaan Barang</li>
+                                                <li>Pemotongan Bahan</li>
+                                                <li>Penyablonan</li>
+                                                <li>Penjahitan</li>
+                                                <li>Packaging</li>
+                                                <li>Pengiriman</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div className="row text-left">
+                                        <div className="title col-4">
+                                            <p>
+                                                Status Pengiriman
+                                            </p>             
+                                        </div>
+                                        <div className="col-1">
+                                            <p>
+                                                :
+                                            </p>            
+                                        </div>
+                                        <div className="goods col-7">
+                                            <p>
+                                                {
+                                                    (orderStatus.status.isDone === true && orderStatus.status.isPaidOff === true)? 
+                                                    <span><strong>Lunas</strong></span>                                             
+                                                : 
+                                                    [
+                                                        (orderStatus.status.isDone === true)? 
+                                                        <span><strong>Pesanan Telah Selesai, Harap untuk Melunasi Pembayaran</strong></span>
+                                                        :
+                                                        [
+                                                            (orderStatus.status.isOnProcess === true)? 
+                                                            <span><strong>Pesanan Sedang Dalam Proses Pengerjaan</strong></span>
+                                                            :
+                                                            [
+                                                                (orderStatus.status.isPending === true)? 
+                                                                <span><strong>Pesanan Sedang Menunggu Konfirmasi</strong></span>
+                                                                :
+                                                                [
+                                                                    (orderStatus.status.isReject === true)?
+                                                                    <span><strong>Pesanan Ditolak, Harap hubungi Admin untuk Mengetahui Alasannya</strong></span>
+                                                                    :
+                                                                    <span><strong>Tidak Ada Status Pesanan</strong></span>
+                                                                ]
+                                                            ]
+                                                        ]         
+                                                    ]
+                                                }
+                                            </p>            
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="col-1">
-                                    <p>
-                                        : {orderStatuses[0]}
-                                    </p>            
-                                </div>
-                                <div className="goods col-7">
-                                    <p>
-                                        Kaos Codepanda Hitam, 60pcs
-                                    </p>            
-                                </div>
-                            </div>
-                            <div className="row text-left">
-                                <div className="title col-4">
-                                    <p>
-                                        Keterangan
-                                    </p>           
-                                </div>
-                                <div className="col-1">
-                                    <p>
-                                        :
-                                    </p>            
-                                </div>
-                                <div className="goods col-7">
-                                    <ol>
-                                        <li>Penyediaan Barang</li>
-                                        <li>Pemotongan Bahan</li>
-                                        <li>Penyablonan</li>
-                                        <li>Penjahitan</li>
-                                        <li>Packaging</li>
-                                        <li>Pengiriman</li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <div className="row text-left">
-                                <div className="title col-4">
-                                    <p>
-                                        Status Pengiriman
-                                    </p>             
-                                </div>
-                                <div className="col-1">
-                                    <p>
-                                        :
-                                    </p>            
-                                </div>
-                                <div className="goods col-7">
-                                    <p>
-                                        Terkirim JNE
-                                    </p>            
-                                </div>
-                            </div>
-                        </div>
+                            ))
+                            :
+                            <span> Tidak Ada Jenis Pengiriman</span>
+                        }
                     </div>
                 </div>
             </div>
