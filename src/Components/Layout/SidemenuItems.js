@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 // import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { userActions } from '../../Actions/userActions';
 import { connect } from 'react-redux';
@@ -61,6 +61,7 @@ class SidemenuItems extends Component {
                 {/* <ListItemNavLink to='/products' primary='Products' icon={<ShoppingBasketIcon />} /> */}
                 <ListItemNavLink to='/dashboard' primary='Dashboard' icon={<DashboardIcon />} />
                 <ListItemNavLink to='/user-order' primary='Orders Status' icon={<ShoppingCartIcon />} />
+                <ListItemNavLink to='/' primary='Home' icon={<HomeIcon />} />
             
                 <ListItem button onClick={(e) => {this.logout()}}>
                     <ListItemIcon>

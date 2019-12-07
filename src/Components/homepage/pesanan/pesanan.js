@@ -168,25 +168,25 @@ class Pesanan extends Component {
                                             <p>
                                                 {
                                                     (orderStatus.status.isDone === true && orderStatus.status.isPaidOff === true)? 
-                                                    <span><strong>Lunas</strong></span>                                             
+                                                    <span key={orderStatus._id}><strong>Lunas</strong></span>                                             
                                                 : 
                                                     [
                                                         (orderStatus.status.isDone === true)? 
-                                                        <span><strong>Pesanan Telah Selesai, Harap untuk Melunasi Pembayaran</strong></span>
+                                                        <span key={orderStatus._id}><strong>Pesanan Telah Selesai, Harap untuk Melunasi Pembayaran</strong></span>
                                                         :
                                                         [
                                                             (orderStatus.status.isOnProcess === true)? 
-                                                            <span><strong>Pesanan Sedang Dalam Proses Pengerjaan</strong></span>
+                                                            <span key={orderStatus._id}><strong>Pesanan Sedang Dalam Proses Pengerjaan</strong></span>
                                                             :
                                                             [
                                                                 (orderStatus.status.isPending === true)? 
-                                                                <span><strong>Pesanan Sedang Menunggu Konfirmasi</strong></span>
+                                                                <span key={orderStatus._id}><strong>Pesanan Sedang Menunggu Konfirmasi</strong></span>
                                                                 :
                                                                 [
                                                                     (orderStatus.status.isReject === true)?
-                                                                    <span><strong>Pesanan Ditolak, Harap hubungi Admin untuk Mengetahui Alasannya</strong></span>
+                                                                    <span key={orderStatus._id}><strong>Pesanan Ditolak, Harap hubungi Admin untuk Mengetahui Alasannya</strong></span>
                                                                     :
-                                                                    <span><strong>Tidak Ada Status Pesanan</strong></span>
+                                                                    <span key={orderStatus._id}><strong>Tidak Ada Status Pesanan</strong></span>
                                                                 ]
                                                             ]
                                                         ]         

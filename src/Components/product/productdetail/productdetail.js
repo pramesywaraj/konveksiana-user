@@ -117,7 +117,35 @@ class ProductDetail extends Component {
                                 <p>Status Pemesanan</p>
                             </MDBCol>
                             <MDBCol sm="12" md="8">
-                                <p>: <strong>&nbsp;</strong></p>
+                                <p>
+                                    :&nbsp; 
+                                    {
+                                        (ordersDataById.status.isDone === true && ordersDataById.status.isPaidOff === true)? 
+                                        <span key={ordersDataById._id}><strong>Lunas</strong></span>                                             
+                                    : 
+                                        [
+                                            (ordersDataById.status.isDone === true)? 
+                                            <span key={ordersDataById._id}><strong>Pesanan Telah Selesai, Harap untuk Melunasi Pembayaran</strong></span>
+                                            :
+                                            [
+                                                (ordersDataById.status.isOnProcess === true)? 
+                                                <span key={ordersDataById._id}><strong>Pesanan Sedang Dalam Proses Pengerjaan</strong></span>
+                                                :
+                                                [
+                                                    (ordersDataById.status.isPending === true)? 
+                                                    <span key={ordersDataById._id}><strong>Pesanan Sedang Menunggu Konfirmasi</strong></span>
+                                                    :
+                                                    [
+                                                        (ordersDataById.status.isReject === true)?
+                                                        <span key={ordersDataById._id}><strong>Pesanan Ditolak, Harap hubungi Admin untuk Mengetahui Alasannya</strong></span>
+                                                        :
+                                                        <span key={ordersDataById._id}><strong>Tidak Ada Status Pesanan</strong></span>
+                                                    ]
+                                                ]
+                                            ]         
+                                        ]
+                                    }
+                                </p>
                             </MDBCol>
                         </MDBRow>
 

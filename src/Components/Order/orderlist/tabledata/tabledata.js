@@ -28,7 +28,7 @@ class Tabledata extends Component {
     this.state = {
       columns: [
         { title: 'Nama Pemesanan', field: 'user.name' },
-        { title: 'Status', field: 'orderStep' },
+        { title: 'Status', field: 'currentStatus' },
         { title: 'Tanggal Dibuat', field: 'date' },
         { title: 'Material', field: 'material.name' },
         { title: 'Jumlah Pesanan (pcs)', field: 'quantity' },
@@ -81,6 +81,21 @@ class Tabledata extends Component {
     for (let i = 0; i < orders.length; i++) {
       orders[i].date = moment(orders[i].createdAt).format("DD MMMM YYYY");
       orders[i].price = this.totalPrice(orders[i].productPricePrediction, orders[i].shippingPricePrediction)
+      if(orders[i].status.isDone === true && orders[i].status.isPaidOff === true){
+        orders[i].currentStatus = "Lunas"
+      }
+      else if(orders[i].status.isDone === true){
+        orders[i].currentStatus = "Selesai"
+      }
+      else if(orders[i].status.isOnProcess === true){
+        orders[i].currentStatus = "On Progress"
+      }
+      else if(orders[i].status.isPending === true){
+        orders[i].currentStatus = "Pending"
+      }
+      else if(orders[i].status.isReject === true){
+        orders[i].currentStatus = "Ditolak, Harap Hubungi Admin untuk Mengetahui Alasannya"
+      }
     }
 
     return (

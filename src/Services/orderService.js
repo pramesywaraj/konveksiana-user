@@ -105,7 +105,7 @@ function getShipmentFees(apiEndpoint, payload) {
 
 function getOrderStatuses(apiEndpoint, payload) {
 
-    return axios.post(config.baseUrl + apiEndpoint, payload, getOptionsAuth())
+    return axios.post(config.baseUrl + apiEndpoint, payload)
         .then(res => {
             return res;
         }, err => {
