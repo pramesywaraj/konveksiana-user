@@ -104,8 +104,33 @@ class ProductCard extends Component {
                                         }
                                         <h5 className="card-title mt-3">{order.user.name}</h5>
                                         <p className="card-text">{order.description}</p>
-                                        <p>Status : &nbsp;
-                                            <span className="card-status">fresh</span>
+                                        <p>Status : &nbsp; <br/>
+                                            {
+                                                (order.status.isDone === true && order.status.isPaidOff === true)? 
+                                                <span key={order._id}><strong>Lunas</strong></span>                                             
+                                            : 
+                                                [
+                                                    (order.status.isDone === true)? 
+                                                    <span key={order._id}><strong>Pesanan Telah Selesai, Harap untuk Melunasi Pembayaran</strong></span>
+                                                    :
+                                                    [
+                                                        (order.status.isOnProcess === true)? 
+                                                        <span key={order._id}><strong>Pesanan Sedang Dalam Proses Pengerjaan</strong></span>
+                                                        :
+                                                        [
+                                                            (order.status.isPending === true)? 
+                                                            <span key={order._id}><strong>Pesanan Sedang Menunggu Konfirmasi</strong></span>
+                                                            :
+                                                            [
+                                                                (order.status.isReject === true)?
+                                                                <span key={order._id}><strong>Pesanan Ditolak, Harap hubungi Admin untuk Mengetahui Alasannya</strong></span>
+                                                                :
+                                                            <span key={order._id}><strong>Tidak Ada Status Pesanan</strong></span>
+                                                            ]
+                                                        ]
+                                                    ]         
+                                                ]
+                                            }
                                         </p>
                                         <button className="btn btn-product btn-sm" onClick={() => this.gotoDetail(order)}>
                                             <span>Detail</span>

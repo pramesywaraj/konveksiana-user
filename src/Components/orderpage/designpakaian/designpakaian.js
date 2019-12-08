@@ -571,7 +571,7 @@ class Designpakaian extends Component {
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Jenis Kategori
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu basic onClick={this.categoryData}>
+                    <MDBDropdownMenu basic className="konveksiana-dropdown" onClick={this.categoryData}>
                       {categories != null ? categories.map(
                               category => (
                                   <MDBDropdownItem key={category._id} name={category.name} value={category._id}>
@@ -605,7 +605,7 @@ class Designpakaian extends Component {
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Jenis Produk
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu basic onClick={this.productData}>
+                    <MDBDropdownMenu basic className="konveksiana-dropdown" onClick={this.productData}>
                       {products != null ? products.map(
                               product => (
                                   <MDBDropdownItem key={product._id} name={product.name} value={product._id}>
@@ -639,7 +639,7 @@ class Designpakaian extends Component {
                     <MDBDropdownToggle caret className="select-btn">
                       Material (Bahan)
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu basic onClick={this.materialData}>
+                    <MDBDropdownMenu basic className="konveksiana-dropdown" onClick={this.materialData}>
                       {materials != null ? materials.map(
                             material => (
                                 <MDBDropdownItem key={material._id} name={material.name} value={material._id + "," + material.priceMargin + "," + material.weight}>
@@ -735,7 +735,7 @@ class Designpakaian extends Component {
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Provinsi
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu basic onClick={this.provinceData}>
+                    <MDBDropdownMenu basic className="konveksiana-dropdown" onClick={this.provinceData}>
                         {provinces != null ? provinces.map(
                                 province => (
                                     <MDBDropdownItem key={province.province_id} name={province.province} value={province.province_id}>
@@ -771,7 +771,7 @@ class Designpakaian extends Component {
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Kota
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu basic onClick={this.cityData}>
+                    <MDBDropdownMenu basic className="konveksiana-dropdown" onClick={this.cityData}>
                       {cities != null ? cities.map(
                             city => (
                                 <MDBDropdownItem key={city.city_id} name={city.city_name + ", " + city.postal_code} value={city.city_id}>
@@ -807,7 +807,7 @@ class Designpakaian extends Component {
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Kecamatan
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu basic onClick={this.districtData}>
+                    <MDBDropdownMenu basic className="konveksiana-dropdown" onClick={this.districtData}>
                       {districts != null ? districts.map(
                         district => (
                                 <MDBDropdownItem key={district.subdistrict_id} name={district.subdistrict_name} value={district.subdistrict_id}>
@@ -860,7 +860,7 @@ class Designpakaian extends Component {
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Kurir
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu basic onClick={this.courierData}>
+                    <MDBDropdownMenu basic className="konveksiana-dropdown" onClick={this.courierData}>
                       <MDBDropdownItem name="RPX Holding (RPX)"  value="rpx">RPX Holding (RPX)</MDBDropdownItem>
                       <MDBDropdownItem name="Citra Van Titipan Kilat (TIKI)" value="tiki">Citra Van Titipan Kilat (TIKI)</MDBDropdownItem>
                       <MDBDropdownItem name="Eka Sari Lorena (ESL)" value="esl">Eka Sari Lorena (ESL)</MDBDropdownItem>
@@ -891,7 +891,7 @@ class Designpakaian extends Component {
                     <MDBDropdownToggle caret className="select-btn">
                       Pilih Jenis Pengiriman
                     </MDBDropdownToggle>
-                    <MDBDropdownMenu basic onClick={this.serviceData}>
+                    <MDBDropdownMenu basic className="konveksiana-dropdown" onClick={this.serviceData}>
                     {shipmentFees != null ? shipmentFees.map(
                       shipmentFee => (
                                 <MDBDropdownItem key={shipmentFee.service} name={shipmentFee.description + "(" + shipmentFee.service + ")"} value={shipmentFee.cost[0].value + "," + shipmentFee.cost[0].etd}>
