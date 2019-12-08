@@ -47,9 +47,9 @@ function createOrder(data) {
         orderService.post(apiEndpoint, payload)
             .then(res => {
                 if(res.data.status === 200) {
-                    alert(res.data.Message);
                     dispatch(createOrderSuccess(res.data));
-                    history.push('/');
+                    history.push('/dashboard');
+                    alert(res.data.Message);
                 } else {
                     dispatch(createOrderFailed());
                     alert(res.data.Message);

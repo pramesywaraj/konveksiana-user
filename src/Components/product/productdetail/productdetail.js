@@ -148,6 +148,24 @@ class ProductDetail extends Component {
                                 </p>
                             </MDBCol>
                         </MDBRow>
+                        <MDBRow>
+                            <MDBCol sm="12" md="4">
+                                <p>Tahap Pengerjaan Pesanan</p>
+                            </MDBCol>
+                            <MDBCol sm="12" md="8">
+                                <p>
+                                    {
+                                        ordersDataById.orderStep != null ? ordersDataById.orderStep.map(
+                                        (orderStep, index) => (
+                                            <span key={orderStep.step._id}>:&nbsp;<strong>{index + 1}. {orderStep.step.name}</strong><br/></span>
+                                            )
+                                        )
+                                    : 
+                                        <span key={ordersDataById._id}><strong>-</strong></span>
+                                    }
+                                </p>
+                            </MDBCol>
+                        </MDBRow>
 
                         <p className="text-upload mt-5">Rincian Pemesan</p>
                         <MDBRow>

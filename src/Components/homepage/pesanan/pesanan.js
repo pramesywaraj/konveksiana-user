@@ -42,12 +42,10 @@ class Pesanan extends Component {
     
     resiData = (e) =>{
         localStorage.resi = e.target.value;  
-        console.log("Cek Resi : ", e.target.value)      
     }
 
     cekResi = (e) =>{
         e.preventDefault();
-        console.log("Cek Resi Bos : ", localStorage.resi);
         let orderStatus = localStorage.resi
     
         // eslint-disable-next-line no-unused-vars
@@ -144,12 +142,15 @@ class Pesanan extends Component {
                                         </div>
                                         <div className="goods col-7">
                                             <ol>
-                                                <li>Penyediaan Barang</li>
-                                                <li>Pemotongan Bahan</li>
-                                                <li>Penyablonan</li>
-                                                <li>Penjahitan</li>
-                                                <li>Packaging</li>
-                                                <li>Pengiriman</li>
+                                                {
+                                                    orderStatus.orderStep != null ? orderStatus.orderStep.map(
+                                                    (orderStep, index) => (
+                                                        <li key={orderStep.step._id}><span>&nbsp;<strong>{orderStep.step.name}</strong><br/></span></li>
+                                                        )
+                                                    )
+                                                : 
+                                                    <li key={orderStatus._id}><span><strong>-</strong></span></li>
+                                                }
                                             </ol>
                                         </div>
                                     </div>
@@ -168,25 +169,25 @@ class Pesanan extends Component {
                                             <p>
                                                 {
                                                     (orderStatus.status.isDone === true && orderStatus.status.isPaidOff === true)? 
-                                                    <span key={orderStatus._id}><strong>Lunas</strong></span>                                             
+                                                    <span key={orderStatus._id}>Lunas</span>                                             
                                                 : 
                                                     [
                                                         (orderStatus.status.isDone === true)? 
-                                                        <span key={orderStatus._id}><strong>Pesanan Telah Selesai, Harap untuk Melunasi Pembayaran</strong></span>
+                                                        <span key={orderStatus._id}>Pesanan Telah Selesai, Harap untuk Melunasi Pembayaran</span>
                                                         :
                                                         [
                                                             (orderStatus.status.isOnProcess === true)? 
-                                                            <span key={orderStatus._id}><strong>Pesanan Sedang Dalam Proses Pengerjaan</strong></span>
+                                                            <span key={orderStatus._id}>Pesanan Sedang Dalam Proses Pengerjaan</span>
                                                             :
                                                             [
                                                                 (orderStatus.status.isPending === true)? 
-                                                                <span key={orderStatus._id}><strong>Pesanan Sedang Menunggu Konfirmasi</strong></span>
+                                                                <span key={orderStatus._id}>Pesanan Sedang Menunggu Konfirmasi</span>
                                                                 :
                                                                 [
                                                                     (orderStatus.status.isReject === true)?
-                                                                    <span key={orderStatus._id}><strong>Pesanan Ditolak, Harap hubungi Admin untuk Mengetahui Alasannya</strong></span>
+                                                                    <span key={orderStatus._id}>Pesanan Ditolak, Harap hubungi Admin untuk Mengetahui Alasannya</span>
                                                                     :
-                                                                    <span key={orderStatus._id}><strong>Tidak Ada Status Pesanan</strong></span>
+                                                                    <span key={orderStatus._id}>Tidak Ada Status Pesanan</span>
                                                                 ]
                                                             ]
                                                         ]         

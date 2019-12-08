@@ -96,30 +96,35 @@ class Designpakaian extends Component {
       this.setState({ loading : true });
 
       if(localStorage.auth){
-        let user = JSON.parse(localStorage.user);
+        if(this.state.form.front && this.state.form.materialType && this.state.form.color && this.state.form.description && this.state.form.totalOrder && this.state.form.district && this.state.form.detailAddress && this.state.form.courier && this.state.form.shippingPrice){
+          let user = JSON.parse(localStorage.user);
 
-        let data = {
-          orderImage: [this.state.form.front, this.state.form.back, this.state.form.left, this.state.form.right],
-          userId: user._id,
-          materialId: this.state.form.materialType,
-          color: this.state.form.color,
-          description: this.state.form.description,
-          quantity: this.state.form.totalOrder,
-          productPricePrediction: this.state.form.itemPrice,
-          city: this.state.form.district,
-          detailAddress: this.state.form.detailAddress,
-          courier: this.state.form.courier,
-          phoneNumber: user.phoneNumber,
-          shippingPricePrediction: this.state.form.shippingPrice,
-          weightPrediction: this.state.form.weightPrediction
+          let data = {
+            orderImage: [this.state.form.front, this.state.form.back, this.state.form.left, this.state.form.right],
+            userId: user._id,
+            materialId: this.state.form.materialType,
+            color: this.state.form.color,
+            description: this.state.form.description,
+            quantity: this.state.form.totalOrder,
+            productPricePrediction: this.state.form.itemPrice,
+            city: this.state.form.district,
+            detailAddress: this.state.form.detailAddress,
+            courier: this.state.form.courier,
+            phoneNumber: user.phoneNumber,
+            shippingPricePrediction: this.state.form.shippingPrice,
+            weightPrediction: this.state.form.weightPrediction
+          }
+    
+          // eslint-disable-next-line no-unused-vars
+          const { dispatch } = this.props;
+          if(data) {
+            // console.log("My Data Lengkap : ", data)
+            dispatch(orderActions.createOrder(data));
+          }    
         }
-  
-        // eslint-disable-next-line no-unused-vars
-        const { dispatch } = this.props;
-        if(data) {
-          // console.log("My Data Lengkap : ", data)
-          dispatch(orderActions.createOrder(data));
-        }  
+        else{
+          alert("Harap untuk Mengisi Ulang Lembar Pemesanan atau Melengkapi Data Pemesanan Terlebih Dahulu")
+        }
       }
 
       else{
