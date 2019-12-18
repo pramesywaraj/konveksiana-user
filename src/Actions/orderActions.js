@@ -46,10 +46,22 @@ function createOrder(data) {
 
         orderService.post(apiEndpoint, payload)
             .then(res => {
+                var token = sessionStorage.getItem('token');
+                var auth = sessionStorage.getItem('auth');
+                var user = sessionStorage.getItem('user');
+                var ordersData = sessionStorage.getItem('ordersData');
+        
+                sessionStorage.clear();
+                sessionStorage.setItem('token', token);                   
+                sessionStorage.setItem('auth', auth);                   
+                sessionStorage.setItem('user', user);                   
+                sessionStorage.setItem('ordersData', ordersData);                           
+
                 if(res.data.status === 200) {
-                    dispatch(createOrderSuccess(res.data));
-                    history.push('/dashboard');
+                    dispatch(createOrderSuccess(res.data)); 
+
                     alert(res.data.Message);
+                    history.push('/dashboard');
                 } else {
                     dispatch(createOrderFailed());
                     alert(res.data.Message);
@@ -178,9 +190,9 @@ function getShipmentFee() {
 
         let payload = {
             originCityId: "1038",
-            destinationCityId: localStorage.district,
-            weightPackage: localStorage.weightPrediction,
-            expedition: localStorage.courier
+            destinationCityId: sessionStorage.district,
+            weightPackage: sessionStorage.weightPrediction,
+            expedition: sessionStorage.courier
         };
 
         orderService.getShipmentFees(apiEndpoint, payload).then(
@@ -299,7 +311,7 @@ export function getShipmentFeesList(shipmentFees) {
 
 function getAllOrder() {
     return dispatch => {
-        let user = JSON.parse(localStorage.user);
+        let user = JSON.parse(sessionStorage.user);
 
         let apiEndpoint = 'order/user/' + user._id;
         // console.log("Cek API : ", apiEndpoint);
@@ -312,7 +324,7 @@ function getAllOrder() {
                 console.log("Check Order Data : ", orders)
 
                 if (res.data.status === 200) {
-                    localStorage.setItem('ordersData', JSON.stringify(orders));
+                    sessionStorage.setItem('ordersData', JSON.stringify(orders));
                     dispatch(getOrderList(orders));
                 }
             }
@@ -327,10 +339,10 @@ function getAllOrder() {
 export function getOrderById(data){
     return dispatch => {
         let orderById = data;
-        localStorage.setItem('getOrderById', JSON.stringify(orderById));
+        sessionStorage.setItem('getOrderById', JSON.stringify(orderById));
 
         if (orderById) {
-            localStorage.getItem('getOrderById', JSON.stringify(orderById));
+            sessionStorage.getItem('getOrderById', JSON.stringify(orderById));
             dispatch(getOrderListDataById(orderById));
             history.push('/products/product-detail/'+ orderById._id);
         }
@@ -341,10 +353,10 @@ export function getOrderById(data){
 export function getOrderByIdTable(data){
     return dispatch => {
         let orderById = data;
-        localStorage.setItem('getOrderByIdTable', orderById);
+        sessionStorage.setItem('getOrderByIdTable', orderById);
 
         if (orderById) {
-            localStorage.getItem('getOrderByIdTable', orderById);
+            sessionStorage.getItem('getOrderByIdTable', orderById);
             dispatch(getOrderListDataById(orderById));
             history.push('/products/product-detail/'+ orderById._id);
         }

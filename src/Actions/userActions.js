@@ -44,9 +44,9 @@ function login(email, password) {
         authService.post(apiEndpoint, payload)
             .then(res => {
                 if(res.data.status === 200) {
-                    localStorage.setItem('token', res.data.token);
-                    localStorage.setItem('auth', true);
-                    localStorage.setItem('user', JSON.stringify(res.data.result));                    
+                    sessionStorage.setItem('token', res.data.token);
+                    sessionStorage.setItem('auth', true);
+                    sessionStorage.setItem('user', JSON.stringify(res.data.result));                    
                     dispatch(setUserDetails(res.data));
                     history.push('/dashboard');
                     // alert(res.data.message);
@@ -61,9 +61,7 @@ function login(email, password) {
 function logout() {
     return dispatch => {
         alert('Anda Keluar dari Aplikasi');
-        localStorage.removeItem('token');
-        localStorage.removeItem('auth');
-        localStorage.removeItem('user');
+        sessionStorage.clear();
         dispatch(logoutUser());
         history.push('/login');
     }

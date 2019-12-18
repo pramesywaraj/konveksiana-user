@@ -86,7 +86,7 @@ class Signup extends Component {
     }
 
     componentDidMount() {
-        if(localStorage.getItem('auth')) {
+        if(sessionStorage.getItem('auth')) {
             history.push('/login');
         }
     }

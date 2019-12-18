@@ -89,7 +89,12 @@ class Header extends React.Component {
                       <MDBNavLink className="text" to="/order"><strong>Pesan</strong></MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink className="text" to="/login"><strong>Masuk</strong></MDBNavLink>
+                      {
+                        sessionStorage.auth?
+                        <MDBNavLink className="text" to="/login"><strong>Dashboard</strong></MDBNavLink>
+                        :
+                        <MDBNavLink className="text" to="/login"><strong>Masuk</strong></MDBNavLink>
+                      }
                     </MDBNavItem>
                     {/* <MDBNavItem>
                       <MDBNavLink className="text" to="/cart">
@@ -144,7 +149,12 @@ class Header extends React.Component {
                     <MDBNavLink className="text" to="/order"><strong>Pesan</strong></MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink className="text" to="/login"><strong>Masuk</strong></MDBNavLink>
+                    {
+                      sessionStorage.auth?
+                      <MDBNavLink className="text" to="/login"><strong>Dashboard</strong></MDBNavLink>
+                      :
+                      <MDBNavLink className="text" to="/login"><strong>Masuk</strong></MDBNavLink>
+                    }
                   </MDBNavItem>
                   {/* <MDBNavItem>
                     <MDBNavLink className="text" to="/cart">

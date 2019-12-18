@@ -41,12 +41,12 @@ class Pesanan extends Component {
     };
     
     resiData = (e) =>{
-        localStorage.resi = e.target.value;  
+        sessionStorage.resi = e.target.value;  
     }
 
     cekResi = (e) =>{
         e.preventDefault();
-        let orderStatus = localStorage.resi
+        let orderStatus = sessionStorage.resi
     
         // eslint-disable-next-line no-unused-vars
         const { dispatch } = this.props;
@@ -144,7 +144,7 @@ class Pesanan extends Component {
                                             <ol>
                                                 {
                                                     orderStatus.orderStep != null ? orderStatus.orderStep.map(
-                                                    (orderStep, index) => (
+                                                    (orderStep) => (
                                                         <li key={orderStep.step._id}><span>&nbsp;<strong>{orderStep.step.name}</strong><br/></span></li>
                                                         )
                                                     )

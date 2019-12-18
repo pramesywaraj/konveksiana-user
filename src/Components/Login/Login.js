@@ -78,7 +78,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        if(localStorage.getItem('auth')) {
+        if(sessionStorage.getItem('auth')) {
             history.push('/dashboard');
         }
     }

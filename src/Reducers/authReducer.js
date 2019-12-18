@@ -1,6 +1,6 @@
-let token = localStorage.getItem('token');  // Users token
-let auth = localStorage.getItem('auth');  // Status if user has authenticated - true or false
-let user = localStorage.getItem('user'); // Users data
+let token = sessionStorage.getItem('token');  // Users token
+let auth = sessionStorage.getItem('auth');  // Status if user has authenticated - true or false
+let user = sessionStorage.getItem('user'); // Users data
 
 const initialState = auth ? {
     loggedIn: true,

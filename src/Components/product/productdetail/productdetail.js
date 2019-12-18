@@ -24,7 +24,7 @@ const styles = theme => ({
 class ProductDetail extends Component {
 
     // componentDidMount() {
-    //     if(localStorage.getItem('auth')) {
+    //     if(sessionStorage.getItem('auth')) {
     //         const { ordersData } = this.props;
     //         // let orderDatabyId = ordersData;
     //     }
@@ -39,6 +39,10 @@ class ProductDetail extends Component {
         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
 
+    formatWeight(value){
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
     totalPrice(productPrice, shippingPrice){
         let total = parseInt(productPrice) + parseInt(shippingPrice);
         return this.formatPrice(total);
@@ -50,8 +54,8 @@ class ProductDetail extends Component {
 
     render(){
         // const { ordersData } = this.props;
-        let ordersDataById = JSON.parse(localStorage.getItem('getOrderById'));
-        // let ordersDataByIdTable = localStorage.getItem('getOrderByIdTable');
+        let ordersDataById = JSON.parse(sessionStorage.getItem('getOrderById'));
+        // let ordersDataByIdTable = sessionStorage.getItem('getOrderByIdTable');
 
         return (
             <div className="product-detail-list">
@@ -251,7 +255,7 @@ class ProductDetail extends Component {
                             <p>Berat</p>
                             </MDBCol>
                             <MDBCol sm="12" md="8">
-                            <p className="price">: <strong>{ordersDataById.weightPrediction} gram</strong></p>
+                            <p className="price">: <strong>{this.formatWeight(ordersDataById.weightPrediction)} gram</strong></p>
                             </MDBCol>
                         </MDBRow>
                         <MDBRow>

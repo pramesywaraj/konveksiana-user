@@ -4,7 +4,7 @@ import Layout from './Layout/Layout';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props, ref) => (
-        localStorage.getItem('auth') 
+        sessionStorage.getItem('auth') 
             ? 
             <Layout>
                 <Component {...props} ref={ref} /> 

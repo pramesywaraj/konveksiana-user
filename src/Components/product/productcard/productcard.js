@@ -33,7 +33,7 @@ class ProductCard extends Component {
     }
 
     componentDidMount() {
-    if(localStorage.getItem('auth')) {
+    if(sessionStorage.getItem('auth')) {
         const { dispatch } = this.props;
         dispatch(orderActions.getAllOrder());
         // history.push('/dashboard');

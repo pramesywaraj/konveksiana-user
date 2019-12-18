@@ -139,9 +139,9 @@ function getOptionsAuth(type) {
 
     let options = {};
 
-    if(localStorage.getItem('token')){
+    if(sessionStorage.getItem('token')){
         options.headers = { 
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         }
     }
     
@@ -152,9 +152,9 @@ function getOptions(type) {
 
     let options = {};
 
-    if(localStorage.getItem('token')){
+    if(sessionStorage.getItem('token')){
         options.headers = { 
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             'Content-Type' : 'multipart/form-data; boundary=----WebKitFormBoundaryHl8DZV3dBSj0qBVe'
         }
         delete options.headers['Content-Type'];

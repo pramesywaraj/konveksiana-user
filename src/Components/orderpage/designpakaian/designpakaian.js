@@ -65,7 +65,7 @@ class Designpakaian extends Component {
     dispatch(orderActions.getAllProvince());
     // history.push('/dashboard');
 
-    let user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(sessionStorage.getItem('user'));
     if(user) {
       this.setState(state => ({
           ...state,
@@ -92,12 +92,12 @@ class Designpakaian extends Component {
 
   createOrder = (e) => {
 
-    if(localStorage.courier){
+    if(sessionStorage.courier){
       this.setState({ loading : true });
 
-      if(localStorage.auth){
+      if(sessionStorage.auth){
         if(this.state.form.front && this.state.form.materialType && this.state.form.color && this.state.form.description && this.state.form.totalOrder && this.state.form.district && this.state.form.detailAddress && this.state.form.courier && this.state.form.shippingPrice){
-          let user = JSON.parse(localStorage.user);
+          let user = JSON.parse(sessionStorage.user);
 
           let data = {
             orderImage: [this.state.form.front, this.state.form.back, this.state.form.left, this.state.form.right],
@@ -142,7 +142,7 @@ class Designpakaian extends Component {
   frontDesign = e => {
     var front = e.target.files[0];
     var reader = new FileReader();
-    localStorage.frontDesign = reader.readAsDataURL(front);
+    sessionStorage.frontDesign = reader.readAsDataURL(front);
     reader.addEventListener(
       "load",
       () => {
@@ -228,13 +228,12 @@ class Designpakaian extends Component {
   }
 
   descriptionData = (e) =>{
-    var description = e.target.value;
-    localStorage.description = e.target.value;
+    sessionStorage.description = e.target.value;
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        description: localStorage.description,
+        description: sessionStorage.description,
         }
       }
     )
@@ -242,32 +241,40 @@ class Designpakaian extends Component {
 
   colorData = (e) => {
     var color = e.target.value;
-    localStorage.color = color.toUpperCase();
+    sessionStorage.color = color.toUpperCase();
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        color: localStorage.color
+        color: sessionStorage.color
         }
       }
     )
   )}
 
   categoryData = (e) => {
-    localStorage['category'] = e.target.value;
-    localStorage['categoryName'] = e.target.name;
+    sessionStorage['category'] = e.target.value;
+    sessionStorage['categoryName'] = e.target.name;
+
+    sessionStorage['product'] = '';
+    sessionStorage['productName'] = '';
+    sessionStorage['material'] = '';
+    sessionStorage['materialName'] = '';
+    sessionStorage['priceMargin'] = 0;
+    sessionStorage['weight'] = 0;
+
 
     // eslint-disable-next-line no-unused-vars
     const { dispatch } = this.props;
-    if(localStorage.category) {
-      dispatch(orderActions.getAllProduct(localStorage.category));
+    if(sessionStorage.category) {
+      dispatch(orderActions.getAllProduct(sessionStorage.category));
     }
     
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        category: localStorage.category,
+        category: sessionStorage.category,
         }
       }
     )
@@ -275,21 +282,26 @@ class Designpakaian extends Component {
 
   productData = (e) => {
 
-    if(localStorage.category){
-      localStorage['product'] = e.target.value;
-      localStorage['productName'] = e.target.name;
-  
+    if(sessionStorage.category){
+      sessionStorage['product'] = e.target.value;
+      sessionStorage['productName'] = e.target.name;
+
+      sessionStorage['material'] = '';
+      sessionStorage['materialName'] = '';
+      sessionStorage['priceMargin'] = 0;
+      sessionStorage['weight'] = 0;
+
       // eslint-disable-next-line no-unused-vars
       const { dispatch } = this.props;
-      if(localStorage.product) {
-        dispatch(orderActions.getAllMaterial(localStorage.product));
+      if(sessionStorage.product) {
+        dispatch(orderActions.getAllMaterial(sessionStorage.product));
       }
   
       this.setState(state => ({
         ...state,
         form: {
           ...state.form,
-          product: localStorage.product,
+          product: sessionStorage.product,
           }
         }
       )
@@ -302,17 +314,17 @@ class Designpakaian extends Component {
 
   materialData = (e) => {
 
-    if(localStorage.product){
+    if(sessionStorage.product){
       // var materialType = e.target.value;
       let [id, priceMargin, weight] = e.target.value.split(",");
-      localStorage['material'] = id;
-      localStorage['materialName'] = e.target.name;
-      localStorage['priceMargin'] = priceMargin;
-      localStorage['weight'] = weight;
+      sessionStorage['material'] = id;
+      sessionStorage['materialName'] = e.target.name;
+      sessionStorage['priceMargin'] = priceMargin;
+      sessionStorage['weight'] = weight;
 
-      var material = localStorage.priceMargin;
-      if(localStorage.totalOrder){
-        var totalOrder = localStorage.totalOrder;
+      var material = sessionStorage.priceMargin;
+      if(sessionStorage.totalOrder){
+        var totalOrder = sessionStorage.totalOrder;
       }
       else{
         var totalOrder = 1;
@@ -321,16 +333,16 @@ class Designpakaian extends Component {
       var itemPrice = (material * totalOrder) - ((material * totalOrder)*
       (Math.min(10, Math.floor(totalOrder / 12))) / 100);
       var weightPrediction = weight * totalOrder;
-      localStorage.price = itemPrice;
-      localStorage.weightPrediction = weightPrediction;
+      sessionStorage.price = itemPrice;
+      sessionStorage.weightPrediction = weightPrediction;
 
       this.setState(state => ({
         ...state,
         form: {
           ...state.form,
-          materialType: localStorage.material,
-          itemPrice: localStorage.price,
-          weightPrediction: localStorage.weightPrediction,
+          materialType: sessionStorage.material,
+          itemPrice: sessionStorage.price,
+          weightPrediction: sessionStorage.weightPrediction,
           }
         }
       )
@@ -341,12 +353,12 @@ class Designpakaian extends Component {
 }
 
   totalOrderData = (e) =>{
-    localStorage.totalOrder = e.target.value;
-    var material = localStorage.priceMargin;
+    sessionStorage.totalOrder = e.target.value;
+    var material = sessionStorage.priceMargin;
     var totalOrder = e.target.value;
 
-    if(localStorage.weightPrediction){
-      var weight = localStorage.weight;
+    if(sessionStorage.weightPrediction){
+      var weight = sessionStorage.weight;
     }
     else{
       var weight = 1;
@@ -355,13 +367,13 @@ class Designpakaian extends Component {
     var itemPrice = (material * totalOrder) - ((material * totalOrder)*
     (Math.min(10, Math.floor(totalOrder / 12))) / 100);
     var weightPrediction = weight * totalOrder;
-    localStorage.price = itemPrice;
-    localStorage.weightPrediction = weightPrediction;
+    sessionStorage.price = itemPrice;
+    sessionStorage.weightPrediction = weightPrediction;
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        totalOrder: localStorage.totalOrder,
+        totalOrder: sessionStorage.totalOrder,
         itemPrice: itemPrice,
         weightPrediction: weightPrediction,
         }
@@ -370,20 +382,30 @@ class Designpakaian extends Component {
   )}
 
   provinceData = (e) => {
-    localStorage.province = e.target.value;
-    localStorage.provinceName = e.target.name;
+    sessionStorage.province = e.target.value;
+    sessionStorage.provinceName = e.target.name;
+
+    sessionStorage.city = '';
+    sessionStorage.cityId = '';
+    sessionStorage.district = '';
+    sessionStorage.districtName = '';
+    sessionStorage.courier = '';
+    sessionStorage.courierName = '';
+    sessionStorage.shippingPrice = '';
+    sessionStorage.serviceName = '';
+    sessionStorage.estimatedShippingTime = '';
 
     // eslint-disable-next-line no-unused-vars
     const { dispatch } = this.props;
-    if(localStorage.province) {
-      dispatch(orderActions.getAllCity(localStorage.province));
+    if(sessionStorage.province) {
+      dispatch(orderActions.getAllCity(sessionStorage.province));
     }
 
       this.setState(state => ({
         ...state,
         form: {
           ...state.form,
-          province: localStorage.province
+          province: sessionStorage.province
           }
         }
       )
@@ -393,13 +415,21 @@ class Designpakaian extends Component {
   cityData = (e) => {
     let [cityName, postalCode] = e.target.name.split(",");
     var city = e.target.value;
-    localStorage.city = cityName + ", " + postalCode;
-    localStorage.cityId = city;
+    sessionStorage.city = cityName + ", " + postalCode;
+    sessionStorage.cityId = city;
+
+    sessionStorage.district = '';
+    sessionStorage.districtName = '';
+    sessionStorage.courier = '';
+    sessionStorage.courierName = '';
+    sessionStorage.shippingPrice = '';
+    sessionStorage.serviceName = '';
+    sessionStorage.estimatedShippingTime = '';
 
     // eslint-disable-next-line no-unused-vars
     const { dispatch } = this.props;
-    if(localStorage.cityId) {
-      dispatch(orderActions.getAllDistrict(localStorage.cityId));
+    if(sessionStorage.cityId) {
+      dispatch(orderActions.getAllDistrict(sessionStorage.cityId));
     }
     
     this.setState(state => ({
@@ -414,13 +444,20 @@ class Designpakaian extends Component {
 
   districtData = (e) => {
     var district = e.target.value;
-    localStorage.district = district;
-    localStorage.districtName = e.target.name;
+    sessionStorage.district = district;
+    sessionStorage.districtName = e.target.name;
+
+    sessionStorage.courier = '';
+    sessionStorage.courierName = '';
+    sessionStorage.shippingPrice = '';
+    sessionStorage.serviceName = '';
+    sessionStorage.estimatedShippingTime = '';
+
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        district: localStorage.district
+        district: sessionStorage.district
         }
       }
     )
@@ -430,19 +467,23 @@ class Designpakaian extends Component {
 
     // eslint-disable-next-line no-unused-vars
     const { dispatch } = this.props;
-    if(localStorage.district && localStorage.material && localStorage.totalOrder) {
+    if(sessionStorage.district && sessionStorage.material && sessionStorage.totalOrder) {
       var courier = e.target.value;
       var courierName = e.target.name;
-      localStorage.courier = courier;
-      localStorage.courierName = courierName;
+      sessionStorage.courier = courier;
+      sessionStorage.courierName = courierName;
 
+      sessionStorage.shippingPrice = '';
+      sessionStorage.serviceName = '';
+      sessionStorage.estimatedShippingTime = '';
+  
       dispatch(orderActions.getShipmentFee());
 
       this.setState(state => ({
         ...state,
         form: {
           ...state.form,
-          courier: localStorage.courier,
+          courier: sessionStorage.courier,
           }
         }
       )
@@ -457,30 +498,30 @@ class Designpakaian extends Component {
     var shippingPrice = value;
     var serviceName = e.target.name;
     var estimatedShippingTime = etd + " Hari";
-    localStorage.shippingPrice = shippingPrice;
-    localStorage.serviceName = serviceName;
-    localStorage.estimatedShippingTime = estimatedShippingTime;
+    sessionStorage.shippingPrice = shippingPrice;
+    sessionStorage.serviceName = serviceName;
+    sessionStorage.estimatedShippingTime = estimatedShippingTime;
 
     this.setState(state => ({
       ...state,
       form: {
         ...state.form,
-        shippingPrice: localStorage.shippingPrice,
-        service: localStorage.serviceName
+        shippingPrice: sessionStorage.shippingPrice,
+        service: sessionStorage.serviceName
         }
       }
     ))
   }
 
   detailAddressData = (e) => {
-    if(localStorage.districtName && localStorage.city && localStorage.provinceName){
+    if(sessionStorage.districtName && sessionStorage.city && sessionStorage.provinceName){
       var detailAddress = e.target.value;
-      localStorage.detailAddress = detailAddress;
+      sessionStorage.detailAddress = detailAddress;
       this.setState(state => ({
         ...state,
         form: {
           ...state.form,
-          detailAddress: localStorage.detailAddress + ", " + localStorage.districtName + ", " +  localStorage.city + ", " + localStorage.provinceName
+          detailAddress: sessionStorage.detailAddress + ", " + sessionStorage.districtName + ", " +  sessionStorage.city + ", " + sessionStorage.provinceName
           }
         }
       )
@@ -493,6 +534,11 @@ class Designpakaian extends Component {
   formatPrice(value) {
     let val = (value/1)
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
+
+  formatWeight(value){
+    let val = value;
+    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   totalPrice(productPrice, shippingPrice){
@@ -596,8 +642,7 @@ class Designpakaian extends Component {
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value= {localStorage.categoryName || ' '}
+                      value= {sessionStorage.categoryName || ' '}
                       disabled
                     />
                   </div>
@@ -630,8 +675,7 @@ class Designpakaian extends Component {
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value= {localStorage.productName || ' '}
+                      value= {sessionStorage.productName || ' '}
                       disabled
                     />
                   </div>
@@ -665,8 +709,7 @@ class Designpakaian extends Component {
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value= {localStorage.materialName || ' '}
+                      value= {sessionStorage.materialName || ' '}
                       disabled
                     />
                   </div>
@@ -677,13 +720,12 @@ class Designpakaian extends Component {
                 <form>
                   <div className="grey-text">
                     <MDBInput
-                      label="Pilih Warna"
+                      label="Input Warna"
                       group
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value= {localStorage.color || ' '}
+                      value= {sessionStorage.color || ' '}
                       onChange={this.colorData}
                     />
                   </div>
@@ -700,8 +742,7 @@ class Designpakaian extends Component {
                       min="1"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value={localStorage.totalOrder || ' '}
+                      value={sessionStorage.totalOrder || ' '}
                       onChange={this.totalOrderData}
                     />
                   </div>
@@ -718,8 +759,7 @@ class Designpakaian extends Component {
                       min="1"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value={localStorage.description || ' '}
+                      value={sessionStorage.description || ' '}
                       onChange={this.descriptionData}
                     />
                   </div>
@@ -761,8 +801,7 @@ class Designpakaian extends Component {
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value= {localStorage.provinceName || ''}
+                      value= {sessionStorage.provinceName || ''}
                       onChange={this.provinceData}
                       disabled
                     />
@@ -797,8 +836,7 @@ class Designpakaian extends Component {
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value= {localStorage.city || ''}
+                      value= {sessionStorage.city || ''}
                       onChange={this.cityData}
                       disabled
                     />
@@ -833,8 +871,7 @@ class Designpakaian extends Component {
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value= {localStorage.districtName || ''}
+                      value= {sessionStorage.districtName || ''}
                       onChange={this.districtData}
                       disabled
                     />
@@ -852,7 +889,7 @@ class Designpakaian extends Component {
                       min="1"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      value={localStorage.detailAddress || ' '}
+                      value={sessionStorage.detailAddress || ' '}
                       onChange={this.detailAddressData}
                     />
                   </div>
@@ -881,8 +918,7 @@ class Designpakaian extends Component {
                       type="text"
                       validate
                       error="Data yang dimasukan kurang tepat"
-                      success="Benar"
-                      value= {localStorage.courierName || ''}
+                      value= {sessionStorage.courierName || ''}
                       onChange={this.courierData}
                       disabled
                     />
@@ -919,8 +955,7 @@ class Designpakaian extends Component {
                           type="text"
                           validate
                           error="Data yang dimasukan kurang tepat"
-                          success="Benar"
-                          value= {localStorage.serviceName || ''}
+                          value= {sessionStorage.serviceName || ''}
                           onChange={this.serviceData}
                           disabled
                         />
@@ -935,8 +970,7 @@ class Designpakaian extends Component {
                           type="text"
                           validate
                           error="Data yang dimasukan kurang tepat"
-                          success="Benar"
-                          value= {localStorage.estimatedShippingTime || ''}
+                          value= {sessionStorage.estimatedShippingTime || ''}
                           onChange={this.serviceData}
                           disabled
                         />
@@ -951,8 +985,7 @@ class Designpakaian extends Component {
                           type="number"
                           validate
                           error="Data yang dimasukan kurang tepat"
-                          success="Benar"
-                          value= { localStorage.shippingPrice || ''}
+                          value= { sessionStorage.shippingPrice || ''}
                           onChange={this.serviceData}
                           disabled
                         />
@@ -1021,7 +1054,7 @@ class Designpakaian extends Component {
                   <p>Kategori Produk</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.categoryName}</strong></p>
+                  <p>: <strong>{sessionStorage.categoryName}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1029,7 +1062,7 @@ class Designpakaian extends Component {
                   <p>Jenis Material</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.materialName}</strong></p>
+                  <p>: <strong>{sessionStorage.materialName}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1037,7 +1070,7 @@ class Designpakaian extends Component {
                   <p>Warna</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.color}</strong></p>
+                  <p>: <strong>{sessionStorage.color}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1045,7 +1078,7 @@ class Designpakaian extends Component {
                   <p>Jumlah Pesanan (pcs)</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.totalOrder}</strong></p>
+                  <p>: <strong>{sessionStorage.totalOrder}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1053,7 +1086,7 @@ class Designpakaian extends Component {
                   <p>Catatan</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.description}</strong></p>
+                  <p>: <strong>{sessionStorage.description}</strong></p>
                 </MDBCol>
               </MDBRow>
 
@@ -1063,7 +1096,7 @@ class Designpakaian extends Component {
                   <p>Provinsi</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.provinceName}</strong></p>
+                  <p>: <strong>{sessionStorage.provinceName}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1071,7 +1104,7 @@ class Designpakaian extends Component {
                   <p>Kota</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.city}</strong></p>
+                  <p>: <strong>{sessionStorage.city}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1079,7 +1112,7 @@ class Designpakaian extends Component {
                   <p>Kecamatan</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.districtName}</strong></p>
+                  <p>: <strong>{sessionStorage.districtName}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1087,7 +1120,7 @@ class Designpakaian extends Component {
                   <p>Alamat Lengkap</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.detailAddress}</strong></p>
+                  <p>: <strong>{sessionStorage.detailAddress}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1095,7 +1128,7 @@ class Designpakaian extends Component {
                   <p>Kurir Pengiriman</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.courierName}</strong></p>
+                  <p>: <strong>{sessionStorage.courierName}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1103,7 +1136,7 @@ class Designpakaian extends Component {
                   <p>Jenis Pengiriman</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.serviceName}</strong></p>
+                  <p>: <strong>{sessionStorage.serviceName}</strong></p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1111,7 +1144,7 @@ class Designpakaian extends Component {
                   <p>Estimasi Pengiriman</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p>: <strong>{localStorage.estimatedShippingTime}</strong></p>
+                  <p>: <strong>{sessionStorage.estimatedShippingTime}</strong></p>
                 </MDBCol>
               </MDBRow>
 
@@ -1121,7 +1154,14 @@ class Designpakaian extends Component {
                   <p>Berat</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p className="price">: <strong>{localStorage.weightPrediction} gram</strong></p>
+                  <p className="price">: 
+                    {
+                      sessionStorage.weightPrediction != null?
+                      <strong>{this.formatWeight(sessionStorage.weightPrediction)} gram</strong>
+                      :
+                      <strong>0 gram</strong>
+                    }
+                  </p>
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1129,7 +1169,12 @@ class Designpakaian extends Component {
                   <p>Harga Produksi</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p className="price">: <strong>Rp. {this.formatPrice(localStorage.price)}</strong></p>
+                  {
+                    sessionStorage.price != null?
+                    <p className="price">: <strong>Rp. {this.formatPrice(sessionStorage.price)}</strong></p>
+                    :
+                    <strong>Rp. 0</strong>
+                  }
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1137,7 +1182,12 @@ class Designpakaian extends Component {
                   <p>Harga Pengiriman</p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p className="price">: <strong>Rp. {this.formatPrice(localStorage.shippingPrice)}</strong></p>
+                  {
+                    sessionStorage.shippingPrice != null?
+                    <p className="price">: <strong>Rp. {this.formatPrice(sessionStorage.shippingPrice)}</strong></p>
+                    :
+                    <strong>Rp. 0</strong>
+                  }
                 </MDBCol>
               </MDBRow>
               <MDBRow>
@@ -1145,7 +1195,12 @@ class Designpakaian extends Component {
                   <p><strong>Harga Total</strong></p>
                 </MDBCol>
                 <MDBCol sm="12" md="8">
-                  <p className="price">: <strong>Rp. {this.totalPrice(localStorage.price, localStorage.shippingPrice)}</strong></p>
+                  {
+                    (sessionStorage.price && sessionStorage.shippingPrice) != null?
+                    <p className="price">: <strong>Rp. {this.totalPrice(sessionStorage.price, sessionStorage.shippingPrice)}</strong></p>
+                    :
+                    <strong>Rp. 0</strong>
+                  }
                 </MDBCol>
               </MDBRow>
               <MDBRow>

@@ -1,4 +1,4 @@
-let auth = localStorage.getItem('auth');  // Status if user has authenticated - true or false
+let auth = sessionStorage.getItem('auth');  // Status if user has authenticated - true or false
 
 const initialState = auth ? {
     loggedIn: true,
