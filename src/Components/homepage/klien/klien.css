@@ -48,7 +48,17 @@
     margin-right: auto; 
 }
 
-@media screen and (max-width: 800px){
+@media screen and (min-width: 768px){
+    .klien .img-size{
+        width: 50vw;
+        height: 50vh;
+        max-width: 120px;
+        max-height: 120px;
+        padding-top: 150px;
+    }
+}
+
+@media screen and (max-width: 767px){
     .klien .img-size{
         width: 50vw;
         height: 50vh;

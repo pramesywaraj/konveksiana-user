@@ -118,8 +118,11 @@ class Designpakaian extends Component {
           // eslint-disable-next-line no-unused-vars
           const { dispatch } = this.props;
           if(data) {
-            // console.log("My Data Lengkap : ", data)
-            dispatch(orderActions.createOrder(data));
+              // console.log("My Data Lengkap : ", data)
+              dispatch(orderActions.createOrder(data));
+              setTimeout(function(){ 
+                window.location.href = '/finish-order';
+              }, 3000);
           }    
         }
         else{
@@ -936,7 +939,7 @@ class Designpakaian extends Component {
                     {shipmentFees != null ? shipmentFees.map(
                       shipmentFee => (
                                 <MDBDropdownItem key={shipmentFee.service} name={shipmentFee.description + "(" + shipmentFee.service + ")"} value={shipmentFee.cost[0].value + "," + shipmentFee.cost[0].etd}>
-                                  {shipmentFee.description} ({shipmentFee.service}), {shipmentFee.cost[0].etd} Hari
+                                      {shipmentFee.description} ({shipmentFee.service}), {shipmentFee.cost[0].etd} Hari
                                 </MDBDropdownItem>
                             )
                           )

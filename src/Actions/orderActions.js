@@ -59,9 +59,7 @@ function createOrder(data) {
 
                 if(res.data.status === 200) {
                     dispatch(createOrderSuccess(res.data)); 
-
                     alert(res.data.Message);
-                    history.push('/dashboard');
                 } else {
                     dispatch(createOrderFailed());
                     alert(res.data.Message);
@@ -199,7 +197,12 @@ function getShipmentFee() {
             (res) => {
                 let shipmentFees = res.data.rajaongkir.results[0].costs;
                 if (res.data.rajaongkir.status.code === 200) {
-                    dispatch(getShipmentFeesList(shipmentFees));
+                    if(shipmentFees !== undefined || shipmentFees.length !== 0){
+                        dispatch(getShipmentFeesList(shipmentFees));
+                    }
+                    else{
+                        dispatch(getShipmentFeesList("Tidak Tersedia"));
+                    }
                 }
             }
         ).catch(

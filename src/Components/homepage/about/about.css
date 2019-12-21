@@ -163,7 +163,7 @@
 
 @media screen and (max-width: 992px){    
     .about{
-        background-image: url("/assets/background/slide-3.jpg");
+        background-image: url("/assets/background/slide-3-mobile.png");
         background-repeat: no-repeat;
         background-size: 100% 150vh;
         background-position: center center;

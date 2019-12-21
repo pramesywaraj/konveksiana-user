@@ -42,7 +42,7 @@ function Value() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-12 col-md-6 col-lg-4 py-3">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-4 py-3">
                         <div className=" mb-3">                                        
                             <div className="card-body">        
                                 <span className="icon">

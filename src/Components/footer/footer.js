@@ -61,7 +61,7 @@ const Footer = () => {
         <div className="col">
           <div className="footer-copyright text-center py-3">
             <MDBContainer fluid>
-              <p><em>Jl. Raya Dramaga no.143, Dramaga, Bogor, Jawa Barat</em></p>
+              <p><em>Jl. Raya Dramaga no.144, Dramaga, Bogor, Jawa Barat</em></p>
             </MDBContainer>
           </div>
         </div>

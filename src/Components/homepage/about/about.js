@@ -20,7 +20,7 @@ function About() {
                 </div>
 
                 <div className="row">
-                <div className="col-12 col-sm-12 col-md-12 col-lg-4 py-1">
+                <div className="col-12 col-sm-12 col-md-4 col-lg-4 py-1">
                         <div className=" mb-3">                                        
                             <div className="card-body">        
                                 <div className="img-size" style={{ backgroundImage: `url(${"/logo-simplicity.svg"})`}}></div>
@@ -29,7 +29,7 @@ function About() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-12 col-md-6 col-lg-4 py-1">
+                    <div className="col-12 col-sm-12 col-md-4 col-lg-4 py-1">
                         <div className=" mb-3">                                        
                             <div className="card-body">        
                                 <div className="img-size" style={{ backgroundImage: `url(${"/logo-efficiency.svg"})`}}></div>
@@ -38,7 +38,7 @@ function About() {
                         </div>
                     </div>
 
-                    <div className="col-12 col-sm-12 col-md-6 col-lg-4 py-1">
+                    <div className="col-12 col-sm-12 col-md-4 col-lg-4 py-1">
                         <div className=" mb-3">                                        
                             <div className="card-body">        
                                 <div className="img-size" style={{ backgroundImage: `url(${"/logo-quality.svg"})`}}></div>

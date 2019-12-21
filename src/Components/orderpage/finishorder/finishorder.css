@@ -1,0 +1,96 @@
+.finishorder{
+    width: 100%;
+    max-width: 1800px;
+    margin: 0% auto;
+    padding: 20% 0;
+}
+
+.finishorder h2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 4em;
+    line-height: 1.6em;
+}
+
+.finishorder p{
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.4em;
+    line-height: 1.6em;
+}
+
+@media screen and (min-width: 1921px){
+    .finishorder{
+        width: 100%;
+        max-width: 1800px;
+        margin: 0% auto;
+        padding: 20% 0;
+    }
+    
+    .finishorder h2{
+        text-align: center;
+        font-weight: bold;
+        font-size: 4em;
+        line-height: 1.6em;
+    }
+    
+    .finishorder p{
+        padding-left: 10%;
+        padding-right: 10%;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.4em;
+        line-height: 1.6em;
+    }
+}
+
+@media screen and (max-width: 800px){
+    .finishorder{
+        width: 100%;
+        max-width: 1800px;
+        margin: 0% auto;
+        padding: 20% 0;
+    }
+    
+    .finishorder h2{
+        text-align: center;
+        font-weight: bold;
+        font-size: 3em;
+        line-height: 1.6em;
+    }
+    
+    .finishorder p{
+        padding-left: 10%;
+        padding-right: 10%;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3em;
+        line-height: 1.6em;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .finishorder{
+        width: 100%;
+        margin: 0% auto;
+        padding: 30% 0;
+    }
+    
+    .finishorder h2{
+        text-align: center;
+        font-weight: bold;
+        font-size: 2em;
+        line-height: 1.6em;
+    }
+    
+    .finishorder p{
+        padding-left: 10%;
+        padding-right: 10%;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1em;
+        line-height: 1.6em;
+    }
+}

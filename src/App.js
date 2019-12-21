@@ -7,7 +7,7 @@ import { PrivateRoute } from './Components/PrivateRoute';
 import './App.css';
 import Homepage from './Components/homepage/homepage';
 import Orderpage from './Components/orderpage/orderpage';
-import Cart from './Components/cart/cart';
+import Finishorder from './Components/orderpage/finishorder/finishorder';
 import { Login } from './Components/Login/Login';
 import { Signup } from './Components/Signup/Signup';
 import { Dashboard } from './Components/Dashboard/Dashboard';
@@ -23,7 +23,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Homepage} />
             <Route exact path="/order" component={Orderpage} />
-            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/finish-order" component={Finishorder} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/sign-up' component={Signup} />
             {/* <Route exact path='/' render={() => (<Redirect to="/dashboard" />)} />             */}
